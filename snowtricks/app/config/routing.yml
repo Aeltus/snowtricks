@@ -1,0 +1,3 @@
+snowtricks_core:
+    resource: "@SnowtricksCoreBundle/Resources/config/routing.yml"
+    prefix:   /
