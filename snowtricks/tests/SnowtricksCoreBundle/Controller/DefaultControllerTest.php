@@ -1,6 +1,6 @@
 <?php
 
-namespace Snowtricks\CoreBundle\Tests\Controller;
+namespace test\SnowtricksCoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -12,6 +12,6 @@ class DefaultControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/');
 
-        $this->assertContains('Hello World', $client->getResponse()->getContent());
+        $this->assertContains('Bienvenue', $client->getResponse()->getContent());
     }
 }
