@@ -8,7 +8,6 @@
 namespace Snowtricks\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Snowtricks\CoreBundle\Entity\Picture;
 
 /**
  *
