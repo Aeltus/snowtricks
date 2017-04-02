@@ -5,13 +5,12 @@
  * Date: 01/04/2017
  * Time: 17:27
  */
-namespace Snowtricks\CoreBundle\Entity\User;
+namespace Snowtricks\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Snowtricks\CoreBundle\Entity\Picture\Picture;
+use Snowtricks\CoreBundle\Entity\Picture;
 
 /**
- * @Package Snowtricks\CoreBundle\Entity
  *
  * @ORM\Table(name="snow_user")
  * @ORM\Entity(repositoryClass="Snowtricks\CoreBundle\Repository\UserRepository")
@@ -35,17 +34,17 @@ class User {
      */
     private $surname = "";
     /**
-     * @ORM\Column(name="mail", type="string", nullable=false)
+     * @ORM\Column(name="mail", type="string", nullable=false, unique=true)
      *
      */
     private $mail = "";
     /**
-     * @ORM\OneToOne(targetEntity="Snowtricks\CoreBundle\Entity\Picture", cascade={"persist"})
+     * @ORM\Column(name="picture", type="string", nullable=true)
      *
      */
     private $picture = "";
     /**
-     * @ORM\Column(name="roles", type="string", nullable=false)
+     * @ORM\Column(name="roles", type="array", nullable=false)
      *
      */
     private $roles = [];
@@ -60,7 +59,7 @@ class User {
      */
     private $salt = "";
 
-    public function __construct($id = NULL, $name, $surname, $mail,Picture $picture, $roles, $password, $salt)
+    public function __construct($id = NULL, $name, $surname, $mail, $picture = NULL, $roles, $password, $salt)
     {
         $this->id = $id;
         $this->name = $name;
@@ -181,7 +180,7 @@ class User {
     /**
      * @param string $picture
      */
-    public function setPicture(Picture $picture)
+    public function setPicture($picture)
     {
         $this->picture = $picture;
     }

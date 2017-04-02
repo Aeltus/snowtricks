@@ -5,14 +5,13 @@
  * Date: 01/04/2017
  * Time: 18:10
  */
-namespace Snowtricks\CoreBundle\Entity\Message;
+namespace Snowtricks\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Snowtricks\CoreBundle\Entity\Trick\Trick;
-use Snowtricks\CoreBundle\Entity\User\User;
+use Snowtricks\CoreBundle\Entity\Trick;
+use Snowtricks\CoreBundle\Entity\User;
 
 /**
- * @Package Snowtricks\CoreBundle\Entity
  *
  * @ORM\Table(name="snow_message")
  * @ORM\Entity(repositoryClass="Snowtricks\CoreBundle\Repository\MessageRepository")
@@ -36,7 +35,7 @@ class Message {
      */
     private $created_by;
     /**
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ORM\Column(name="message", type="string")
      *
      */
     private $message = "";

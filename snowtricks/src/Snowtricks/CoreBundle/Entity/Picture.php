@@ -6,13 +6,12 @@
  * Time: 16:52
  */
 
-namespace Snowtricks\CoreBundle\Entity\Picture;
+namespace Snowtricks\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Snowtricks\CoreBundle\Entity\User;
 
 /**
- * @Package Snowtricks\CoreBundle\Entity
  *
  * @ORM\Table(name="snow_picture")
  * @ORM\Entity(repositoryClass="Snowtricks\CoreBundle\Repository\PictureRepository")
@@ -36,21 +35,18 @@ class Picture {
      */
     private $created_at;
     /**
-     * @ORM\OneToOne(targetEntity="Snowtricks\CoreBundle\Entity\User", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\User", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      *
      */
     private $created_by;
 
-    public function __construct($id = NULL, $address,\DateTime $created_at = NULL,User $created_by)
+    public function __construct($id = NULL, $address,\DateTime $created_at,User $created_by)
     {
         $this->id = $id;
         $this->address = $address;
         $this->created_by = $created_by;
-
-        if (isNull($created_at)){
-            $this->created_at = new \DateTime();
-        }
+        $this->created_at = $created_at;
     }
     /**=================================================================================================================
     =                                                                                                                 =

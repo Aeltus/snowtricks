@@ -5,17 +5,16 @@
  * Date: 01/04/2017
  * Time: 18:35
  */
-namespace Snowtricks\CoreBundle\Entity\Trick;
+namespace Snowtricks\CoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Snowtricks\CoreBundle\Entity\Group\Group;
-use Snowtricks\CoreBundle\Entity\Picture\Picture;
-use Snowtricks\CoreBundle\Entity\User\User;
-use Snowtricks\CoreBundle\Entity\Video\Video;
+use Snowtricks\CoreBundle\Entity\Group;
+use Snowtricks\CoreBundle\Entity\Picture;
+use Snowtricks\CoreBundle\Entity\User;
+use Snowtricks\CoreBundle\Entity\Video;
 
 /**
- * @Package Snowtricks\CoreBundle\Entity
  *
  * @ORM\Table(name="snow_trick")
  * @ORM\Entity(repositoryClass="Snowtricks\CoreBundle\Repository\TrickRepository")
@@ -39,7 +38,7 @@ class Trick {
      */
     private $description = "";
     /**
-     * @ORM\OneToOne(targetEntity="Snowtricks\CoreBundle\Entity\Group", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\Group", cascade={"persist"})
      *
      */
     private $group;
@@ -203,16 +202,30 @@ class Trick {
     =                                    Array Collection Add and Remove                                              =
     =                                                                                                                 =
     ================================================================================================================**/
+    /**
+     * @param Picture $picture
+     */
     public function addPicture(Picture $picture){
         $this->pictures[] = $picture;
     }
+
+    /**
+     * @param Video $video
+     */
     public function addVideo(Video $video){
         $this->videos[] = $video;
     }
 
+    /**
+     * @param Picture $picture
+     */
     public function removePicture (Picture $picture){
         $this->pictures->removeElement($picture);
     }
+
+    /**
+     * @param Video $video
+     */
     public function removeVideo (Video $video){
         $this->videos->removeElement($video);
     }

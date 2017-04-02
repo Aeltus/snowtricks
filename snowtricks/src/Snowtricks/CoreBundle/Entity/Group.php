@@ -5,12 +5,11 @@
  * Date: 01/04/2017
  * Time: 18:17
  */
-namespace Snowtricks\CoreBundle\Entity\Group;
+namespace Snowtricks\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Package Snowtricks\CoreBundle\Entity
  *
  * @ORM\Table(name="snow_group")
  * @ORM\Entity(repositoryClass="Snowtricks\CoreBundle\Repository\GroupRepository")
@@ -29,7 +28,7 @@ class Group {
      */
     private $name = "";
 
-    public function __construct($id = NULL, $message)
+    public function __construct($id = NULL, $name)
     {
         $this->id = $id;
         $this->name = $name;

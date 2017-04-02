@@ -5,13 +5,12 @@
  * Date: 01/04/2017
  * Time: 18:26
  */
-namespace Snowtricks\CoreBundle\Entity\Video;
+namespace Snowtricks\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Snowtricks\CoreBundle\Entity\User\User;
+use Snowtricks\CoreBundle\Entity\User;
 
 /**
- * @Package Snowtricks\CoreBundle\Entity
  *
  * @ORM\Table(name="snow_video")
  * @ORM\Entity(repositoryClass="Snowtricks\CoreBundle\Repository\VideoRepository")
