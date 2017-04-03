@@ -1,8 +1,8 @@
 #README
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/391b82c1-07e0-4b4f-867c-90f3bda98d69/big.png)](https://insight.sensiolabs.com/projects/391b82c1-07e0-4b4f-867c-90f3bda98d69)
-
 ##1 - Introduction :
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/391b82c1-07e0-4b4f-867c-90f3bda98d69/big.png)](https://insight.sensiolabs.com/projects/391b82c1-07e0-4b4f-867c-90f3bda98d69)
 
 This project is an exercice for php / symfony developpement cursus.
 
@@ -18,3 +18,5 @@ Source code is on GitHub : https://github.com/Aeltus/snowtricks
 ## 3 - Installation :
 
 ## 4 - Others :
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/391b82c1-07e0-4b4f-867c-90f3bda98d69/mini.png)](https://insight.sensiolabs.com/projects/391b82c1-07e0-4b4f-867c-90f3bda98d69)
