@@ -87,7 +87,14 @@
             <div class="col-sm-12 collapse navbar-collapse noPaddingLeft">
                 <ul class="nav navbar-nav  flex-bottom">
                     <li class="hidden"><a href="#page-top"></a></li>
-                    <li class="menu-btn"><a href="#Accueil">ACCUEIL</a></li>
+                    <li class="menu-btn"><a href="{{ path('snowtricks_core_homepage') }}">ACCUEIL</a></li>
+                    {% if is_granted('ROLE_USER')  %}
+                        <li class="menu-btn"><a href="#create">CREER UNE FIGURE</a></li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN')  %}
+                        <li class="menu-btn"><a href="#gestUsers">GERER LES UTILISATEURS</a></li>
+                        <li class="menu-btn"><a href="#gestGroups">GERER LES GROUPES</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -98,12 +105,21 @@
         <!-- Boutons de connection
         ================================================== -->
         <div class="container">
-            <div class="col-xs-5 col-md-2 col-md-offset-7 col-sm-3 col-sm-offset-5 btn btn-info text-center">
-                Connexion
-            </div>
-            <div class="col-xs-5 col-xs-offset-2 col-md-2 col-sm-offset-1 col-sm-3 btn btn-info text-center">
-                Créer un compte
-            </div>
+            {% if app.user is null  %}
+                <a href="{{ path('login') }}"><div class="col-xs-5 col-md-2 col-md-offset-7 col-sm-3 col-sm-offset-5 btn btn-info text-center">
+                    Connexion
+                </div></a>
+                <div class="col-xs-5 col-xs-offset-2 col-md-2 col-sm-offset-1 col-sm-3 btn btn-info text-center">
+                    Créer un compte
+                </div>
+            {% else %}
+                <div class="col-xs-7 col-sm-8 col-md-4 col-md-offset-5 text-center">
+                    <strong>Bienvenue </strong>{{ app.user.name}} {{ app.user.surname}}
+                </div>
+                <a href="{{ path('logout') }}"><div class="col-xs-5 col-md-2 col-sm-offset-1 col-sm-3 btn btn-info text-center">
+                    Déconnection
+                </div></a>
+            {% endif %}
 
             <!-- ================================================== -->
 

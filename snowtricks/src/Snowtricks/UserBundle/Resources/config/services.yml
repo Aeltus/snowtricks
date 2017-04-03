@@ -1,0 +1,4 @@
+services:
+#    snowtricks_user.example:
+#        class: Snowtricks\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

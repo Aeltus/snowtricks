@@ -8,13 +8,14 @@
 namespace Snowtricks\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  *
  * @ORM\Table(name="snow_user")
  * @ORM\Entity(repositoryClass="Snowtricks\CoreBundle\Repository\UserRepository")
  */
-class User {
+class User implements UserInterface {
     /**
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -58,6 +59,12 @@ class User {
      */
     private $salt = "";
 
+    /**
+     * @ORM\Column(name="username", type="string", nullable=false, unique=true)
+     *
+     */
+    private $username;
+
     public function __construct($id = NULL, $name, $surname, $mail, $picture = NULL, $roles, $password, $salt)
     {
         $this->id = $id;
@@ -68,6 +75,8 @@ class User {
         $this->roles = $roles;
         $this->password = $password;
         $this->salt = $salt;
+
+        $this->username = $mail;
     }
 
     /**=================================================================================================================
@@ -139,6 +148,11 @@ class User {
         return $this->salt;
     }
 
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
     /**=================================================================================================================
     =                                                                                                                 =
     =                                          Setters                                                                =
@@ -206,5 +220,9 @@ class User {
     public function setSalt($salt)
     {
         $this->salt = $salt;
+    }
+
+    public function eraseCredentials()
+    {
     }
 }

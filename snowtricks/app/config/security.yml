@@ -2,10 +2,26 @@
 # http://symfony.com/doc/current/security.html
 security:
 
+    encoders:
+      Symfony\Component\Security\Core\User\User: plaintext
+      Snowtricks\CoreBundle\Entity\User: plaintext
+
+    role_hierarchy:
+      ROLE_MODERATOR:  ROLE_USER
+      ROLE_ADMIN:     [ROLE_USER, ROLE_MODERATOR]
+
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+      main:
+        entity:
+          class: Snowtricks\CoreBundle\Entity\User
+          property: username
+        #in_memory:
+            #memory:
+              #users:
+                  #user:      { password: userpass, roles: ['ROLE_USER'] }
+                  #moderator: { password: moderatorpass, roles: ['ROLE_MODERATOR']}
+                  #admin:     { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -14,11 +30,15 @@ security:
             security: false
 
         main:
-            anonymous: ~
-            # activate different ways to authenticate
+            pattern: ^/
+            anonymous: true
+            provider: main
+            form_login:
+              login_path: login
+              check_path: login_check
+            logout:
+              path: logout
+              target: /
 
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-            #form_login: ~
+    access_control:
+      - { path: ^/admin, roles: ROLE_ADMIN}
