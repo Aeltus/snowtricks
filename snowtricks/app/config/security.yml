@@ -16,12 +16,6 @@ security:
         entity:
           class: Snowtricks\CoreBundle\Entity\User
           property: username
-        #in_memory:
-            #memory:
-              #users:
-                  #user:      { password: userpass, roles: ['ROLE_USER'] }
-                  #moderator: { password: moderatorpass, roles: ['ROLE_MODERATOR']}
-                  #admin:     { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs

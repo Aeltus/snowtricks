@@ -1,5 +1,7 @@
 #README
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/391b82c1-07e0-4b4f-867c-90f3bda98d69/big.png)](https://insight.sensiolabs.com/projects/391b82c1-07e0-4b4f-867c-90f3bda98d69)
+
 ##1 - Introduction :
 
 This project is an exercice for php / symfony developpement cursus.
