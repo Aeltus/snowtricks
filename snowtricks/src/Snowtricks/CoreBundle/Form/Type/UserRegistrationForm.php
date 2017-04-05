@@ -5,7 +5,7 @@
  * Date: 05/04/2017
  * Time: 22:35
  */
-namespace Snowtricks\CoreBundle\Form;
+namespace Snowtricks\CoreBundle\Form\Type;
 
 use Snowtricks\CoreBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;

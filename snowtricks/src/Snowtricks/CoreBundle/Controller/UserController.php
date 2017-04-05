@@ -7,8 +7,7 @@
  */
 namespace Snowtricks\CoreBundle\Controller;
 
-use Snowtricks\CoreBundle\Entity\User;
-use Snowtricks\CoreBundle\Form\UserRegistrationForm;
+use Snowtricks\CoreBundle\Form\Type\UserRegistrationForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 

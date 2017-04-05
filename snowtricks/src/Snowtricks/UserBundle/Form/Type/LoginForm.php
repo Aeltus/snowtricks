@@ -5,7 +5,7 @@
  * Date: 05/04/2017
  * Time: 19:16
  */
-namespace Snowtricks\UserBundle\Form;
+namespace Snowtricks\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

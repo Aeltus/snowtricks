@@ -8,7 +8,7 @@
 namespace Snowtricks\UserBundle\Security;
 
 use Doctrine\ORM\EntityManager;
-use Snowtricks\UserBundle\Form\LoginForm;
+use Snowtricks\UserBundle\Form\Type\LoginForm;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

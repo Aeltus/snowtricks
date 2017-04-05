@@ -7,7 +7,7 @@
  */
 namespace Snowtricks\UserBundle\Controller;
 
-use Snowtricks\UserBundle\Form\LoginForm;
+use Snowtricks\UserBundle\Form\Type\LoginForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
