@@ -7,3 +7,11 @@ services:
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+    snowtricks.userBundle.login_form_autheticator:
+      class: Snowtricks\UserBundle\Security\LoginFormAuthenticator
+      autowire: true
+    snowtricks.userBundle.hash_password_listener:
+      class: Snowtricks\UserBundle\Doctrine\HashPasswordListener
+      autowire: true
+      tags:
+        - { name: doctrine.event_subscriber }

@@ -7,6 +7,7 @@
  */
 namespace Snowtricks\UserBundle\Controller;
 
+use Snowtricks\UserBundle\Form\LoginForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -21,9 +22,14 @@ class SecurityController extends Controller
         /* if user has already gave a form */
         $authenticationUtils = $this->get('security.authentication_utils');
 
+        /* Authentication form */
+        $form = $this->createForm(LoginForm::class, [
+            '_username' => $authenticationUtils->getLastUsername(),
+        ]);
+
         return $this->render('SnowtricksUserBundle:Security:login.html.twig', array(
-            'last_username' => $authenticationUtils->getLastUsername(),
             'error'         => $authenticationUtils->getLastAuthenticationError(),
+            'form'          => $form->createView(),
         ));
     }
 }

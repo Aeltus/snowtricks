@@ -31,7 +31,13 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $x=0;
         foreach ($users as $userData){
             $testMail = strtolower($userData[0]).".".strtolower($userData[1])."@monmail.com";
-            $user = new User(NULL, $userData[0], $userData[1], $testMail, "https://cdn.pixabay.com/photo/2016/09/28/02/14/user-1699635_960_720.png", $userData[2], "testPassword", "");
+            $user = new User();
+            $user->setName($userData[0]);
+            $user->setSurname($userData[1]);
+            $user->setMail($testMail);
+            $user->setPicture("https://cdn.pixabay.com/photo/2016/09/28/02/14/user-1699635_960_720.png");
+            $user->setRoles($userData[2]);
+            $user->setPlainPassword("TestPass");
             $manager->persist($user);
             if ($x == 0){
                 $this->addReference('moderatorUser', $user);

@@ -3,8 +3,7 @@
 security:
 
     encoders:
-      Symfony\Component\Security\Core\User\User: plaintext
-      Snowtricks\CoreBundle\Entity\User: plaintext
+      Snowtricks\CoreBundle\Entity\User: bcrypt
 
     role_hierarchy:
       ROLE_MODERATOR:  ROLE_USER
@@ -26,10 +25,9 @@ security:
         main:
             pattern: ^/
             anonymous: true
-            provider: main
-            form_login:
-              login_path: login
-              check_path: login_check
+            guard:
+              authenticators:
+                - snowtricks.userBundle.login_form_autheticator
             logout:
               path: logout
               target: /

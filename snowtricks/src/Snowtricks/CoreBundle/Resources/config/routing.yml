@@ -1,3 +1,7 @@
 snowtricks_core_homepage:
     path:     /
     defaults: { _controller: SnowtricksCoreBundle:Default:index }
+
+snowtricks_core_registration:
+  path: /register
+  defaults: { _controller: SnowtricksCoreBundle:User:register }

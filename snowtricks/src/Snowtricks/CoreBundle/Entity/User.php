@@ -52,7 +52,7 @@ class User implements UserInterface {
      * @ORM\Column(name="password", type="string", nullable=false)
      *
      */
-    private $password = "";
+    private $password;
     /**
      * @ORM\Column(name="salt", type="string", nullable=false)
      *
@@ -65,18 +65,18 @@ class User implements UserInterface {
      */
     private $username;
 
-    public function __construct($id = NULL, $name, $surname, $mail, $picture = NULL, $roles, $password, $salt)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->surname = $surname;
-        $this->mail = $mail;
-        $this->picture = $picture;
-        $this->roles = $roles;
-        $this->password = $password;
-        $this->salt = $salt;
+    /**
+     * A non-persisted field that's used to create the encoded password.
+     *
+     * @var string
+     */
+    private $plainPassword;
 
-        $this->username = $mail;
+   public function __construct($mail = NULL)
+    {
+        if ($mail !== NULL){
+            $this->username = $mail;
+        }
     }
 
     /**=================================================================================================================
@@ -113,6 +113,7 @@ class User implements UserInterface {
      */
     public function getMail()
     {
+
         return $this->mail;
     }
 
@@ -153,6 +154,14 @@ class User implements UserInterface {
         return $this->username;
     }
 
+    /**
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
     /**=================================================================================================================
     =                                                                                                                 =
     =                                          Setters                                                                =
@@ -188,6 +197,7 @@ class User implements UserInterface {
     public function setMail($mail)
     {
         $this->mail = $mail;
+        $this->username = $mail;
     }
 
     /**
@@ -222,7 +232,17 @@ class User implements UserInterface {
         $this->salt = $salt;
     }
 
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+        $this->password = null;
+    }
+
     public function eraseCredentials()
     {
+        $this->plainPassword = null;
     }
 }
