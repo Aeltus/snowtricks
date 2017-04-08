@@ -6,22 +6,29 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-11">
                 <h1>Création de compte</h1>
 
                 <!-- Identifiaction form -->
                 {{ form_start(form) }}
-                    <input type="hidden" name="id">
                     {{ form_row(form.name) }}
                     {{ form_row(form.surname) }}
                     {{ form_row(form.mail) }}
+
+                    <div class="col-xs-12" id="add-user-picture-box">
+                        <div class="col-xs-6 col-xs-offset-2 text-center top10">
+                            <p><strong>Ajouter une image de profil</strong></p>
+                            {{ form_row(form.file) }}
+                        </div>
+                    </div>
+
                     {{ form_row(form.plainPassword.first, {
                         'label': 'Mot de passe : '
                     }) }}
                     {{ form_row(form.plainPassword.second, {
                         'label':'Répétez le mot de passe : '
                     }) }}
-                    <button type="submit" class="btn btn-primary" formnovalidate>Register</button>
+                    <button type="submit" class="btn btn-info top10 bottom10 col-xs-12" formnovalidate><i class="fa fa-user" aria-hidden="true"></i> Créer un compte</button>
                 {{ form_end(form) }}
             </div>
         </div>

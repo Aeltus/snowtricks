@@ -17,6 +17,9 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Snowtricks\CoreBundle\SnowtricksCoreBundle(),
             new Snowtricks\UserBundle\SnowtricksUserBundle(),
+            new KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle(),
+            new Snowtricks\OAuthBundle\SnowtricksOAuthBundle(),
+            new \FM\ElfinderBundle\FMElfinderBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -1,0 +1,81 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Davis
+ * Date: 08/04/2017
+ * Time: 09:44
+ */
+namespace Snowtricks\CoreBundle\Form\Type;
+
+
+use Snowtricks\CoreBundle\Entity\TrickSearch;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class TrickSearchForm extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('search', TextType::class, array(
+                'attr' => array(
+                    'placeholder' => 'Votre recherche ici : ',
+                ),
+                'empty_data' => NULL,
+                'label' => false,
+            ))
+            ->add('number', ChoiceType::class, array(
+                'choices' => array(
+                    '5' => '5',
+                    '10' => '10',
+                    '20' => '20',
+                    '50' => '50',
+                    '100' => '100'
+                ),
+                'preferred_choices' => array('10', 'arr'),
+                'label' => 'Par page : ',
+                'label_attr' => array(
+                    'class' => 'block',
+                )
+            ))
+            ->add('orderedBy', ChoiceType::class, array(
+                'choices' => array(
+                    'Nom' => 'title',
+                    'Date d\'ajout' => 'created_at',
+                    'Auteur' => 'created_by',
+                    'Groupe' => 'group'
+                ),
+                'preferred_choices' => array('title', 'arr'),
+                'label' => 'Trier par : ',
+                'label_attr' => array(
+                    'class' => 'block',
+                )
+            ))
+            ->add('order', ChoiceType::class, array(
+                'choices' => array(
+                    'Descendent' => 'desc',
+                    'Ascendent' => 'asc'
+                ),
+                'preferred_choices' => array('asc', 'arr'),
+                'label' => 'Ordre : ',
+                'label_attr' => array(
+                    'class' => 'block',
+                )
+            ))
+            ->add('firstResult', HiddenType::class, array(
+                'data' => "0",
+            ))
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => TrickSearch::class,
+        ]);
+    }
+}

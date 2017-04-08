@@ -1,0 +1,8 @@
+snowtricks_o_auth_connect:
+    path:     /connect/facebook
+    defaults: { _controller: SnowtricksOAuthBundle:Facebook:connect }
+
+snowtricks_o_auth_connect_check:
+    path:     /connect/facebook/check
+    defaults: { _controller: SnowtricksOAuthBundle:Facebook:connectCheck }
+

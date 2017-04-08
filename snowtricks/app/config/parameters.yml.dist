@@ -17,3 +17,13 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
+
+# Spécifickly ti Swiftmailer
+swiftmailer:
+    transport:            smtp
+    username:             user
+    password:             password
+    host:                 127.0.0.1
+    port:                 465
+    encryption:           ssl
+    sender_address:       sender@mywebsite.com

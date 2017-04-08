@@ -1,0 +1,24 @@
+{% extends ":Default:layout.html.twig" %}
+
+{% block title %}Récupération du mot de passe{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-11">
+                <h1>Récupération du mot de passe</h1>
+
+                <p><strong>ATTENTION : </strong>Cette opération est irréversible et entraine la destruction de votre ancien mot de passe.</p>
+                <!-- Identifiaction form -->
+                {{ form_start(form) }}
+                {{ form_row(form.mail) }}
+
+                <button type="submit" class="btn btn-danger top10 bottom10 col-xs-12" formnovalidate><i class="fa fa-exclamation" aria-hidden="true"></i>
+                    Récupérer mon mot de passe <i class="fa fa-exclamation" aria-hidden="true"></i></button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

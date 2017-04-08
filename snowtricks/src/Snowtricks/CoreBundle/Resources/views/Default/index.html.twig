@@ -25,46 +25,30 @@
             <!-- Search Form
             ================================================== -->
             <div class="row">
-                <form action="#" method="get" role="form" class="">
+                {{ form_start(form) }}
 
-
+                    {{ form_row(form.firstResult) }}
                     <div class="col-xs-11 noPaddingRight top10">
-                        <input type="text" class="" name="search" placeholder="Votre recherche ici" value=""/>
+                        {{ form_row(form.search) }}
                     </div>
                     <div class="col-xs-1 noPaddingLeft top10">
                         <span class="btn btn-info search-btn"><i class="fa fa-search"></i>  Rechercher</span>
                     </div>
 
                     <div class="col-md-2 col-xs-6 top10 text-center">
-                        <label for="number" class="col-xs-12">Par page :</label>
-                        <select name="number" id="number" class="col-xs-12">
-                            <option value="10" selected>10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
+                        {{ form_row(form.number) }}
                     </div>
                     <div class="col-md-3 col-md-offset-2 col-xs-6 top10 text-center">
-                        <label for="orderBy" class="col-xs-12">Trier par :</label>
-                        <select name="orderBy" id="orderBy" class="col-xs-12">
-                            <option value="name" selected>Nom</option>
-                            <option value="date">Date d'ajout</option>
-                            <option value="author">Auteur</option>
-                            <option value="group">Groupe</option>
-                        </select>
+                        {{ form_row(form.orderedBy) }}
                     </div>
                     <div class="col-md-3 col-md-offset-1 col-xs-6 top10 text-center">
-                        <label for="order" class="col-xs-12">Ordre :</label>
-                        <select name="order" id="order" class="col-xs-12">
-                            <option value="DESC" selected>Descendent</option>
-                            <option value="ASC">Ascendent</option>
-                        </select>
+                        {{ form_row(form.order) }}
                     </div>
                     <div class="col-md-1 col-xs-6 top10 text-center">
-                        <span class="btn btn-info col-xs-12 sort-btn"><i class="fa fa-sort"></i> Trier</span>
+                        <button type="submit" class="btn btn-info sort-btn col-xs-12" id="sort" formnovalidate><i class="fa fa-sort"></i> Trier</button>
                     </div>
 
-                </form>
+                {{ form_end(form) }}
             </div>
             <!-- ================================================== -->
 
@@ -73,47 +57,37 @@
             <div class="col-xs-12">
                 <h3>Voici la liste des figures disponibles :</h3>
             </div>
-            <div class="col-xs-12">
-                <a href="#"><h4>Figure</h4></a>
-            </div>
-            <div class="col-xs-12">
-                <a href="#"><h4>Figure</h4></a>
-            </div>
-            <div class="col-xs-12">
-                <a href="#"><h4>Figure</h4></a>
-            </div>
-            <div class="col-xs-12">
-                <a href="#"><h4>Figure</h4></a>
-            </div>
-            <div class="col-xs-12">
-                <a href="#"><h4>Figure</h4></a>
-            </div>
-            <div class="col-xs-12">
-                <a href="#"><h4>Figure</h4></a>
-            </div>
-            <div class="col-xs-12">
-                <a href="#"><h4>Figure</h4></a>
-            </div>
-            <div class="col-xs-12">
-                <a href="#"><h4>Figure</h4></a>
-            </div>
-            <div class="col-xs-12">
-                <a href="#"><h4>Figure</h4></a>
-            </div>
-            <div class="col-xs-12">
-                <a href="#"><h4>Figure</h4></a>
-            </div>
+
+            {% for trick in tricks %}
+                <div class="col-xs-12 trick-line">
+                    <div class="col-xs-6"><a href="#"><h4>{{ trick.title }}</h4></a></div>
+                    {% if is_granted('ROLE_USER') %}
+                        <div class="col-xs-1 col-xs-offset-1 text-center"><h4><i class="fa fa-pencil" aria-hidden="true"></i></h4></div>
+                        <div class="col-xs-1 col-xs-offset-1 text-center"><h4><i class="fa fa-trash-o" aria-hidden="true"></i></h4></div>
+                    {% endif %}
+                </div>
+            {% endfor %}
 
             <div class="col-xs-12 top10 bottom10">
+                {% if search.firstResult != 0 %}
                 <div class="col-xs-3">
                     <span class="btn btn-info prev-btn"><i class="fa fa-arrow-circle-left"></i> Précédent</span>
                 </div>
-                <div class="col-xs-4 col-xs-offset-1 text-center">
-                    Page 1 sur 15
+                {% endif %}
+
+                {% if search.firstResult == 0 %}
+                    <div class="col-xs-4 col-xs-offset-4 text-center">
+                {% else %}
+                    <div class="col-xs-4 col-xs-offset-1 text-center">
+                {% endif %}
+                    Page {{ ((search.firstResult+1) // search.number)+1 }} sur {{ (tricks|length/search.number)|round(0, 'ceil') }}
                 </div>
-                <div class="col-xs-3 col-xs-offset-1 next-btn">
-                    <span class="btn btn-info">Suivant <i class="fa fa-arrow-circle-right"></i></span>
-                </div>
+
+                {% if search.firstResult + search.number < tricks|length %}
+                     <div class="col-xs-3 col-xs-offset-1 next-btn">
+                        <span class="btn btn-info">Suivant <i class="fa fa-arrow-circle-right"></i></span>
+                     </div>
+                {% endif %}
             </div>
             <!-- ================================================== -->
 {% endblock %}

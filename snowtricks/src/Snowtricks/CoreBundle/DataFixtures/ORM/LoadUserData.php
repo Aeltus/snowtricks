@@ -35,9 +35,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             $user->setName($userData[0]);
             $user->setSurname($userData[1]);
             $user->setMail($testMail);
-            $user->setPicture("https://cdn.pixabay.com/photo/2016/09/28/02/14/user-1699635_960_720.png");
             $user->setRoles($userData[2]);
             $user->setPlainPassword("TestPass");
+            $user->setChecked(TRUE);
             $manager->persist($user);
             if ($x == 0){
                 $this->addReference('moderatorUser', $user);
