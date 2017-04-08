@@ -11,7 +11,6 @@ use Snowtricks\CoreBundle\Form\Type\UserNewPasswordForm;
 use Snowtricks\CoreBundle\Form\Type\UserPasswordRecoveryForm;
 use Snowtricks\CoreBundle\Form\Type\UserRegistrationForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller

@@ -2,7 +2,6 @@
 
 namespace Snowtricks\CoreBundle\Controller;
 
-use Doctrine\ORM\EntityManager;
 use Snowtricks\CoreBundle\Entity\TrickSearch;
 use Snowtricks\CoreBundle\Form\Type\TrickSearchForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

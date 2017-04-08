@@ -40,7 +40,7 @@ class FacebookController extends Controller
         } catch (IdentityProviderException $e) {
             // something went wrong!
             // probably you should return the reason to the user
-            var_dump($e->getMessage());die;
+
         }
     }
 }
