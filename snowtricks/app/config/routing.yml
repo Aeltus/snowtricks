@@ -6,9 +6,6 @@ snowtricks_core:
     resource: "@SnowtricksCoreBundle/Resources/config/routing.yml"
     prefix:   /
 
-elfinder:
-  resource: "@FMElfinderBundle/Resources/config/routing.yml"
-
 login:
   path: /login
   defaults:

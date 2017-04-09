@@ -18,9 +18,15 @@ SnowtricksCore_Reset_Password:
 
 account_update:
   path: /account
-  defaults: {}
+  defaults:
+    _controller: SnowtricksCoreBundle:User:account
 
 SnowtricksCore_Check_User:
   path: /user_check/{token}
   defaults:
     _controller: SnowtricksCoreBundle:User:check
+
+SnowtricksCore_User_Deletion:
+  path: /user_delete
+  defaults:
+    _controller: SnowtricksCoreBundle:User:delete

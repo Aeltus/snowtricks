@@ -30,28 +30,28 @@ class User implements UserInterface {
     /**
      * @ORM\Column(name="name", type="string", nullable=false)
      *
-     * @Assert\Length(min=3, minMessage="Votre nom doit faire au moins {{ limit }} caractères.")
-     * @Assert\Length(max=255, maxMessage="Votre nom doit faire au maximum {{ limit }} caractères.")
-     * @Assert\NotBlank(message="Vous devez inscrire votre nom.")
-     * @Assert\Type("string")
+     * @Assert\Length(min=3, minMessage="Votre nom doit faire au moins {{ limit }} caractères.", groups={"Default", "UpdateAccount"})
+     * @Assert\Length(max=255, maxMessage="Votre nom doit faire au maximum {{ limit }} caractères.", groups={"Default", "UpdateAccount"})
+     * @Assert\NotBlank(message="Vous devez inscrire votre nom.", groups={"Default", "UpdateAccount"})
+     * @Assert\Type("string", groups={"Default", "UpdateAccount"})
      */
     private $name = "";
     /**
      * @ORM\Column(name="surname", type="string", nullable=false)
      *
-     * @Assert\Length(min=3, minMessage="Votre prenom doit faire au moins {{ limit }} caractères.")
-     * @Assert\Length(max=255, maxMessage="Votre prenom doit faire au maximum {{ limit }} caractères.")
-     * @Assert\NotBlank(message="Vous devez inscrire votre prenom.")
-     * @Assert\Type("string")
+     * @Assert\Length(min=3, minMessage="Votre prenom doit faire au moins {{ limit }} caractères.", groups={"Default", "UpdateAccount"})
+     * @Assert\Length(max=255, maxMessage="Votre prenom doit faire au maximum {{ limit }} caractères.", groups={"Default", "UpdateAccount"})
+     * @Assert\NotBlank(message="Vous devez inscrire votre prenom.", groups={"Default", "UpdateAccount"})
+     * @Assert\Type("string", groups={"Default", "UpdateAccount"})
      */
     private $surname = "";
     /**
      * @ORM\Column(name="mail", type="string", nullable=false, unique=true)
      *
-     * @Assert\Length(min=3, minMessage="Votre email doit faire au moins {{ limit }} caractères.", groups={"Default", "Recovery"})
-     * @Assert\Length(max=255, maxMessage="Votre email doit faire au maximum {{ limit }} caractères.", groups={"Default", "Recovery"})
-     * @Assert\NotBlank(message="Vous devez inscrire votre email.", groups={"Default", "Recovery"})
-     * @Assert\Email(groups={"Default", "Recovery"})
+     * @Assert\Length(min=3, minMessage="Votre email doit faire au moins {{ limit }} caractères.", groups={"Default", "Recovery", "UpdateAccount"})
+     * @Assert\Length(max=255, maxMessage="Votre email doit faire au maximum {{ limit }} caractères.", groups={"Default", "Recovery", "UpdateAccount"})
+     * @Assert\NotBlank(message="Vous devez inscrire votre email.", groups={"Default", "Recovery", "UpdateAccount"})
+     * @Assert\Email(groups={"Default", "Recovery", "UpdateAccount"})
      */
     private $mail = "";
     /**
@@ -84,10 +84,10 @@ class User implements UserInterface {
 
     /**
      *
-     * @Assert\Type("string")
+     * @Assert\Type("string", groups={"Default", "UpdateAccount"})
      * @Assert\NotBlank(message="Un mot de passe est obligatoire.", groups={"Registration"})
-     * @Assert\Length(min=6, minMessage="Votre mot de passe doit faire au minimum {{ limit }} caractères.", groups={"Registration"})
-     * @Assert\Length(max=20, maxMessage="Votre mot de passe doit faire au maximum {{ limit }} caractères.", groups={"Registration"})
+     * @Assert\Length(min=6, minMessage="Votre mot de passe doit faire au minimum {{ limit }} caractères.", groups={"Registration", "UpdateAccount"})
+     * @Assert\Length(max=20, maxMessage="Votre mot de passe doit faire au maximum {{ limit }} caractères.", groups={"Registration", "UpdateAccount"})
      */
     private $plainPassword;
 
@@ -347,6 +347,14 @@ class User implements UserInterface {
     public function setIdentificationToken($identification_token)
     {
         $this->identification_token = $identification_token;
+    }
+
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
     }
 
     /**=================================================================================================================

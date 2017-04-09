@@ -163,10 +163,6 @@ input{
 	box-shadow: 1px 1px 12px #555;
 }
 
-#user_regisration_form_file{
-
-}
-
 @media screen and (max-width: 600px) {
 	h1{
 		font-size: 2em

@@ -7,16 +7,24 @@
  */
 namespace Snowtricks\CoreBundle\Controller;
 
+use Snowtricks\CoreBundle\Entity\User;
 use Snowtricks\CoreBundle\Form\Type\UserNewPasswordForm;
 use Snowtricks\CoreBundle\Form\Type\UserPasswordRecoveryForm;
 use Snowtricks\CoreBundle\Form\Type\UserRegistrationForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
     public function registerAction(Request $request){
         $form = $this->createForm(UserRegistrationForm::class);
+        $form -> add('Creer mon compte', SubmitType::class, array(
+            'validation_groups' => ['Default', 'Registration'],
+            'attr' => array(
+                'class' => 'btn btn-warning top10 bottom10 col-xs-12'
+            )
+        ));
 
         $form->handleRequest($request);
         if($form->isValid()){
@@ -49,9 +57,9 @@ class UserController extends Controller
             return $this->redirectToRoute('snowtricks_core_homepage');
 
         }
-
         return $this->render('SnowtricksCoreBundle:Default:register.html.twig', [
             'form' => $form->createView(),
+            'title' => 'Creer mon compte',
         ]);
     }
 
@@ -137,5 +145,66 @@ class UserController extends Controller
         return $this->render('SnowtricksCoreBundle:Default:newPassword.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    public function accountAction(Request $request)
+    {
+        $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('SnowtricksCoreBundle:User');
+        $user = $repository->findOneBy(array('username' => $currentUser->getUsername()));
+
+        $form = $this->createForm(UserRegistrationForm::class, $user);
+        $form -> add('Modifier mon compte', SubmitType::class, array(
+            'validation_groups' => ['UpdateAccount'],
+            'attr' => array(
+                'class' => 'btn btn-warning top10 bottom10 col-xs-12'
+            )
+        ));
+
+        $form->handleRequest($request);
+        if($form->isValid()){
+            $newUser = $form->getData();
+            $user->setName($newUser->getName());
+            $user->setSurname($newUser->getSurname());
+            $user->setMail($newUser->getMail());
+            $user->upload();
+            if ($newUser->getPlainPassword() !== NULL){
+                $user->setSalt(uniqid(rand(), true));
+                $user->setPlainPassword($user->getSalt().$newUser->getPlainPassword());
+            }
+            $em->flush();
+            $this->addFlash('success', 'Votre compte à bien été mis à jour.');
+        }
+
+        return $this->render('SnowtricksCoreBundle:Default:updateAccount.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user,
+        ]);
+    }
+
+    public function deleteAction(Request $request){
+
+        $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('SnowtricksCoreBundle:User');
+        $user = $repository->findOneBy(array('username' => $currentUser->getUsername()));
+
+        $user->setMail((uniqid(rand(), true))."@deleted.del");
+        $user->setUsername($user->getMail());
+        $user->setChecked(false);
+
+        $em->flush();
+
+        unlink("uploads_users/".$user->getPicture());
+
+        $this->container->get('security.token_storage')->setToken(null);
+        $request->getSession()->invalidate();
+
+        $this->addFlash('danger', 'Votre compte à bien été supprimé.');
+
+        return $this->render('SnowtricksCoreBundle:Default:deleteAccount.html.twig');
     }
 }

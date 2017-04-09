@@ -2,3 +2,17 @@ services:
 #    snowtricks_core.example:
 #        class: Snowtricks\CoreBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+  Snowtricks_CoreBundle_SessionManager.SessionTimer:
+    class: Snowtricks\CoreBundle\SessionManager\SessionTimer
+    arguments:
+      - "@request_stack"
+      - "@security.token_storage"
+      - 900 # Number of seconds that the timer is valid
+      - "@controller_resolver"
+
+  Snowtricks_CoreBundle_SessionTimerListener:
+    class: Snowtricks\CoreBundle\EventListener\SessionTimerListener
+    arguments:
+      - "@Snowtricks_CoreBundle_SessionManager.SessionTimer"
+    tags:
+      - { name : kernel.event_listener, event: kernel.controller, method: processTimer }
