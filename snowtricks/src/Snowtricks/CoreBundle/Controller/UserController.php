@@ -7,7 +7,6 @@
  */
 namespace Snowtricks\CoreBundle\Controller;
 
-use Snowtricks\CoreBundle\Entity\User;
 use Snowtricks\CoreBundle\Form\Type\UserNewPasswordForm;
 use Snowtricks\CoreBundle\Form\Type\UserPasswordRecoveryForm;
 use Snowtricks\CoreBundle\Form\Type\UserRegistrationForm;
@@ -27,7 +26,7 @@ class UserController extends Controller
         ));
 
         $form->handleRequest($request);
-        if($form->isValid()){
+        if($form->isSubmitted() && $form->isValid()){
             $user = $form->getData();
             $user->setRoles(['ROLE_USER']);
             $user->upload();
@@ -86,7 +85,7 @@ class UserController extends Controller
         $form = $this->createForm(UserPasswordRecoveryForm::class);
 
         $form->handleRequest($request);
-        if ($form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
             $repository = $em->getRepository('SnowtricksCoreBundle:User');
             $user = $form->getData();

@@ -11,5 +11,17 @@ use Doctrine\ORM\EntityRepository;
 
 class UserRepository extends EntityRepository
 {
+    public function delOneUser($username){
+        $qb = $this->createQueryBuilder('u');
 
+        $qb ->delete()
+            ->where('u.username = :username')
+            ->setParameter('username', $username)
+        ;
+
+        return $qb
+            ->getQuery()
+            ->execute()
+            ;
+    }
 }

@@ -17,7 +17,7 @@ class DefaultController extends Controller
 
         // if new search form receved
         $form->handleRequest($request);
-        if($form->isValid()){
+        if($form->isSubmitted() && $form->isValid()){
             $search = $form->getData();
         }
 

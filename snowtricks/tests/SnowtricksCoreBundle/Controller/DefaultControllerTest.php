@@ -14,4 +14,5 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertContains('Bienvenue', $client->getResponse()->getContent());
     }
+
 }

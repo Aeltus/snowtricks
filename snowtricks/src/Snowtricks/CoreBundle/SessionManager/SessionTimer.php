@@ -45,14 +45,16 @@ class SessionTimer
 
     public function process()
     {
-        $this->getTime();
+        if ($this->session !== NULL){
+            $this->getTime();
+        }
+        return;
     }
 
     private function connectSession(Request $request){
 
         if (!$request->getSession()->isStarted()){
-            $session = new Session();
-            $session->start();
+            $session = NULL;
         } else {
             $session = $request->getSession();
         }
@@ -66,7 +68,7 @@ class SessionTimer
 
             if(($now-$this->session->get('timer'))>$this->delay){
 
-                if($this->securityToken->getToken() !== NULL){
+                if($this->securityToken->getToken()->getRoles() !== []){
 
                     $this->securityToken->setToken(null);
                     $this->request->getSession()->invalidate();
