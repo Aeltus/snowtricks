@@ -149,14 +149,12 @@ class UserController extends Controller
 
     public function accountAction(Request $request)
     {
-        $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
-        if (!$currentUser instanceof User){
+        if (!($currentUser = $this->container->get('security.token_storage')->getToken()->getUser()) instanceof User){
             $currentUser = unserialize($currentUser);
         }
 
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('SnowtricksCoreBundle:User');
-        $user = $repository->findOneBy(array('username' => $currentUser->getUsername()));
+        $user = $em->getRepository('SnowtricksCoreBundle:User')->findOneBy(array('username' => $currentUser->getUsername()));
 
         $form = $this->createForm(UserRegistrationForm::class, $user);
         $form -> add('Modifier mon compte', SubmitType::class, array(
@@ -168,14 +166,11 @@ class UserController extends Controller
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $newUser = $form->getData();
-            $user->setName($newUser->getName());
-            $user->setSurname($newUser->getSurname());
-            $user->setMail($newUser->getMail());
+            $user = $form->getData();
             $user->upload();
-            if ($newUser->getPlainPassword() !== NULL){
+            if ($user->getPlainPassword() !== NULL){
                 $user->setSalt(uniqid(rand(), true));
-                $user->setPlainPassword($user->getSalt().$newUser->getPlainPassword());
+                $user->setPlainPassword($user->getSalt().$user->getPlainPassword());
             }
             $em->flush();
             $this->addFlash('success', 'Votre compte à bien été mis à jour.');

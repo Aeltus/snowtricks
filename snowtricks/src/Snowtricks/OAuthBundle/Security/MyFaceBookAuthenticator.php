@@ -9,10 +9,8 @@ namespace Snowtricks\OAuthBundle\Security;
 
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use KnpU\OAuth2ClientBundle\Client\Provider\FacebookClient;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
@@ -92,5 +90,6 @@ class MyFaceBookAuthenticator extends SocialAuthenticator
         $request->getSession()->getFlashBag()->add('danger', 'Authentification requise.' );
 
         return new RedirectResponse($targetPath);
+
     }
 }
