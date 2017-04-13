@@ -21,8 +21,6 @@ class DefaultController extends Controller
             $search = $form->getData();
         }
 
-
-
         $tricks = $repository->getTricks($search);
 
         return $this->render('SnowtricksCoreBundle:Default:index.html.twig', array(

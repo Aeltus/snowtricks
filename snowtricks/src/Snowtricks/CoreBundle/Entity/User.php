@@ -99,12 +99,6 @@ class User implements UserInterface {
     private $file;
 
     /**
-     * @ORM\Column(name="identification_token", type="string", nullable=true, unique=true)
-     *
-     */
-    private $identification_token = NULL;
-
-    /**
      * @ORM\Column(name="checking_token", type="string", nullable=true)
      *
      */
@@ -225,14 +219,6 @@ class User implements UserInterface {
     /**
      * @return mixed
      */
-    public function getIdentificationToken()
-    {
-        return $this->identification_token;
-    }
-
-    /**
-     * @return mixed
-     */
     public function isChecked()
     {
         return $this->checked;
@@ -339,14 +325,6 @@ class User implements UserInterface {
     public function setCheckingToken($checking_token)
     {
         $this->checking_token = $checking_token;
-    }
-
-    /**
-     * @param mixed $identification_token
-     */
-    public function setIdentificationToken($identification_token)
-    {
-        $this->identification_token = $identification_token;
     }
 
     /**

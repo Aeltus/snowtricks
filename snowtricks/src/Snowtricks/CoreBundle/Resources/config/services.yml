@@ -7,8 +7,16 @@ services:
     arguments:
       - "@request_stack"
       - "@security.token_storage"
-      - 900 # Number of seconds that the timer is valid
+      - 900 # Number of seconds that the timer is valid after -> disconnected
       - "@controller_resolver"
+
+  Snowtricks_CoreBundle_SessionManager.SessionSaver:
+    class: Snowtricks\CoreBundle\SessionManager\SessionSaver
+    arguments:
+      - "@request_stack"
+      - "@snc_redis.default"
+      - "@security.token_storage"
+      - 300 # Number of seconds after an user is considered like inactive
 
   Snowtricks_CoreBundle_SessionTimerListener:
     class: Snowtricks\CoreBundle\EventListener\SessionTimerListener
@@ -16,3 +24,10 @@ services:
       - "@Snowtricks_CoreBundle_SessionManager.SessionTimer"
     tags:
       - { name : kernel.event_listener, event: kernel.controller, method: processTimer }
+
+  Snowtricks_CoreBundle_SessionSaverListener:
+    class: Snowtricks\CoreBundle\EventListener\SessionSaverListener
+    arguments:
+      - "@Snowtricks_CoreBundle_SessionManager.SessionSaver"
+    tags:
+      - { name : kernel.event_listener, event: kernel.controller, method: processSaver }

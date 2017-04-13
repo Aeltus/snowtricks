@@ -28,6 +28,8 @@ security:
             guard:
               authenticators:
                 - snowtricks.userBundle.login_form_autheticator
+                - my_facebook_authenticator
+              entry_point: snowtricks.userBundle.login_form_autheticator
             logout:
               path: logout
               target: /

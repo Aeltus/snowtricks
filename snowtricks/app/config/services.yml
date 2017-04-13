@@ -11,7 +11,7 @@ services:
       class: Snowtricks\UserBundle\Security\LoginFormAuthenticator
       autowire: true
     snowtricks.userBundle.hash_password_listener:
-      class: Snowtricks\UserBundle\Doctrine\HashPasswordListener
+      class: Snowtricks\UserBundle\EventListener\HashPasswordListener
       autowire: true
       tags:
         - { name: doctrine.event_subscriber }

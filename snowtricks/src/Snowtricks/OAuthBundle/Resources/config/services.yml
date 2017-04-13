@@ -2,6 +2,9 @@ services:
 #    snowtricks_o_auth.example:
 #        class: Snowtricks\OAuthBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+  my_facebook_authenticator:
+          class: Snowtricks\OAuthBundle\Security\MyFaceBookAuthenticator
+          autowire: true
 
 knpu_oauth2_client:
     clients:
@@ -17,4 +20,4 @@ knpu_oauth2_client:
             redirect_route: snowtricks_o_auth_connect_check
             # route parameters to pass to your route, if needed
             redirect_params: {}
-            graph_api_version: v2.3
+            graph_api_version: v2.8

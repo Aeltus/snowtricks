@@ -23,7 +23,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             ["Sophie", "Belier", ["ROLE_USER", "ROLE_MODERATOR", "ROLE_ADMIN"]],
             ["Paul", "Dupont", ["ROLE_USER"]],
             ["Arthur", "Malin", ["ROLE_USER"]],
-            ["Caroline", "Bataille", ["ROLE_USER"]]
+            ["Caroline", "Bataille", ["ROLE_USER"]],
+            ["Doe", "John", ["ROLE_USER", "ROLE_MODERATOR", "ROLE_ADMIN"]]
         );
 
         /** Persist DATA

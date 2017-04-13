@@ -7,6 +7,7 @@
  */
 namespace Snowtricks\CoreBundle\Controller;
 
+use Snowtricks\CoreBundle\Entity\User;
 use Snowtricks\CoreBundle\Form\Type\UserNewPasswordForm;
 use Snowtricks\CoreBundle\Form\Type\UserPasswordRecoveryForm;
 use Snowtricks\CoreBundle\Form\Type\UserRegistrationForm;
@@ -149,6 +150,9 @@ class UserController extends Controller
     public function accountAction(Request $request)
     {
         $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
+        if (!$currentUser instanceof User){
+            $currentUser = unserialize($currentUser);
+        }
 
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('SnowtricksCoreBundle:User');
@@ -163,7 +167,7 @@ class UserController extends Controller
         ));
 
         $form->handleRequest($request);
-        if($form->isValid()){
+        if($form->isSubmitted() && $form->isValid()){
             $newUser = $form->getData();
             $user->setName($newUser->getName());
             $user->setSurname($newUser->getSurname());

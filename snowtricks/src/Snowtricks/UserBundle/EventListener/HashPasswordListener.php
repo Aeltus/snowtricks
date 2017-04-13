@@ -5,7 +5,7 @@
  * Date: 05/04/2017
  * Time: 21:42
  */
-namespace Snowtricks\UserBundle\Doctrine;
+namespace Snowtricks\UserBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
