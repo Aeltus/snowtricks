@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
  * Class SessionTimer
@@ -29,7 +30,7 @@ class SessionTimer
     private $resolver;
     private $event;
 
-    public function __construct(RequestStack $request_stack, $securityToken, $delay, ControllerResolverInterface $resolver)
+    public function __construct(RequestStack $request_stack,TokenStorage $securityToken, $delay, ControllerResolverInterface $resolver)
     {
         $this->resolver = $resolver;
         $this->delay = $delay;

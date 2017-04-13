@@ -10,6 +10,7 @@ namespace Snowtricks\CoreBundle\SessionManager;
 
 use Snowtricks\CoreBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class SessionSaver
 {
@@ -18,7 +19,7 @@ class SessionSaver
     private $request;
     private $delay;
 
-    public function __construct(RequestStack $request_stack, $redis, $securityToken, $delay)
+    public function __construct(RequestStack $request_stack, $redis,TokenStorage $securityToken, $delay)
     {
         $this->request = $request_stack->getCurrentRequest();
         $this->redis = $redis;
