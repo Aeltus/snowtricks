@@ -1,0 +1,223 @@
+/* -------------------Sytles personnalisés------------------- */
+
+     
+/* -------------------Styles de base------------------- */
+body{
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 2rem;
+	background-image: url("../img/background.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+header {
+	max-height: 170px;
+}
+
+footer{
+	padding-top: 25px;
+	padding-bottom: 25px;
+    color: whitesmoke;
+	background-color: #283349;
+}
+
+img{
+	max-width: 100%;
+}
+h1{
+    font-size: 6em
+}
+
+h2{
+    font-size: 5em;
+}
+h3{
+    font-size: 3.5em;
+}
+
+h4{
+	font-size: 2.5em;
+}
+
+h1, h2, h3, h4, h5, h6 .fa{
+    font-family: 'Lobster', sans-serif;
+	color: #7897AB;
+}
+
+a, a:visited, a:hover{
+    color: whitesmoke;
+}
+
+input{
+	width: 100%;
+}
+
+.headerImg{
+	max-height: 100%;
+	vertical-align: middle;
+}
+
+#siteTitle{
+	align-content: center;
+}
+
+#siteTitle > h1{
+	color: #F5F5F5;
+}
+
+#headerDiv{
+	background-image: url("../img/montainBack.png");
+	max-height: 170px;
+}
+
+#pageContent{
+	background-color: #EBF5FF;
+	min-height: 700px;
+}
+
+.navbar-collapse.collapse{
+	display: flex !important;
+	border : none;
+	height: 100% !important;
+}
+
+/* j'écrase bootstrap pour modifier la couleur de fond de l'élément sélectionné du menu*/
+.nav{
+	background-color: #7897AB;
+	border: none;
+}
+
+.nav > li >a:hover{
+	background-color: #62798d;
+}
+
+.navbar-toggle{
+	border-color:#62798d;
+}
+
+.navbar-header > a {
+	display: none;
+}
+
+.icon-bar {
+	background-color:#62798d;
+}
+
+.noPaddingLeft{
+	padding-left: 0px;
+}
+
+.noPaddingRight{
+	padding-right: 0px;
+}
+
+.text-justify{
+	text-align: justify;
+}
+
+.text-right{
+	text-align: right;
+}
+
+.top10{
+	margin-top: 10px;
+}
+
+.bottom10{
+	margin-bottom: 10px;
+}
+
+.next-btn{
+	text-align: right;
+}
+
+.prev-btn{
+	text-align: left;
+}
+
+.sort-btn{
+	margin-top: 25px;
+}
+
+.block{
+	display: block;
+}
+
+.trick-line:hover{
+	background-color: #c9d2db;
+}
+
+#user-picture{
+	max-width: 100%;
+	margin: 20px;
+	border: solid 2px #c9d2db;
+	box-shadow: 1px 1px 12px #555;
+	border-radius: 10px;
+}
+
+#add-user-picture-box{
+	padding-bottom: 10px;
+	margin: 10px 0px 10px 0px;
+	border: solid 1px black;
+	box-shadow: 1px 1px 12px #555;
+}
+
+@media screen and (max-width: 600px) {
+	h1{
+		font-size: 2em
+	}
+
+	h2{
+		font-size: 1.5em;
+	}
+	h3{
+		font-size: 1em;
+	}
+
+	h4{
+		font-size: 0.8em;
+	}
+
+	.headerImg{
+		margin-top: 25px;
+	}
+
+	.navbar-collapse{
+		display: none;
+	}
+
+	.search-btn{
+		margin-left: -70px;
+	}
+
+	.sort-btn{
+		margin-top: 25px;
+	}
+}
+
+@media screen and (min-width: 600px) and (max-width: 1170px) {
+	h1{
+		font-size: 4em
+	}
+
+	h2{
+		font-size: 3em;
+	}
+	h3{
+		font-size: 1.5em;
+	}
+
+	h4{
+		font-size: 1em;
+	}
+
+	.search-btn{
+		margin-left: -40px;
+	}
+
+	.sort-btn{
+		margin-top: 25px;
+	}
+
+}

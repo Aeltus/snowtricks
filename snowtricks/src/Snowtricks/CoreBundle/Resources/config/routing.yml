@@ -1,0 +1,32 @@
+snowtricks_core_homepage:
+    path:     /
+    defaults: { _controller: SnowtricksCoreBundle:Default:index }
+
+snowtricks_core_registration:
+  path: /register
+  defaults: { _controller: SnowtricksCoreBundle:User:register }
+
+snowtricks_core_lost_password:
+  path: /password/reset
+  defaults:
+      _controller: SnowtricksCoreBundle:User:resetPassword
+
+SnowtricksCore_Reset_Password:
+  path: /password/new/{token}
+  defaults:
+    _controller: SnowtricksCoreBundle:User:newPassword
+
+account_update:
+  path: /account
+  defaults:
+    _controller: SnowtricksCoreBundle:User:account
+
+SnowtricksCore_Check_User:
+  path: /user_check/{token}
+  defaults:
+    _controller: SnowtricksCoreBundle:User:check
+
+SnowtricksCore_User_Deletion:
+  path: /user_delete
+  defaults:
+    _controller: SnowtricksCoreBundle:User:delete

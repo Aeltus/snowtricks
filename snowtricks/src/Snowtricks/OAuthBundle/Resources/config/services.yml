@@ -1,0 +1,23 @@
+services:
+#    snowtricks_o_auth.example:
+#        class: Snowtricks\OAuthBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+  my_facebook_authenticator:
+          class: Snowtricks\OAuthBundle\Security\MyFaceBookAuthenticator
+          autowire: true
+
+knpu_oauth2_client:
+    clients:
+        # the key "facebook_main" can be anything, it
+        # will create a service: "knpu.oauth2.client.facebook_main"
+        facebook_main:
+            # this will be one of the supported types
+            type: facebook
+            client_id: 1785027598479079
+            client_secret: 30282badcf1086accaefdc1bd042e520
+            # the route that you're redirected to after
+            # see the controller example below
+            redirect_route: snowtricks_o_auth_connect_check
+            # route parameters to pass to your route, if needed
+            redirect_params: {}
+            graph_api_version: v2.8

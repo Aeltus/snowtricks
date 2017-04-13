@@ -1,0 +1,18 @@
+snowtricks_o_auth:
+    resource: "@SnowtricksOAuthBundle/Resources/config/routing.yml"
+    prefix:   /
+
+snowtricks_core:
+    resource: "@SnowtricksCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
+login:
+  path: /login
+  defaults:
+    _controller: SnowtricksUserBundle:Security:login
+
+login_check:
+  path: /login_check
+
+logout:
+  path: /logout

@@ -1,0 +1,38 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/security.html
+security:
+
+    encoders:
+      Snowtricks\CoreBundle\Entity\User: bcrypt
+
+    role_hierarchy:
+      ROLE_MODERATOR:  ROLE_USER
+      ROLE_ADMIN:     [ROLE_USER, ROLE_MODERATOR]
+
+    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+      main:
+        entity:
+          class: Snowtricks\CoreBundle\Entity\User
+          property: username
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            anonymous: true
+            guard:
+              authenticators:
+                - snowtricks.userBundle.login_form_autheticator
+                - my_facebook_authenticator
+              entry_point: snowtricks.userBundle.login_form_autheticator
+            logout:
+              path: logout
+              target: /
+
+    access_control:
+      - { path: ^/admin, roles: ROLE_ADMIN}
