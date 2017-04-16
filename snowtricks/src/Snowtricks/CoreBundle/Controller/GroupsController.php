@@ -7,7 +7,6 @@
  */
 namespace Snowtricks\CoreBundle\Controller;
 
-use Snowtricks\CoreBundle\Entity\Group;
 use Snowtricks\CoreBundle\Form\Type\AddGroupForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
