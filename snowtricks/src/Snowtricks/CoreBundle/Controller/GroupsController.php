@@ -7,6 +7,7 @@
  */
 namespace Snowtricks\CoreBundle\Controller;
 
+use Snowtricks\CoreBundle\Entity\Group;
 use Snowtricks\CoreBundle\Form\Type\AddGroupForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,8 +23,10 @@ class GroupsController extends Controller
 
         // if new add group or update group form receved
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()){
             $recevedGroup = $form->getData();
+
             if ($recevedGroup->getUsedForm() == 'addForm'){
                 $em->persist($recevedGroup);
                 $this->addFlash('success', 'Groupe créé avec success');
