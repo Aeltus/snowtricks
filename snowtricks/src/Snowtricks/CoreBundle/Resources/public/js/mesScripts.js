@@ -1,3 +1,4 @@
+
 $(function(){
    $(".next-btn").click(function(){
       var currentFirstResult = $("#trick_search_form_firstResult").val();
@@ -25,5 +26,11 @@ $(function(){
             document.location.href=target;
 
         }
+    });
+
+    $(".update-group-btn").click(function(){
+        var groupToUpdate = this.getAttribute('id');
+        $("#"+groupToUpdate).hide();
+        $('#form-'+groupToUpdate).show();
     });
 });

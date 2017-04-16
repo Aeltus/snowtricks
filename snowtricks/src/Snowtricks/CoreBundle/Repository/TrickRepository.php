@@ -9,6 +9,7 @@ namespace Snowtricks\CoreBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Snowtricks\CoreBundle\Entity\Group;
 use Snowtricks\CoreBundle\Entity\TrickSearch;
 
 class TrickRepository extends \Doctrine\ORM\EntityRepository
@@ -44,6 +45,22 @@ class TrickRepository extends \Doctrine\ORM\EntityRepository
 
         return new Paginator($qb, true);
 
+    }
+
+    public function findAllLinkedTricks(Group $group){
+        $qb = $this->createQueryBuilder('t');
+
+        $qb ->select('t')
+            ->addSelect('g')
+            ->leftJoin('t.group', 'g')
+            ->where('t.group = :group')
+            ->setParameter('group', $group)
+        ;
+
+        return $qb
+            ->getQuery()
+            ->execute()
+            ;
     }
 
 }

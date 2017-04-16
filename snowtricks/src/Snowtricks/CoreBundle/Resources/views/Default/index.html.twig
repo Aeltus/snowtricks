@@ -60,10 +60,10 @@
 
             {% for trick in tricks %}
                 <div class="col-xs-12 trick-line">
-                    <div class="col-xs-6"><a href="#"><h4>{{ trick.title }}</h4></a></div>
+                    <div class="col-xs-8"><a href="#"><h4>{{ trick.title }}</h4></a></div>
                     {% if is_granted('ROLE_USER') %}
                         <div class="col-xs-1 col-xs-offset-1 text-center"><h4><i class="fa fa-pencil" aria-hidden="true"></i></h4></div>
-                        <div class="col-xs-1 col-xs-offset-1 text-center"><h4><i class="fa fa-trash-o" aria-hidden="true"></i></h4></div>
+                        <div class="col-xs-1 col-xs-offset-1 text-right"><h4><i class="fa fa-trash-o" aria-hidden="true"></i></h4></div>
                     {% endif %}
                 </div>
             {% endfor %}

@@ -31,3 +31,9 @@ services:
       - "@Snowtricks_CoreBundle_SessionManager.SessionSaver"
     tags:
       - { name : kernel.event_listener, event: kernel.controller, method: processSaver }
+
+  Snowtricks_CoreBundle_GroupListener:
+    class: Snowtricks\CoreBundle\EventListener\GroupListener
+    autowire: true
+    tags:
+      - { name: doctrine.event_listener, event: preRemove }

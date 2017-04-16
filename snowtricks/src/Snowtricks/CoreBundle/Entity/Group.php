@@ -8,11 +8,13 @@
 namespace Snowtricks\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *
  * @ORM\Table(name="snow_group")
  * @ORM\Entity(repositoryClass="Snowtricks\CoreBundle\Repository\GroupRepository")
+ *
  */
 class Group {
     /**
@@ -23,14 +25,22 @@ class Group {
      */
     private $id = 0;
     /**
-     * @ORM\Column(name="name", type="string", nullable=false)
+     * @ORM\Column(name="name", type="string", nullable=false, unique=true)
      *
+     * @Assert\Length(min=3, minMessage="Le nom du groupe doit faire au moins {{ limit }} caractères.", groups={"Default", "UpdateAccount"})
+     * @Assert\Length(max=255, maxMessage="Le nom du groupe doit faire au maximum {{ limit }} caractères.", groups={"Default", "UpdateAccount"})
+     * @Assert\NotBlank(message="Vous devez donner un nom au nouveau groupe.")
+     * @Assert\Type("string")
      */
     private $name = "";
 
-    public function __construct($id = NULL, $name)
+
+    private $updateForm = NULL;
+
+    private $usedForm = NULL;
+
+    public function __construct($name = NULL)
     {
-        $this->id = $id;
         $this->name = $name;
     }
     /**=================================================================================================================
@@ -53,6 +63,22 @@ class Group {
     {
         return $this->name;
     }
+
+    /**
+     * @return null | string
+     */
+    public function getUpdateForm()
+    {
+        return $this->updateForm;
+    }
+
+    /**
+     * @return null
+     */
+    public function getUsedForm()
+    {
+        return $this->usedForm;
+    }
     /**=================================================================================================================
     =                                                                                                                 =
     =                                          Setters                                                                =
@@ -73,4 +99,21 @@ class Group {
     {
         $this->name = $name;
     }
+
+    /**
+     * @param $updateForm
+     */
+    public function setUpdateForm($updateForm)
+    {
+        $this->updateForm = $updateForm;
+    }
+
+    /**
+     * @param null $usedForm
+     */
+    public function setUsedForm($usedForm)
+    {
+        $this->usedForm = $usedForm;
+    }
+
 }

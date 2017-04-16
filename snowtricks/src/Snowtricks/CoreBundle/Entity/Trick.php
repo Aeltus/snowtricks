@@ -39,7 +39,7 @@ class Trick {
     private $description = "";
     /**
      * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\Group", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     *
      */
     private $group;
     /**
