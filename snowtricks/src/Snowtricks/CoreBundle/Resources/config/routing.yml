@@ -30,3 +30,13 @@ SnowtricksCore_User_Deletion:
   path: /user_delete
   defaults:
     _controller: SnowtricksCoreBundle:User:delete
+
+SnowtricksCore_Admin_Groups:
+  path: /admin/groups
+  defaults:
+    _controller: SnowtricksCoreBundle:Groups:index
+
+SnowtricksCore_Admin_Del_Group:
+  path: /admin/groups/del/{name}
+  defaults:
+    _controller: SnowtricksCoreBundle:Groups:delete

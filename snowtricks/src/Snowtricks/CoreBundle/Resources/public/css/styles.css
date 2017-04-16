@@ -3,7 +3,7 @@
      
 /* -------------------Styles de base------------------- */
 body{
-    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-family: 'Merienda', sans-serif;
     font-size: 2rem;
 	background-image: url("../img/background.jpg");
 	background-repeat: no-repeat;
@@ -41,7 +41,7 @@ h4{
 }
 
 h1, h2, h3, h4, h5, h6 .fa{
-    font-family: 'Lobster', sans-serif;
+    font-family: 'Oleo Script', sans-serif;
 	color: #7897AB;
 }
 
@@ -161,6 +161,40 @@ input{
 	margin: 10px 0px 10px 0px;
 	border: solid 1px black;
 	box-shadow: 1px 1px 12px #555;
+}
+
+.group-container{
+	border: solid 1px black;
+	padding: 20px;
+}
+
+.forms-update-group{
+	display: none;
+}
+
+#add_group_form_name{
+	width: 80%;
+	margin-left: 20px;
+	margin-top: 10px;
+}
+
+.noPadding{
+	padding: 0px;
+}
+.search-btn{
+	margin-left:-35px;
+}
+
+.menu-btn{
+	width: 25%;
+}
+
+.navbar-collapse, .nav{
+	width: 100%;
+}
+
+.top-menu{
+	margin-top: -1px;
 }
 
 @media screen and (max-width: 600px) {

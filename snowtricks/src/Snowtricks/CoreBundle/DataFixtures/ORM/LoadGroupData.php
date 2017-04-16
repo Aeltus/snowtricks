@@ -26,7 +26,7 @@ class LoadGroupData extends AbstractFixture implements OrderedFixtureInterface
         /** Persist DATA
          * =====================================*/
         foreach ($groups as $groupData){
-            $group = new Group(NULL, $groupData);
+            $group = new Group($groupData);
             $manager->persist($group);
             $this->addReference($groupData, $group);
         }

@@ -1,0 +1,60 @@
+{% extends ":Default:layout.html.twig" %}
+
+{% block title %}Gérer les groupes{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="row text-center">
+                    <h1>Gérer les groupes</h1>
+                </div>
+
+                <div class="row text-center group-container top10">
+                    <!-- add group form -->
+                    <div class="col-xs-10 top10 bottom10">
+                        {{ form_start(addForm) }}
+                        {{ form_row(addForm.name) }}
+                        {{ form_row(addForm.usedForm, {'value': 'addForm'}) }}
+                    </div>
+                    <div class="col-xs-2 noPaddingLeft top10 bottom10">
+                        <button type="submit" class="btn btn-success top10 bottom10 col-xs-12" formnovalidate>Ajouter</button>
+                    </div>
+                    {{ form_end(addForm) }}
+                </div>
+                <div class="row text-center group-container top10 bottom10">
+                    <div class="row text-left">
+                        <strong>Groupes :</strong>
+                    </div>
+                    {% for group in groups %}
+                        <div class="col-xs-8 text-right">
+                            <div class="col-xs-7 text-left" id="group-{{ group.name }}">
+                                <h4>{{ group.name }}</h4>
+                            </div>
+                            <div class="col-xs-5 forms-update-group" id="form-{{ group.name }}">
+                                <div class="col-xs-10 top10">
+                                    {{ form_start(group.updateForm) }}
+                                    {{ form_row(group.updateForm.name, {
+                                        'label': false
+                                    }) }}
+                                    {{ form_row(group.updateForm.usedForm, {'value': group.name }) }}
+                                </div>
+                                <div class="col-xs-2 noPadding top10">
+                                    <button type="submit" class="btn btn-success col-xs-12 top10" formnovalidate>OK</button>
+                                </div>
+                                {{ form_end(group.updateForm) }}
+                            </div>
+                            <a href="#grou-{{ group.name }}" class="update-group-btn" id="{{ group.name }}"><h4><i class="fa fa-pencil" aria-hidden="true"></i></h4></a>
+                        </div>
+                        <div class="col-xs-2">
+                            <a href="{{ path('SnowtricksCore_Admin_Del_Group', { 'name': group.name}) }}"><h4><i class="fa fa-trash-o" aria-hidden="true"></i></h4></a>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
