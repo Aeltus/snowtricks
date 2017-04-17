@@ -40,10 +40,13 @@ class LoadTrickData extends AbstractFixture implements OrderedFixtureInterface
         $pictureNbr = 0;
         $videoNbr = 0;
         foreach ($tricks as $trickData){
-            $created_at = new \DateTime('NOW');
-            $created_by = $this->getReference('user'.$userNbr);
-            $group = $this->getReference($trickData['group']);
-            $trick = new Trick(NULL, $trickData['title'], $trickData['description'], $group, $created_at, $created_by);
+
+            $trick = new Trick();
+            $trick->setTitle($trickData['title']);
+            $trick->setDescription($trickData['description']);
+            $trick->setGroup($this->getReference($trickData['group']));
+            $trick->setCreatedBy($this->getReference('user'.$userNbr));
+
             if ($x == 0){
                 for ($i = 0; $i < 5; $i++){
                     $trick->addPicture($this->getReference('picture'.$pictureNbr));

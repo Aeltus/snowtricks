@@ -65,17 +65,11 @@ class Trick {
      */
     private $created_by;
 
-    public function __construct($id = NULL, $title, $description,Group $group,\DateTime $created_at,User $created_by)
+    public function __construct()
     {
-        $this->id = $id;
-        $this->title = $title;
-        $this->description = $description;
-        $this->group = $group;
         $this->pictures = new ArrayCollection();
         $this->videos = new ArrayCollection();
-        $this->created_at = $created_at;
-        $this->created_by = $created_by;
-
+        $this->created_at = new \DateTime();
     }
     /**=================================================================================================================
     =                                                                                                                 =

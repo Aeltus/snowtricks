@@ -19,16 +19,16 @@ class LoadPictureData extends AbstractFixture implements OrderedFixtureInterface
         /** Array DATA
          * =====================================*/
         $picturesData = array(
-            "https://cdn.pixabay.com/photo/2016/01/27/00/52/up-chrobry-1163459_960_720.jpg",
-            "https://cdn.pixabay.com/photo/2013/05/26/20/09/snowboard-113847_960_720.jpg",
-            "https://cdn.pixabay.com/photo/2017/01/17/02/16/snowboarding-1985751_960_720.jpg",
-            "https://cdn.pixabay.com/photo/2012/08/27/19/39/snowboarder-55099_960_720.jpg",
-            "https://cdn.pixabay.com/photo/2016/06/23/15/11/snowboard-1475536_960_720.jpg",
-            "https://cdn.pixabay.com/photo/2016/12/29/23/53/snowboard-1939636_960_720.jpg",
-            "https://cdn.pixabay.com/photo/2016/08/24/18/58/winter-1617746_960_720.jpg",
-            "https://cdn.pixabay.com/photo/2015/03/13/18/21/snowboard-672080_960_720.jpg",
-            "https://cdn.pixabay.com/photo/2014/11/18/23/25/snowboarding-536809_960_720.jpg",
-            "https://cdn.pixabay.com/photo/2015/01/14/17/19/snowboard-599323_960_720.jpg"
+            "https://www.wedze.fr/sites/wedze/files/cover_conseil_choisir_snowboard_2016.jpg",
+            "https://www.wedze.fr/sites/wedze/files/category/image/wedze-920x250-1654692.jpg",
+            "https://www.wedze.fr/sites/wedze/files/category/image/wedze-920x250-snowboard-materiel-snowboard.jpg",
+            "https://www.wedze.fr/sites/wedze/files/category/image/wedze-920x250-snowboard-materiel-boots.jpg",
+            "https://www.wedze.fr/sites/wedze/files/category/image/wedze-920x250-snowboard-materiel-fixations.jpg",
+            "https://www.wedze.fr/sites/wedze/files/category/image/wedze-920x250-snowboard-protections-casques.jpg",
+            "https://www.wedze.fr/sites/wedze/files/category/image/wedze-920x250-snowboard-protections-masques.jpg",
+            "https://www.wedze.fr/sites/wedze/files/category/image/wedze-920x250-snowboard-protections-protections-corporelles.jpg",
+            "https://www.wedze.fr/sites/wedze/files/category/image/wedze-920x250-ski-accessoires-sac-a-dos.jpg",
+            "https://www.wedze.fr/sites/wedze/files/category/image/wedze-920x250-snowboard-accessoires_0.jpg"
         );
         /** Persist DATA
          * =====================================*/

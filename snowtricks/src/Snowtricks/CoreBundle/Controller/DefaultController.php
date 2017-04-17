@@ -29,4 +29,16 @@ class DefaultController extends Controller
             'search' => $search,
         ));
     }
+
+    public function figureAction(Request $request, $id){
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('SnowtricksCoreBundle:Trick');
+
+        $trick = $repository->findOneById($id);
+
+        return $this->render('SnowtricksCoreBundle:Default:figure.html.twig', array(
+            'trick' => $trick,
+        ));
+    }
 }
