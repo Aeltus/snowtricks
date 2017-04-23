@@ -13,11 +13,16 @@ use Snowtricks\CoreBundle\Entity\Group;
 use Snowtricks\CoreBundle\Entity\Picture;
 use Snowtricks\CoreBundle\Entity\User;
 use Snowtricks\CoreBundle\Entity\Video;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  *
  * @ORM\Table(name="snow_trick")
  * @ORM\Entity(repositoryClass="Snowtricks\CoreBundle\Repository\TrickRepository")
+ *
+ * @UniqueEntity(fields={"title"}, message="Il exite déjà un article ayant ce titre. Pour garder une certaine clarté, merci de choisir un titre unique.")
  */
 class Trick {
     /**
@@ -30,27 +35,39 @@ class Trick {
     /**
      * @ORM\Column(name="title", type="string", nullable=false)
      *
+     * @Assert\Length(min=3, minMessage="Le titre doit faire au moins {{ limit }} caractères.", groups={"Default"})
+     * @Assert\Length(max=255, maxMessage="Le titre doit faire au maximum {{ limit }} caractères.", groups={"Default"})
+     * @Assert\NotBlank(message="Le titre est obligatoire", groups={"Default"})
+     * @Assert\Type("string", groups={"Default"})
+     *
      */
     private $title = "";
     /**
      * @ORM\Column(name="description", type="string", nullable=false)
+     *
+     * @Assert\Length(min=3, minMessage="La description doit faire au moins {{ limit }} caractères.", groups={"Default"})
+     * @Assert\Length(max=255, maxMessage="La description doit faire au maximum {{ limit }} caractères.", groups={"Default"})
+     * @Assert\NotBlank(message="Une description est obligatoire.", groups={"Default"})
+     * @Assert\Type("string", groups={"Default"})
      *
      */
     private $description = "";
     /**
      * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\Group", cascade={"persist"})
      *
+     * @Assert\Type(
+     *     type="object",
+     *     message="Ce champ est sencé recevoir un groupe."
+     * )
      */
     private $group;
     /**
-     * @ORM\ManyToMany(targetEntity="Snowtricks\CoreBundle\Entity\Picture", cascade={"persist"})
-     * @ORM\JoinTable(name="snow_trick_picture")
+     * @ORM\OneToMany(targetEntity="Snowtricks\CoreBundle\Entity\Picture", mappedBy="id_trick", cascade={"persist", "remove"})
      *
      */
     private $pictures = [];
     /**
-     * @ORM\ManyToMany(targetEntity="Snowtricks\CoreBundle\Entity\Video", cascade={"persist"})
-     * @ORM\JoinTable(name="snow_trick_video")
+     * @ORM\OneToMany(targetEntity="Snowtricks\CoreBundle\Entity\Video", mappedBy="id_trick" , cascade={"persist", "remove"})
      *
      */
     private $videos = [];
@@ -65,17 +82,16 @@ class Trick {
      */
     private $created_by;
 
-    public function __construct($id = NULL, $title, $description,Group $group,\DateTime $created_at,User $created_by)
+    /**
+     * @Assert\Type("array")
+     */
+    private $uploadPictures = [];
+
+    public function __construct()
     {
-        $this->id = $id;
-        $this->title = $title;
-        $this->description = $description;
-        $this->group = $group;
         $this->pictures = new ArrayCollection();
         $this->videos = new ArrayCollection();
-        $this->created_at = $created_at;
-        $this->created_by = $created_by;
-
+        $this->created_at = new \DateTime();
     }
     /**=================================================================================================================
     =                                                                                                                 =
@@ -145,6 +161,14 @@ class Trick {
     {
         return $this->created_by;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUploadPictures()
+    {
+        return $this->uploadPictures;
+    }
     /**=================================================================================================================
     =                                                                                                                 =
     =                                          Setters                                                                =
@@ -197,6 +221,21 @@ class Trick {
     {
         $this->created_by = $created_by;
     }
+
+    /**
+     * @param mixed $uploadPictures
+     */
+    public function setUploadPictures($files)
+    {
+
+        // If there is no file, we do nothing
+        foreach ($files as $file){
+            if ($file !== NULL){
+                $this->addPicture($file);
+            }
+        }
+    }
+
     /**=================================================================================================================
     =                                                                                                                 =
     =                                    Array Collection Add and Remove                                              =
@@ -212,8 +251,10 @@ class Trick {
     /**
      * @param Video $video
      */
-    public function addVideo(Video $video){
-        $this->videos[] = $video;
+    public function addVideo(Video $video = NULL){
+        if ($video !== NULL){
+            $this->videos[] = $video;
+        }
     }
 
     /**

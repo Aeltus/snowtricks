@@ -9,6 +9,7 @@ namespace Snowtricks\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Snowtricks\CoreBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *
@@ -31,20 +32,25 @@ class Video {
     /**
      * @ORM\Column(name="created_at", type="datetime")
      *
+     * @Assert\Type("string", groups={"Default"})
      */
     private $created_at;
     /**
      * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\User", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $created_by;
+    private $created_by = NULL;
 
-    public function __construct($id = NULL, $address,\DateTime $created_at,User $created_by)
+    /**
+     * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\Trick", inversedBy="videos", cascade={"persist"})
+     *
+     */
+    private $id_trick;
+
+    public function __construct()
     {
-        $this->id = $id;
-        $this->address = $address;
-        $this->created_at = $created_at;
-        $this->created_by = $created_by;
+
+        $this->created_at = new \DateTime();
     }
 
     /**=================================================================================================================
@@ -83,6 +89,14 @@ class Video {
     {
         return $this->created_by;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdTrick()
+    {
+        return $this->id_trick;
+    }
     /**=================================================================================================================
     =                                                                                                                 =
     =                                          Setters                                                                =
@@ -118,5 +132,13 @@ class Video {
     public function setCreatedBy(User $created_by)
     {
         $this->created_by = $created_by;
+    }
+
+    /**
+     * @param mixed $idTrick
+     */
+    public function setIdTrick($idTrick)
+    {
+        $this->id_trick = $idTrick;
     }
 }

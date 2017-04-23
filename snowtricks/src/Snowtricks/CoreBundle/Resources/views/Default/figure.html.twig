@@ -1,0 +1,104 @@
+{% extends ":Default:layout.html.twig" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+
+<!-- Texte de bienvenue
+================================================== -->
+    <div class="row bottom10">
+        <div class="col-xs-12 text-center">
+            <h2>{{ trick.title }}</h2>
+        </div>
+        <div class="col-xs-1">
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('SnowtricksCore_Trick_Update', { 'id': trick.id}) }}">
+                    <div class="col-xs-12">
+                        <strong class="figure-button"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></strong>
+                    </div>
+                </a>
+            {% endif %}
+        </div>
+        <div class="col-xs-1 col-xs-offset-1">
+            {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('SnowtricksCore_Trick_Delete', { 'id': trick.id}) }}">
+                <div class="col-xs-12">
+                    <strong class="figure-button"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></strong>
+                </div>
+            </a>
+            {% endif %}
+        </div>
+        <div class="col-xs-6 text-center">
+            <strong>De :</strong> {{ trick.createdBy.name }} {{ trick.createdBy.surname }}
+        </div>
+        <div class="col-xs-3 text-right" id="group-name">
+            <strong>{{ trick.group.name }}</strong>
+        </div>
+    </div>
+    <div class="row top10">
+        <div class="col-xs-12 text-justify">
+            <p>{{ trick.description }}</p>
+        </div>
+    </div>
+    <!-- Media visualisaton
+    ===================================-->
+    <div class="row">
+        <div class="container">
+            <a href="#pictures-button"><div class="col-xs-4 col-sm-2 media-container text-center" id="pictures-button">
+                Images
+            </div></a>
+            <a href="#video-button"><div class="col-xs-4 col-sm-2 media-container text-center" id="video-button">
+                Videos
+            </div></a>
+            <div class="col-xs-12 media-container bottom10" id="picture-container">
+                <div class="col-sm-8 top10 bottom10">
+                    {% if trick.pictures is empty %}
+                        <p><strong>Désolé, il n'y a pas encore d'images pour cette figure. Connectez vous pour ajouter les votres.</strong></p>
+                    {% endif %}
+                    <img src="" id="picture-0" class="picture"/>
+                </div>
+                <div class="col-sm-4 text-center">
+                    <div class="col-xs-12 text-center" id="arrow-up">
+                        <i class="fa fa-arrow-circle-up fa-2x" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-xs-12 top10">
+                        <img src="" id="picture-1" class="labelled-picture" data_number=""/>
+                    </div>
+                    <div class="col-xs-12 top10">
+                        <img src="" id="picture-2" class="labelled-picture" data_number=""/>
+                    </div>
+                    <div class="col-xs-12 top10">
+                        <img src="" id="picture-3" class="labelled-picture" data_number=""/>
+                    </div>
+                    <div class="col-xs-12 text-center top10" id="arrow-down">
+                        <i class="fa fa-arrow-circle-down fa-2x" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="col-xs-12" id="list-pictures">
+                    {% set nbPic = 0 %}
+                    {% for picture in trick.pictures %}
+                        <div class="col-xs-1"><img src="{{ picture.address }}" id="pic-{{ nbPic }}"></div>
+                        {% set nbPic = nbPic + 1 %}
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="col-xs-12 media-container bottom10" id="video-container">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-1" id="list-videos">
+                    {% if trick.videos is empty %}
+                        <p><strong>Désolé, il n'y a pas encore de vidéos pour cette figure. Connectez vous pour ajouter les votres.</strong></p>
+                    {% endif %}
+                    {% set nbVid = 0 %}
+                    {% for video in trick.videos %}
+                        <div class="col-xs-12 col-sm-8 col-sm-offset-2 top10 bottom10 simple-video" id="vid-{{ nbVid }}">{{ video.address|raw }}</div>
+                        {% set nbVid = nbVid + 1 %}
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    <!--==============================-->
+    </div>
+
+    {% endblock %}

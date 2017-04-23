@@ -53,6 +53,11 @@ input{
 	width: 100%;
 }
 
+hr{
+	width: 100%;
+	border: 1px ridge black;
+}
+
 .headerImg{
 	max-height: 100%;
 	vertical-align: middle;
@@ -172,7 +177,7 @@ input{
 	display: none;
 }
 
-#add_group_form_name{
+#addGroup_name{
 	width: 70%;
 	margin-left: 20px;
 	margin-top: 10px;
@@ -195,6 +200,74 @@ input{
 
 .top-menu{
 	margin-top: -1px;
+}
+
+.picture{
+	max-height: 440px;
+}
+.labelled-picture{
+	max-height: 115px;
+}
+
+.media-container{
+	background-color: #c1cad3;
+}
+
+#list-pictures{
+	display: none;
+}
+
+#video-container{
+	display: none;
+}
+
+#video-button{
+	background-color: #b1b9c1;
+}
+
+.figure-button > i{
+	color: #333333;
+}
+
+.trash, .preview{
+	height: 100px;
+}
+
+.picture-preview{
+	max-height: 100px;
+}
+#pictures-form, #videos-form{
+	border: 1px solid black;
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 1px 1px 12px #555;
+	margin: 30px 10px 30px 10px;
+	text-align: center;
+}
+
+#add_video{
+	background-color: #E6E6E6;
+	color: #333;
+}
+
+iframe{
+	width: 100%;
+}
+
+textarea{
+	width: 100%;
+}
+
+#add-video-help{
+	display: none;
+}
+
+.strong-link{
+	color: #333 !important;
+	font-weight: bold;
+}
+
+#trick_form_uploadPictures > div > label, #trick_form_videos > div > label{
+	display: none;
 }
 
 @media screen and (max-width: 600px) {
@@ -227,6 +300,25 @@ input{
 
 	.sort-btn{
 		margin-top: 25px;
+	}
+
+	iframe {
+		width: 100%;
+		height: auto;
+	}
+
+	#list-videos{
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	.simple-video{
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	#group-name, .fa-pencil, .fa-trash-o {
+		font-size: 1em;
 	}
 }
 

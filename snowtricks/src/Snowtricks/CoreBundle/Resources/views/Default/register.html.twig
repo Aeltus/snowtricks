@@ -12,13 +12,21 @@
                 </div>
 
                 <!-- Identifiaction form -->
-                {{ form_start(form) }}
+                {{ form_start(form, {
+                    'attr': { 'id': 'my_form'}
+                }) }}
                     {{ form_row(form.name) }}
                     {{ form_row(form.surname) }}
                     {{ form_row(form.mail) }}
 
                     <div class="col-xs-12" id="add-user-picture-box">
-                        <div class="col-xs-6 col-xs-offset-3 text-center top10">
+                        <div class="col-xs-3 col-xs-offset-1 text-center top 10" id="user-picture">
+                            <p>Votre image actuelle</p>
+                            <img src="
+                            {{ asset('bundles/snowtricksuser/img/default-user.png') }}
+                        " alt="photo de profil" id="image_preview"/>
+                        </div>
+                        <div class="col-xs-6 col-xs-offset-2 text-center top10">
                             <p><strong>Ajouter une image de profil</strong></p>
                             {{ form_row(form.file, {
                                 'required': false

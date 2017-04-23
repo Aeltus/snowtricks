@@ -38,7 +38,6 @@ class GroupListener
             foreach ($tricks as $trick){
                 $this->manager->remove($trick);
             }
-            $this->manager->flush();
         }
 
         return;

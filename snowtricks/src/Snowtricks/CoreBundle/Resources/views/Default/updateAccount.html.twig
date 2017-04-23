@@ -12,7 +12,9 @@
                 </div>
 
                 <!-- Identifiaction form -->
-                {{ form_start(form) }}
+                {{ form_start(form, {
+                    'attr': { 'id': 'my_form'}
+                }) }}
                 {{ form_row(form.name) }}
                 {{ form_row(form.surname) }}
                 {{ form_row(form.mail) }}
@@ -26,7 +28,7 @@
                         {% else %}
                             {{ asset('uploads_users/'~user.picture) }}
                         {% endif %}
-                        " alt="photo de profil"/>
+                        " alt="photo de profil" id="image_preview"/>
                     </div>
                     <div class="col-xs-6 col-xs-offset-2 text-center top10">
                         <p><strong>Modifier mon image de profil</strong></p>

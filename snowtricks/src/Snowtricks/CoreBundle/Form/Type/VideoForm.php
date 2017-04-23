@@ -2,39 +2,40 @@
 /**
  * Created by PhpStorm.
  * User: Davis
- * Date: 15/04/2017
- * Time: 10:50
+ * Date: 22/04/2017
+ * Time: 09:08
  */
-
 namespace Snowtricks\CoreBundle\Form\Type;
 
-use Snowtricks\CoreBundle\Entity\Group;
+use Snowtricks\CoreBundle\Entity\Video;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AddGroupForm extends AbstractType
+class VideoForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array(
+            ->add('address', TextareaType::class, array(
                 'attr' => array(
-                    'placeholder' => 'Le nom du nouveau goupe ici : ',
+                    'class' => 'trick-video-form',
                 ),
-                'empty_data' => NULL,
-                'label' => 'Ajouter un groupe : ',
+                'label' => 'Ajoutez une video à la figure : ',
             ))
-            ->add('usedForm', HiddenType::class);
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Group::class,
+            'data_class' => Video::class,
+            'attr' => array (
+                'id' => 'add-video-form',
+            )
         ]);
     }
 }
+
+

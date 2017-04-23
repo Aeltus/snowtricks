@@ -89,7 +89,7 @@
                     <li class="hidden"><a href="#page-top"></a></li>
                     <li class="menu-btn"><a href="{{ path('snowtricks_core_homepage') }}">ACCUEIL</a></li>
                     {% if is_granted('ROLE_USER')  %}
-                        <li class="menu-btn"><a href="#create">CREER UNE FIGURE</a></li>
+                        <li class="menu-btn"><a href="{{ path('SnowtricksCore_Trick_Add') }}">CREER UNE FIGURE</a></li>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN')  %}
                         <li class="menu-btn"><a href="#gestUsers">GERER LES UTILISATEURS</a></li>
@@ -110,7 +110,7 @@
                     Connexion
                 </div></a>
                 <a href="{{ path('snowtricks_core_registration') }}"><div class="col-xs-5 col-xs-offset-2 col-md-2 col-sm-offset-1 col-sm-3 btn btn-info text-center">
-                    Créer un compte
+                    Inscription
                 </div></a>
             {% else %}
                 <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-2 text-right">
