@@ -76,21 +76,23 @@ class GroupsController extends Controller
                 ->createNamedBuilder($group->getName(), GroupForm::class)
                 ->getForm()
             ;
-
             $form->handleRequest($request);
 
             if($form->isSubmitted() && $form->isValid()){
 
                 $recevedGroup = $form->getData();
 
+                if ($recevedGroup->getName() != $group->getName()){
+                    $group->setName($recevedGroup->getName());
+                }
+
                 $this->addFlash('success', 'Groupe modifié avec success');
-                $em->flush();
 
             }
 
             $group->setUpdateForm($form->createView());
         }
-
+        $em->flush();
 
         return $groups;
     }

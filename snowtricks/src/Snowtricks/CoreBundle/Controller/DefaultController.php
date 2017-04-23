@@ -3,7 +3,6 @@
 namespace Snowtricks\CoreBundle\Controller;
 
 use Snowtricks\CoreBundle\Entity\TrickSearch;
-use Snowtricks\CoreBundle\Form\Type\GroupForm;
 use Snowtricks\CoreBundle\Form\Type\TrickForm;
 use Snowtricks\CoreBundle\Form\Type\TrickSearchForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -46,7 +45,6 @@ class DefaultController extends Controller
 
     public function addAction(Request $request){
 
-        $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(TrickForm::class);
 
         $form->handleRequest($request);
