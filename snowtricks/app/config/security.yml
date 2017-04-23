@@ -36,3 +36,8 @@ security:
 
     access_control:
       - { path: ^/admin, roles: ROLE_ADMIN}
+      - { path: ^/trick, roles: ROLE_USER}
+      - { path: ^/pictures, roles: ROLE_USER}
+      - { path: ^/videos, roles: ROLE_USER}
+      - { path: ^/user_delete, roles: ROLE_USER}
+      - { path: ^/account, roles: ROLE_USER}

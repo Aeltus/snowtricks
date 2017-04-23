@@ -15,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AddGroupForm extends AbstractType
+class GroupForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -26,9 +26,7 @@ class AddGroupForm extends AbstractType
                 ),
                 'empty_data' => NULL,
                 'label' => 'Ajouter un groupe : ',
-            ))
-            ->add('usedForm', HiddenType::class);
-        ;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -38,7 +38,20 @@ class LoadVideoData extends AbstractFixture implements OrderedFixtureInterface
         foreach ($videosData as $videoEmbed){
             $createdAt = new \DateTime('NOW');
             $user = $this->getReference('user'.$x);
-            $video = new Video(NULL, $videoEmbed, $createdAt, $user);
+            $video = new Video();
+            $video->setAddress($videoEmbed);
+            $video->setCreatedAt($createdAt);
+            $video->setCreatedBy($user);
+
+            if ($videoNbr < 4){
+                $trick = $this->getReference('trick0');
+            } elseif ($videoNbr >= 4 && $videoNbr < 8){
+                $trick = $this->getReference('trick2');
+            } else {
+                $trick = $this->getReference('trick3');
+            }
+            $video->setIdTrick($trick);
+
             $manager->persist($video);
             $this->addReference('video'.$videoNbr, $video);
             if ($x >= 2){

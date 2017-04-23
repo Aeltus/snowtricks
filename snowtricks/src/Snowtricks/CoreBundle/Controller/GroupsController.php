@@ -7,48 +7,22 @@
  */
 namespace Snowtricks\CoreBundle\Controller;
 
-use Snowtricks\CoreBundle\Form\Type\AddGroupForm;
+use Snowtricks\CoreBundle\Form\Type\GroupForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class GroupsController extends Controller
 {
+
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('SnowtricksCoreBundle:Group');
 
-        $form = $this->createForm(AddGroupForm::class);
-
-        // if new add group or update group form receved
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            $recevedGroup = $form->getData();
-
-            if ($recevedGroup->getUsedForm() == 'addForm'){
-                $em->persist($recevedGroup);
-                $this->addFlash('success', 'Groupe créé avec success');
-            } else {
-                $groupToUpdate = $repository->findOneByName($recevedGroup->getUsedForm());
-                $groupToUpdate->setName($recevedGroup->getName());
-                $this->addFlash('success', 'Groupe mis à jour avec success');
-            }
-            $em->flush();
-        }
-
-        // set update forms views in group entity
-        $groups = $repository->findAll();
-        foreach ($groups as $group){
-            $updateForm = $this->createForm(AddGroupForm::class, $group);
-            $group->setUpdateForm($updateForm->createView());
-        }
-
-        $addForm = $this->createForm(AddGroupForm::class);
+        $addForm = $this->addGroupAction($request);
+        $groups = $this->updateGroupAction($request);
 
         return $this->render('SnowtricksCoreBundle:Admin:groups.html.twig', array(
+            'addForm' => $addForm,
             'groups' => $groups,
-            'addForm' => $addForm->createView(),
         ));
     }
 
@@ -63,6 +37,62 @@ class GroupsController extends Controller
         $this->addFlash('success', 'Groupe supprimé.');
 
         return $this->redirectToRoute('SnowtricksCore_Admin_Groups');
+    }
+
+    public function addGroupAction(Request $request)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->get('form.factory')
+                     ->createNamedBuilder('addGroup', GroupForm::class)
+                     ->getForm()
+        ;
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $recevedGroup = $form->getData();
+
+            $em->persist($recevedGroup);
+            $this->addFlash('success', 'Groupe créé avec success');
+
+            $em->flush();
+
+        }
+
+        return $form->createView();
+    }
+
+    public function updateGroupAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('SnowtricksCoreBundle:Group');
+
+        // set update forms views in group entity
+        $groups = $repository->findAll();
+        foreach ($groups as $group){
+            $form = $this->get('form.factory')
+                ->createNamedBuilder($group->getName(), GroupForm::class)
+                ->getForm()
+            ;
+
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+
+                $recevedGroup = $form->getData();
+
+                $this->addFlash('success', 'Groupe modifié avec success');
+                $em->flush();
+
+            }
+
+            $group->setUpdateForm($form->createView());
+        }
+
+
+        return $groups;
     }
 }
 

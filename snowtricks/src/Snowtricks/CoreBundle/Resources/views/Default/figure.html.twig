@@ -12,15 +12,26 @@
         </div>
         <div class="col-xs-1">
             {% if is_granted('ROLE_USER') %}
-            <strong><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></strong>
+                <a href="{{ path('SnowtricksCore_Trick_Update', { 'id': trick.id}) }}">
+                    <div class="col-xs-12">
+                        <strong class="figure-button"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i></strong>
+                    </div>
+                </a>
             {% endif %}
         </div>
         <div class="col-xs-1 col-xs-offset-1">
             {% if is_granted('ROLE_USER') %}
-            <strong><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></strong>
+            <a href="{{ path('SnowtricksCore_Trick_Delete', { 'id': trick.id}) }}">
+                <div class="col-xs-12">
+                    <strong class="figure-button"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></strong>
+                </div>
+            </a>
             {% endif %}
         </div>
-        <div class="col-xs-3 col-xs-offset-5 text-right" id="group-name">
+        <div class="col-xs-6 text-center">
+            <strong>De :</strong> {{ trick.createdBy.name }} {{ trick.createdBy.surname }}
+        </div>
+        <div class="col-xs-3 text-right" id="group-name">
             <strong>{{ trick.group.name }}</strong>
         </div>
     </div>

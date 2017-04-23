@@ -1,12 +1,17 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: Davis
+ * Date: 23/04/2017
+ * Time: 17:42
+ */
 namespace test\SnowtricksCoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-class DefaultControllerTest extends WebTestCase
+class VideosControllerTest extends WebTestCase
 {
     private $client;
 
@@ -14,24 +19,7 @@ class DefaultControllerTest extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function testIndex()
-    {
-        $crawler = $this->client->request('GET', '/');
 
-        $this->assertContains('Bienvenue', $this->client->getResponse()->getContent());
-    }
-
-    public function testAdd(){
-
-        $this->logIn();
-
-        $crawler = $this->client->request('GET', '/trick/add');
-
-        $this->assertTrue(
-            $this->client->getResponse()->isSuccessful()
-        );
-
-    }
 
     private function logIn(){
         $session = $this->client->getContainer()->get('session');

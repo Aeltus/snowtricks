@@ -45,3 +45,38 @@ SnowtricksCore_Figure:
   path: /figure/{id}
   defaults:
     _controller: SnowtricksCoreBundle:Default:figure
+
+SnowtricksCore_Trick_Add:
+  path: /trick/add
+  defaults:
+    _controller: SnowtricksCoreBundle:Default:add
+
+SnowtricksCore_Trick_Update:
+  path: /trick/update/{id}
+  defaults:
+    _controller: SnowtricksCoreBundle:Default:update
+
+SnowtricksCore_Trick_Delete:
+  path: /trick/delete/{id}
+  defaults:
+    _controller: SnowtricksCoreBundle:Default:delete
+
+SnowtricksCore_Pictures_Delete:
+  path: /pictures/delete/{id}
+  defaults:
+    _controller: SnowtricksCoreBundle:Pictures:deleteMainPage
+
+SnowtricksCore_Pictures_Delete_One:
+  path: /pictures/delete_one/{idPicture}/{idTrick}
+  defaults:
+    _controller: SnowtricksCoreBundle:Pictures:deleteOne
+
+SnowtricksCore_Videos_Delete:
+  path: /videos/delete/{id}
+  defaults:
+    _controller: SnowtricksCoreBundle:Videos:deleteMainPage
+
+SnowtricksCore_Videos_Delete_One:
+  path: /videos/delete_one/{idVideo}/{idTrick}
+  defaults:
+    _controller: SnowtricksCoreBundle:Videos:deleteOne

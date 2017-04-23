@@ -37,7 +37,19 @@ class LoadPictureData extends AbstractFixture implements OrderedFixtureInterface
         foreach ($picturesData as $pictureAddress){
             $createdAt = new \DateTime('NOW');
             $user = $this->getReference('user'.$x);
-            $picture = new Picture(NULL, $pictureAddress, $createdAt, $user);
+            $picture = new Picture();
+            $picture->setAddress($pictureAddress);
+            $picture->setCreatedAt($createdAt);
+            $picture->setCreatedBy($user);
+
+            if ($pictureNbr < 4){
+                $trick = $this->getReference('trick0');
+            } elseif ($pictureNbr >= 4 && $pictureNbr < 8){
+                $trick = $this->getReference('trick2');
+            } else {
+                $trick = $this->getReference('trick3');
+            }
+            $picture->setIdTrick($trick);
             $manager->persist($picture);
             $this->addReference('picture'.$pictureNbr, $picture);
             if ($x >= 2){
@@ -53,6 +65,6 @@ class LoadPictureData extends AbstractFixture implements OrderedFixtureInterface
     }
     public function getOrder()
     {
-        return 3;
+        return 5;
     }
 }

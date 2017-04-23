@@ -37,7 +37,6 @@ class Group {
 
     private $updateForm = NULL;
 
-    private $usedForm = NULL;
 
     public function __construct($name = NULL)
     {
@@ -72,13 +71,6 @@ class Group {
         return $this->updateForm;
     }
 
-    /**
-     * @return null
-     */
-    public function getUsedForm()
-    {
-        return $this->usedForm;
-    }
     /**=================================================================================================================
     =                                                                                                                 =
     =                                          Setters                                                                =
@@ -106,14 +98,6 @@ class Group {
     public function setUpdateForm($updateForm)
     {
         $this->updateForm = $updateForm;
-    }
-
-    /**
-     * @param null $usedForm
-     */
-    public function setUsedForm($usedForm)
-    {
-        $this->usedForm = $usedForm;
     }
 
 }
