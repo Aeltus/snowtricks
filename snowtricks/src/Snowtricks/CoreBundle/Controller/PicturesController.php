@@ -7,17 +7,13 @@
  */
 namespace Snowtricks\CoreBundle\Controller;
 
+use Snowtricks\CoreBundle\Entity\Trick;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PicturesController extends Controller
 {
 
-    public function deleteMainPageAction($id){
-
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('SnowtricksCoreBundle:Trick');
-
-        $trick = $repo->find($id);
+    public function deleteMainPageAction(Trick $trick){
 
         return $this->render('SnowtricksCoreBundle:Default:pictures.html.twig', array(
             'trick' => $trick,
@@ -33,11 +29,9 @@ class PicturesController extends Controller
             if ($picture->getId() == $idPicture){
                 $trick->removePicture($picture);
                 $em->remove($picture);
-                unlink($picture->getAddress());
             }
         }
         $em->flush($trick);
-        $this->addFlash('success', 'Suppression de la photo réussie.');
         return $this->redirectToRoute('SnowtricksCore_Pictures_Delete', array(
             'id' => $trick->getId(),
         ));

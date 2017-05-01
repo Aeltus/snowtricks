@@ -1,0 +1,101 @@
+{% block content %}
+
+    <div class="col-xs-12">
+        <div class="col-xs-12 text-left">
+            {% if messages is not empty %}
+                <h3>Fil de discussion :</h3>
+            {% elseif is_granted('ROLE_USER') %}
+                <h3>Pas encore de message</h3>
+                <p>Ne soyez pas timide, allez y !!!</p>
+            {% else %}
+                <h3>Pas encore de message</h3>
+                <p>Inscrivez vous pour poster le votre :)</p>
+            {% endif %}
+        </div>
+        {% if is_granted('ROLE_USER') %}
+            <div class="col-xs-10 col-xs-offset-1 noPadding" id="message-form">
+                {{ form_start(form) }}
+                <div class="col-xs-12">
+                    {{ form_label(form.message) }}
+                </div>
+                <div class="col-xs-12">
+                    {{ form_errors(form.message) }}
+                </div>
+                <div class="col-xs-10 noPadding">
+                    {{ form_widget(form.message) }}
+                </div>
+                <div class="col-xs-2 noPadding">
+                    {{ form_end(form) }}
+                </div>
+            </div>
+            <div class="col-xs-12 text-center" id="moderate-form">
+
+                {% if is_granted('ROLE_MODERATOR') %}
+                    <div class="col-xs-10 col-xs-offset-1 noPadding" id="update-message-form">
+                        {{ form_start(updateForm) }}
+                        <div class="col-xs-12">
+                            Quelle est la raison de cette modération ?
+                        </div>
+                        <div class="col-xs-12">
+                            {{ form_errors(updateForm.message) }}
+                        </div>
+                        <div class="col-xs-10 noPadding">
+                            {{ form_widget(updateForm.message) }}
+                            {{ form_row(updateForm.id) }}
+                        </div>
+                        <div class="col-xs-2 noPadding">
+                            {{ form_end(updateForm) }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% for message in messages %}
+            <div class="col-xs-10 col-xs-offset-1 message-container text-center">
+                <div class="col-xs-2 message-picture">
+
+                    {%  if message.createdBy.picture is null %}
+                        {% set picture =  "/bundles/snowtricksuser/img/default-user.png" %}
+                    {% else %}
+                        {% set picture = message.createdBy.picture.thumbnailSize %}
+                        {% set picture =  "/" ~ picture %}
+                    {% endif %}
+                    <img src="{{ picture }}" alt="{{ message.createdBy.name }} {{ message.createdBy.surname }}" />
+                </div>
+                <div class="col-xs-10 message-content">
+                    <div class="col-xs-5 text-left"><strong>{{ message.createdBy.name }} {{ message.createdBy.surname }}</strong>
+                    </div>
+                    {% if is_granted('ROLE_MODERATOR') %}
+                        <a href="#"><div class="col-xs-2 msg-moderate" id="{{ message.id }}"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></div></a>
+                    {% endif %}
+                    <div class="col-xs-5 text-right">Le : {{ message.createdAt|date('d/m/Y à: H:i:s') }}</div>
+                    <div class="col-xs-12 text-justify message-text" id="message-text-{{ message.id }}">{{ message.message }}</div>
+
+                </div>
+            </div>
+        {% endfor %}
+        <div class="col-xs-10 col-xs-offset-1 bottom10">
+
+            <div class="col-xs-2 text-left">
+                {% if search.firstResult != 0 %}
+                    <div class="btn btn-info" id="msg-prev-btn"><i class="fa fa-arrow-circle-left"></i> Précédent</div>
+                {% endif %}
+            </div>
+
+            <div class="col-xs-8">
+                {{ form_start(searchForm) }}
+                {{ form_row(searchForm.firstResult) }}
+                {{ form_row(searchForm.number) }}
+                {{ form_end(searchForm) }}
+            </div>
+
+                <div class="col-xs-2 text-right">
+                    {% if search.firstResult + search.number < messages|length %}
+                        <div class="btn btn-info" id="msg-next-btn">Suivant <i class="fa fa-arrow-circle-right"></i></div>
+                    {%  endif %}
+                </div>
+
+        </div>
+    </div>
+
+{% endblock %}

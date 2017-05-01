@@ -7,17 +7,13 @@
  */
 namespace Snowtricks\CoreBundle\Controller;
 
+use Snowtricks\CoreBundle\Entity\Trick;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class VideosController extends Controller
 {
 
-    public function deleteMainPageAction($id){
-
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('SnowtricksCoreBundle:Trick');
-
-        $trick = $repo->find($id);
+    public function deleteMainPageAction(Trick $trick){
 
         return $this->render('SnowtricksCoreBundle:Default:videos.html.twig', array(
             'trick' => $trick,
@@ -36,7 +32,6 @@ class VideosController extends Controller
             }
         }
         $em->flush($trick);
-        $this->addFlash('success', 'Suppression de la vidéo réussie.');
         return $this->redirectToRoute('SnowtricksCore_Videos_Delete', array(
             'id' => $trick->getId(),
         ));

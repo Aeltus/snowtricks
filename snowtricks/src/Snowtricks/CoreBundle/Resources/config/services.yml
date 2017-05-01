@@ -37,3 +37,9 @@ services:
     autowire: true
     tags:
       - { name: doctrine.event_listener, event: preRemove }
+
+  Snowtricks_CoreBundle_TrickListener:
+    class: Snowtricks\CoreBundle\EventListener\TrickListener
+    autowire: true
+    tags:
+      - { name: doctrine.event_listener, event: preRemove }

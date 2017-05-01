@@ -1,29 +1,20 @@
-# This file is a "template" of what your parameters.yml file should look like
-# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
-# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+# This file is auto-generated during the composer install
 parameters:
-    database_host: 127.0.0.1
-    database_port: ~
-    database_name: symfony
+    database_host: localhost
+    database_port: 3306
+    database_name: snowtricks
     database_user: root
-    database_password: ~
-    # You should uncomment this if you want to use pdo_sqlite
-    #database_path: "%kernel.root_dir%/data.db3"
-
+    database_password: null
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: ~
-    mailer_password: ~
-
-    # A secret key that's used to generate certain security-related tokens
-    secret: ThisTokenIsNotSoSecretChangeIt
-
-# Spécifickly ti Swiftmailer
+    mailer_host: saucisson.o2switch.net
+    mailer_user: no_reply@david-danjard.fr
+    mailer_password: A45y22s@
+    secret: asecrettoken
 swiftmailer:
-    transport:            smtp
-    username:             user
-    password:             password
-    host:                 127.0.0.1
-    port:                 465
-    encryption:           ssl
-    sender_address:       sender@mywebsite.com
+    transport: smtp
+    username: no_reply@david-danjard.fr
+    password: A45y22s@
+    host: saucisson.o2switch.net
+    port: 465
+    encryption: ssl
+    sender_address: no_reply@david-danjard.fr

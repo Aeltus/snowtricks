@@ -26,14 +26,15 @@
                         {% if user.picture is empty %}
                             {{ asset('bundles/snowtricksuser/img/default-user.png') }}
                         {% else %}
-                            {{ asset('uploads_users/'~user.picture) }}
+                            {{ asset('/'~user.picture.ThumbnailSize) }}
                         {% endif %}
                         " alt="photo de profil" id="image_preview"/>
                     </div>
                     <div class="col-xs-6 col-xs-offset-2 text-center top10">
                         <p><strong>Modifier mon image de profil</strong></p>
-                        {{ form_row(form.file, {
-                        'required': false
+                        <p>(Fichier jpg de moins de 1 mo)</p>
+                        {{ form_row(form.picture, {
+                            'label': false
                         }) }}
                     </div>
                 </div>

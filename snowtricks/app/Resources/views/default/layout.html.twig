@@ -32,10 +32,10 @@
     <meta name="description" content="Site communautaire dédié au snowboard">
 
     <link href="https://fonts.googleapis.com/css?family=Oleo+Script" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Merienda" rel="stylesheet">
+
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -47,6 +47,7 @@
     <style type="text/css"> </style>
 
     <link rel="stylesheet" id="style-perso-css" href="{{ asset('bundles/snowtrickscore/css/styles.css') }}" type="text/css" media="all">
+    <link rel="stylesheet" href="{{ asset('bundles/snowtrickscore/css/jquery.Jcrop.min.css') }}" type="text/css" media="all">
 
     <link rel="SHORTCUT ICON" href="{{ asset('bundles/snowtrickscore/img/favicon.png') }}">
 
@@ -56,14 +57,13 @@
 
 <body>
 
-<div class="container">
+<div class="container" id="container-principal">
     <!-- Header
     ================================================== -->
     <header class="row">
         <div class="col-xs-12 text-center" id="headerDiv">
-            <div class="col-xs-2 headerImg"><img src="{{ asset('bundles/snowtrickscore/img/snowLeft.png') }}" alt="Snowboarder" about="Snowboarder" /></div>
-            <div class="col-xs-8 text-center" id="siteTitle"><h1>Snowtricks</h1></div>
-            <div class="col-xs-2 headerImg"><img src="{{ asset('bundles/snowtrickscore/img/snowRight.png') }}" alt="Snowboarder" about="Snowboarder" /></div>
+            <div class="col-xs-2 headerImg"><img src="{{ asset('bundles/snowtrickscore/img/logo_snowtricks.png') }}" alt="Snowboarder" about="Snowboarder" /></div>
+            <div class="col-xs-10 text-center" id="siteTitle"><h1>Snowtricks</h1></div>
         </div>
     </header>
 
@@ -152,6 +152,7 @@
 
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="{{ asset('bundles/snowtrickscore/js/jquery.Jcrop.min.js') }}"></script>
         <!-- Javascript de Bootstrap -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <!-- Scripts persos -->
@@ -160,6 +161,9 @@
     </footer>
 
     <!-- ================================================== -->
+</div>
+<div class="container" id="container-secondaire">
+
 </div>
 </body>
 

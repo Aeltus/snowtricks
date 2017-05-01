@@ -1,0 +1,40 @@
+Tricks:
+  Trick1:
+    title: "Mute"
+    description: "Saisie de la carre frontside de la planche entre les deux pieds avec la main avant."
+
+  Trick2:
+    title: "Sad"
+    description: "Saisie de la carre backside de la planche, entre les deux pieds, avec la main avant."
+
+  Trick3:
+    title: "Indy"
+    description: "Saisie de la carre frontside de la planche, entre les deux pieds, avec la main arrière."
+
+  Trick4:
+    title: "Stalefish"
+    description: "Saisie de la carre backside de la planche entre les deux pieds avec la main arrière."
+
+  Trick5:
+    title: "180"
+    description: "Désigne un demi-tour, soit 180 degrés d'angle."
+
+  Trick6:
+    title: "360"
+    description: "Trois six pour un tour complet."
+
+  Trick7:
+    title: "540"
+    description: "Cinq quatre pour un tour et demi."
+
+  Trick8:
+    title: "720"
+    description: "Sept deux pour deux tours complets."
+
+  Trick9:
+    title: "Back flip"
+    description: "Rotation arrière."
+
+  Trick10:
+    title: "Front flip"
+    description: "Rotation avant."

@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle(),
             new Snowtricks\OAuthBundle\SnowtricksOAuthBundle(),
             new Snc\RedisBundle\SncRedisBundle(),
+            new Snowtricks\ConsoleBundle\SnowtricksConsoleBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

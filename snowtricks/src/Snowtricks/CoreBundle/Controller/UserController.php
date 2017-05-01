@@ -28,15 +28,25 @@ class UserController extends Controller
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
             $user = $form->getData();
             $user->setRoles(['ROLE_USER']);
-            $user->upload();
             $user->setCheckingToken(uniqid(rand(), true));
             $user->setSalt(uniqid(rand(), true));
             $user->setPlainPassword($user->getSalt().$user->getPlainPassword());
-
-            $em = $this->getDoctrine()->getManager();
             $em->persist($user);
+            $em->flush();
+
+            $picture = $user->getPicture();
+
+            if ($picture->getCropData() !== NULL){
+                $picture->crop()->createThumbnail(115, 115);
+                $currentUser = $em->getRepository('SnowtricksCoreBundle:User')->findOneBy(['username'=> $user->getUsername()]);
+                $picture->setCreatedBy($currentUser);
+            }
+
+
+            $user->setPicture($picture);
             $em->flush();
 
             $this->addFlash('success', 'Bienvenue à vous '.$user->getSurname()." ".$user->getName().". Pour activer votre compte, cliquez sur le lien envoyé sur votre boite mail.");
@@ -91,24 +101,28 @@ class UserController extends Controller
             $repository = $em->getRepository('SnowtricksCoreBundle:User');
             $user = $form->getData();
 
-            $user = $repository->findOneBy(array('mail' => $user->getMail()));
-            $user->setCheckingToken(uniqid(rand(), true));
-            $em->flush();
+            if ($user = $repository->findOneBy(array('mail' => $user->getMail()))){
+                $user->setCheckingToken(uniqid(rand(), true));
+                $em->flush();
 
-            $this->addFlash('warning', 'Un mail de confirmation viens de vous être envoyé, merci de cliquer sur le lien qu\'il contiens.');
+                $this->addFlash('warning', 'Un mail de confirmation viens de vous être envoyé, merci de cliquer sur le lien qu\'il contiens.');
 
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Réinitialisation de votre mot de passe')
-                ->setTo($user->getMail())
-                ->setBody(
-                    $this->renderView(
-                        'SnowtricksCoreBundle:Email:recovery.html.twig',
-                        array('user' => $user)
-                    ),
-                    'text/html'
-                );
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Réinitialisation de votre mot de passe')
+                    ->setTo($user->getMail())
+                    ->setBody(
+                        $this->renderView(
+                            'SnowtricksCoreBundle:Email:recovery.html.twig',
+                            array('user' => $user)
+                        ),
+                        'text/html'
+                    );
 
-            $this->get('mailer')->send($message);
+                $this->get('mailer')->send($message);
+            } else {
+                $this->addFlash('danger', 'Il semblerait que ce mail n\'existe pas...');
+            }
+            
         }
 
         return $this->render('SnowtricksCoreBundle:Default:recovery.html.twig', [
@@ -167,11 +181,23 @@ class UserController extends Controller
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $user = $form->getData();
-            $user->upload();
+
             if ($user->getPlainPassword() !== NULL){
                 $user->setSalt(uniqid(rand(), true));
                 $user->setPlainPassword($user->getSalt().$user->getPlainPassword());
             }
+            $em->flush();
+
+            $picture = $user->getPicture();
+
+            if ($picture->getCropData() !== NULL){
+                $picture->crop()->createThumbnail(115, 115);
+                $currentUser = $em->getRepository('SnowtricksCoreBundle:User')->findOneBy(['username'=> $user->getUsername()]);
+                $picture->setCreatedBy($currentUser);
+            }
+
+
+            $user->setPicture($picture);
             $em->flush();
             $this->addFlash('success', 'Votre compte à bien été mis à jour.');
         }
@@ -190,13 +216,13 @@ class UserController extends Controller
         $repository = $em->getRepository('SnowtricksCoreBundle:User');
         $user = $repository->findOneBy(array('username' => $currentUser->getUsername()));
 
-        $user->setMail((uniqid(rand(), true))."@deleted.del");
-        $user->setUsername($user->getMail());
+        $user->setMail(NULL);
+        $user->setUsername(NULL);
         $user->setChecked(false);
 
         $em->flush();
 
-        unlink("uploads_users/".$user->getPicture());
+        unlink($user->getPicture()->getFullSize());
 
         $this->container->get('security.token_storage')->setToken(null);
         $request->getSession()->invalidate();

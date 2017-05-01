@@ -10,6 +10,7 @@ namespace Snowtricks\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Snowtricks\CoreBundle\Entity\Trick;
 use Snowtricks\CoreBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *
@@ -25,33 +26,33 @@ class Message {
      */
     private $id = 0;
     /**
-     * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\Trick", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\Trick")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
     /**
-     * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\User", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $created_by;
+    private $createdBy;
     /**
      * @ORM\Column(name="message", type="string")
      *
+     * @Assert\Length(min=3, minMessage="Un message de moins de {{ limit }} caractères, ce n'est pas sérieux...", groups={"Default"})
+     * @Assert\Length(max=255, maxMessage="Le message doit faire au maximum {{ limit }} caractères.", groups={"Default"})
+     * @Assert\NotBlank(message="Vous devez inscrire un message avant de valider.", groups={"Default"})
+     * @Assert\Type("string", groups={"Default"})
      */
     private $message = "";
     /**
      * @ORM\Column(name="created_at", type="datetime")
      *
      */
-    private $created_at;
+    private $createdAt;
 
-    public function __construct($id = NULL,Trick $trick,User $created_by, $message,\DateTime $created_at)
+    public function __construct()
     {
-        $this->id = $id;
-        $this->trick = $trick;
-        $this->created_by = $created_by;
-        $this->message = $message;
-        $this->created_at = $created_at;
+        $this->createdAt = new \DateTime();
     }
     /**=================================================================================================================
     =                                                                                                                 =
@@ -79,7 +80,7 @@ class Message {
      */
     public function getCreatedBy()
     {
-        return $this->created_by;
+        return $this->createdBy;
     }
 
     /**
@@ -95,7 +96,7 @@ class Message {
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
     /**=================================================================================================================
     =                                                                                                                 =
@@ -129,16 +130,16 @@ class Message {
     /**
      * @param \DateTime $created_at
      */
-    public function setCreatedAt(\DateTime $created_at)
+    public function setCreatedAt(\DateTime $createdAt)
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
     }
 
     /**
      * @param User $created_by
      */
-    public function setCreatedBy(User $created_by)
+    public function setCreatedBy(User $createdBy)
     {
-        $this->created_by = $created_by;
+        $this->createdBy = $createdBy;
     }
 }

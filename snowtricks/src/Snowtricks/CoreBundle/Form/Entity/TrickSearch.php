@@ -5,7 +5,7 @@
  * Date: 08/04/2017
  * Time: 10:08
  */
-namespace Snowtricks\CoreBundle\Entity;
+namespace Snowtricks\CoreBundle\Form\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -17,9 +17,9 @@ class TrickSearch {
     private $search = NULL;
 
     /**
-     * @Assert\Choice(choices={"5", "10", "20", "50", "100"}, message="Choisissez un nombre valide dans la liste.")
+     * @Assert\Choice(choices={"6", "9", "18", "45", "99"}, message="Choisissez un nombre valide dans la liste.")
      */
-    private $number = 10;
+    private $number = 9;
 
     /**
      * @Assert\Choice(choices={"title", "created_at", "created_by", "group"}, message="Choisissez un critère de tri valide dans la liste.")

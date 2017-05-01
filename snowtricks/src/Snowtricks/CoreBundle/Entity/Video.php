@@ -34,23 +34,23 @@ class Video {
      *
      * @Assert\Type("string", groups={"Default"})
      */
-    private $created_at;
+    private $createdAt;
     /**
-     * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\User", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $created_by = NULL;
+    private $createdBy = NULL;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\Trick", inversedBy="videos", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\Trick", inversedBy="videos")
      *
      */
-    private $id_trick;
+    private $trick;
 
     public function __construct()
     {
 
-        $this->created_at = new \DateTime();
+        $this->createdAt = new \DateTime();
     }
 
     /**=================================================================================================================
@@ -79,7 +79,7 @@ class Video {
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
@@ -87,15 +87,15 @@ class Video {
      */
     public function getCreatedBy()
     {
-        return $this->created_by;
+        return $this->createdBy;
     }
 
     /**
      * @return mixed
      */
-    public function getIdTrick()
+    public function getTrick()
     {
-        return $this->id_trick;
+        return $this->trick;
     }
     /**=================================================================================================================
     =                                                                                                                 =
@@ -121,24 +121,24 @@ class Video {
     /**
      * @param mixed $created_at
      */
-    public function setCreatedAt(\DateTime $created_at)
+    public function setCreatedAt(\DateTime $createdAt)
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
     }
 
     /**
      * @param mixed $created_by
      */
-    public function setCreatedBy(User $created_by)
+    public function setCreatedBy(User $createdBy)
     {
-        $this->created_by = $created_by;
+        $this->createdBy = $createdBy;
     }
 
     /**
      * @param mixed $idTrick
      */
-    public function setIdTrick($idTrick)
+    public function setTrick(Trick $Trick)
     {
-        $this->id_trick = $idTrick;
+        $this->trick = $Trick;
     }
 }
