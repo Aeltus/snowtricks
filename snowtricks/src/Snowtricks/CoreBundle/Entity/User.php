@@ -107,8 +107,6 @@ class User implements UserInterface {
      */
     private $checked = FALSE;
 
-    private $lastPicture = NULL;
-
    public function __construct($mail = NULL)
     {
         if ($mail !== NULL) {

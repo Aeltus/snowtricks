@@ -18,7 +18,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 
-class ControllerGeneratorCommand extends ContainerAwareCommand
+class DatabaseLoaderCommand extends ContainerAwareCommand
 {
     private $em;
     
@@ -77,9 +77,9 @@ class ControllerGeneratorCommand extends ContainerAwareCommand
                 $user->$method($value);
             }
             $this->em->persist($user);
-            $this->em->flush();
-            $listUsers = $this->em->getRepository('SnowtricksCoreBundle:User')->findAll();
         }
+        $this->em->flush();
+        $listUsers = $this->em->getRepository('SnowtricksCoreBundle:User')->findAll();
 
         /* Tricks loading
         ==================================================================*/
@@ -94,9 +94,9 @@ class ControllerGeneratorCommand extends ContainerAwareCommand
                 $trick->setGroup($listGroups[rand(0, (count($listGroups)-1))]);
             }
             $this->em->persist($trick);
-            $this->em->flush();
-            $listTricks = $this->em->getRepository('SnowtricksCoreBundle:Trick')->findAll();
         }
+        $this->em->flush();
+        $listTricks = $this->em->getRepository('SnowtricksCoreBundle:Trick')->findAll();
 
         /* videos loading
         ==================================================================*/
