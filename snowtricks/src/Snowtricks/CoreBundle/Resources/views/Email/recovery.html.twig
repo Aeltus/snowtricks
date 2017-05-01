@@ -1,104 +1,18 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Open Graph FaceBook
-    ================================================================ -->
-    <meta property="og:title" content="Snowtricks"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:url" content="http://www.snowtricks.david-danjard.fr"/>
-    <!--<meta property="og:image" content="http://example.com/image.jpg"/>-->
-    <meta property="og:description" content="Site communautaire dédié au snowboard"/>
-    <!--=============================================================-->
-
-
-    <!-- Twitter Cards data
-    ====================================================================================-->
-    <meta name="twitter:title" content="Snowtricks">
-    <meta name="twitter:description" content="Site communautaire dédié au snowboard">
-    <meta name="twitter:creator" content="@Aeltus">
-    <!-- Twitter Summary card images must be at least 200x200px -->
-    <!--<meta name="twitter:image" content="http://www.example.com/image.jpg">-->
-    <!--================================================================================-->
-
-
-    <title>Snowtricks - message</title>
-
-    <meta name="description" content="Site communautaire dédié au snowboard">
-
-    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" rel="stylesheet">
-
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <style type="text/css"> </style>
-
-    <link rel="stylesheet" id="style-perso-css" href="{{ app.request.schemeAndHttpHost }}{{ asset('bundles/snowtrickscore/css/styles.css') }}" type="text/css" media="all">
-
-    <link rel="SHORTCUT ICON" href="{{ app.request.schemeAndHttpHost }}{{ asset('bundles/snowtrickscore/img/favicon.png') }}">
-
-
-</head>
-
-
 <body>
 
-<div class="container">
-    <!-- Header
-    ================================================== -->
-    <header class="row">
-        <div class="col-xs-12 text-center" id="headerDiv">
-            <div class="col-xs-2 headerImg"><img src="{{ app.request.schemeAndHttpHost }}{{ asset('bundles/snowtrickscore/img/snowLeft.png') }}" alt="Snowboarder" about="Snowboarder" /></div>
-            <div class="col-xs-8 text-center" id="siteTitle"><h1>Snowtricks</h1></div>
-            <div class="col-xs-2 headerImg"><img src="{{ app.request.schemeAndHttpHost }}{{ asset('bundles/snowtrickscore/img/snowRight.png') }}" alt="Snowboarder" about="Snowboarder" /></div>
-        </div>
-    </header>
-
-    <!-- Contenu
-    ================================================== -->
-    <div class="row" id="pageContent">
-
-        <!-- Boutons de connection
-        ================================================== -->
-        <div class="container">
-            <h2>Il semblerait que vous ayez perdu votre mot de passe</h2>
-            <p>Nous ne pouvons pas vous re-donner. C'est en ayant pas, nous même accès à vos mots de passes, que nous pouvons vous garantir la meilleure sécurité.</p>
-            <p>Par contre, nous pouvons le réinitialiser pour vous. Pour celà il vous suffit de cliquer sur le lien suivant.</p>
-            <p><a href="{{ app.request.schemeAndHttpHost }}{{ path('SnowtricksCore_Reset_Password', { 'token': user.checkingToken }) }}">{{ app.request.schemeAndHttpHost }}{{ path('SnowtricksCore_Reset_Password', { 'token': user.checkingToken }) }}</a></p>
-            <p>Si le lien ne marche pas, il suffit de copier le lien ci-dessus et de le coller dans ton navigateur.</p>
-            <p><strong>P.S.: </strong>Si vous n'êtes pas à l'origine de ce mail, vous n'avez rien à faire, votre mot de passe est toujours en sécurité.</p>
-            <p>A tout dessuite :) !!!</p>
-        </div>
-        <!-- ================================================== -->
+    <div class="container">
+        <h2>Il semblerait que vous ayez perdu votre mot de passe</h2>
+        <p>Nous ne pouvons pas vous re-donner. C'est en ayant pas, nous même accès à vos mots de passes, que nous pouvons vous garantir la meilleure sécurité.</p>
+        <p>Par contre, nous pouvons le réinitialiser pour vous. Pour celà il vous suffit de cliquer sur le lien suivant.</p>
+        <p><a href="{{ app.request.schemeAndHttpHost }}{{ path('SnowtricksCore_Reset_Password', { 'token': user.checkingToken }) }}">{{ app.request.schemeAndHttpHost }}{{ path('SnowtricksCore_Reset_Password', { 'token': user.checkingToken }) }}</a></p>
+        <p>Si le lien ne marche pas, il suffit de copier le lien ci-dessus et de le coller dans ton navigateur.</p>
+        <p><strong>P.S.: </strong>Si vous n'êtes pas à l'origine de ce mail, vous n'avez rien à faire, votre mot de passe est toujours en sécurité.</p>
+        <p>A tout dessuite :) !!!</p>
     </div>
 
-    <!-- Pied de page
-    ================================================== -->
-    <footer class="row">
-
-        <!-- jQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <!-- Javascript de Bootstrap -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
-
-    </footer>
-
-    <!-- ================================================== -->
-</div>
 </body>
 
 </html>

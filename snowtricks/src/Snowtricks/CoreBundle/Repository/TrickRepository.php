@@ -7,10 +7,9 @@
  */
 namespace Snowtricks\CoreBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Snowtricks\CoreBundle\Entity\Group;
-use Snowtricks\CoreBundle\Entity\TrickSearch;
+use Snowtricks\CoreBundle\Form\Entity\TrickSearch;
 
 class TrickRepository extends \Doctrine\ORM\EntityRepository
 {
@@ -23,14 +22,14 @@ class TrickRepository extends \Doctrine\ORM\EntityRepository
             ->addSelect('g')
             ->leftJoin('t.group', 'g')
             ->addSelect('a')
-            ->leftJoin('t.created_by', 'a')
+            ->leftJoin('t.createdBy', 'a')
             ->setFirstResult($search->getFirstResult())
             ->setMaxResults($search->getNumber())
         ;
 
         if ($search->getOrderedBy() == "group"){
             $qb -> orderBy('g.name', $search->getOrder());
-        } elseif ($search->getOrderedBy() == "created_by"){
+        } elseif ($search->getOrderedBy() == "createdBy"){
             $qb -> orderBy('a.name', $search->getOrder());
             $qb -> addOrderBy('a.surname', $search->getOrder());
         } else {

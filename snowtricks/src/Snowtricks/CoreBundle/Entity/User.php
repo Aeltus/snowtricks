@@ -16,6 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ORM\Table(name="snow_user")
  * @ORM\Entity(repositoryClass="Snowtricks\CoreBundle\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  *
  * @UniqueEntity(fields={"mail"}, message="Votre email est déjà enregitré dans notre base, si vous avez perdu votre mot de passe, allez sur la page de connection, et cliquez sur : mot de passe perdu")
  */
@@ -46,19 +47,22 @@ class User implements UserInterface {
      */
     private $surname = "";
     /**
-     * @ORM\Column(name="mail", type="string", nullable=false, unique=true)
+     * @ORM\Column(name="mail", type="string", nullable=true, unique=true)
      *
      * @Assert\Length(min=3, minMessage="Votre email doit faire au moins {{ limit }} caractères.", groups={"Default", "Recovery", "UpdateAccount"})
      * @Assert\Length(max=255, maxMessage="Votre email doit faire au maximum {{ limit }} caractères.", groups={"Default", "Recovery", "UpdateAccount"})
      * @Assert\NotBlank(message="Vous devez inscrire votre email.", groups={"Default", "Recovery", "UpdateAccount"})
-     * @Assert\Email(groups={"Default", "Recovery", "UpdateAccount"})
+     * @Assert\Email(message="Ceci n'est pas un email valide.", groups={"Default", "Recovery", "UpdateAccount"})
      */
     private $mail = "";
     /**
-     * @ORM\Column(name="picture", type="string", nullable=true)
+     * @ORM\OneToOne(targetEntity="Snowtricks\CoreBundle\Entity\Picture", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=true)
+     *
+     * @Assert\Valid
      *
      */
-    private $picture = "";
+    private $picture;
     /**
      * @ORM\Column(name="roles", type="array", nullable=false)
      *
@@ -77,7 +81,7 @@ class User implements UserInterface {
     private $salt = "";
 
     /**
-     * @ORM\Column(name="username", type="string", nullable=false, unique=true)
+     * @ORM\Column(name="username", type="string", nullable=true)
      *
      */
     private $username;
@@ -92,13 +96,6 @@ class User implements UserInterface {
     private $plainPassword;
 
     /**
-     * To get the image file and treat her
-     *
-     * @Assert\Image(maxSize="1M", maxSizeMessage="Fichier trop volumineux, 1Mo maximum.", mimeTypesMessage="Type de fichier non supporté, fichiers images seulement.")
-     */
-    private $file;
-
-    /**
      * @ORM\Column(name="checking_token", type="string", nullable=true)
      *
      */
@@ -109,6 +106,8 @@ class User implements UserInterface {
      *
      */
     private $checked = FALSE;
+
+    private $lastPicture = NULL;
 
    public function __construct($mail = NULL)
     {
@@ -203,14 +202,6 @@ class User implements UserInterface {
     /**
      * @return mixed
      */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getCheckingToken()
     {
         return $this->checking_token;
@@ -265,8 +256,11 @@ class User implements UserInterface {
     /**
      * @param string $picture
      */
-    public function setPicture($picture)
+    public function setPicture(Picture $picture)
     {
+        if ($this->picture != ""){
+            $this->lastPicture = $this->picture;
+        }
         $this->picture = $picture;
     }
 
@@ -304,14 +298,6 @@ class User implements UserInterface {
     }
 
     /**
-     * @param mixed $file
-     */
-    public function setFile($file)
-    {
-        $this->file = $file;
-    }
-
-    /**
      * @param mixed $checked
      */
     public function setChecked($checked)
@@ -346,35 +332,8 @@ class User implements UserInterface {
         $this->plainPassword = null;
     }
 
-    public function upload()
-    {
-        // If there is no file, we do nothing
-        if (null === $this->file) {
-            return;
-        }
-
-        // we get the orgiginal name of the file
-        $name = $this->file->getClientOriginalName();
-        $ext = substr(strrchr($name,'.'),1);
-        $newName = time().'.'.$ext;
-
-        // We move him in the dir of our choice
-        $this->file->move($this->getUploadRootDir(), $newName);
-
-        // We save url in picture attribute and clean file attribute (witch is now useless)
-        $this->picture = $newName;
-        $this->file = NULL;
-
+    public function removePicture(){
+        $this->picture = NULL;
     }
 
-
-    public function getUploadDir()
-    {
-        return 'uploads_users';
-    }
-
-    protected function getUploadRootDir()
-    {
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
-    }
 }

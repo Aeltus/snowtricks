@@ -39,7 +39,7 @@ class GroupListener
                 $this->manager->remove($trick);
             }
         }
-
+        $this->manager->flush();
         return;
     }
 }

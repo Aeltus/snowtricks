@@ -11,16 +11,23 @@
                     <h2>Bienvenue</h2>
                 </div>
                 <div class="col-xs-12 text-justify">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.
-                        Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.
-                        Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                        Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.
-                    </p>
+
+                    <p><strong>Bonjour à vous</strong> et bienvenue sur le site de Snowtricks. il est entièrement dédié aux amateurs de snowboard.</p>
+                    <p> Vous trouverez au fils des pages de ce site, toute une liste de figures de snow, agrémentées de photos, de vidéos et de
+                        précieux commentaires et conseils de nos trés chers uilisateurs, faisant parti de la communauté de Snowtricks. </p>
+                   <p><strong>N'hésitez pas à créer un compte</strong>, vous pourrez ainsi mieux profiter du contenu du site, en pouvant, par exemple créer vos propres figures,
+                       ajouter ou modifer du contenu aux figures existantes, et poster vos propres messages afin d'échanger avec la communauté. </p>
+                    <p>Alors, plus une seconde à perdre, inscrivez vous, et entrez dans la communauté Snowtricks.</p>
+
                 </div>
             </div>
 
             <!-- ================================================== -->
+
+            <div class="col-xs-12 text-center">
+                <h3>Cherchez votre bonheur :</h3>
+                <p><strong>(et si il n'y est pas, créez le en vous inscrivant)</strong></p>
+            </div>
 
             <!-- Search Form
             ================================================== -->
@@ -54,18 +61,35 @@
 
             <!-- Tricks list
             ================================================== -->
-            <div class="col-xs-12">
-                <h3>Voici la liste des figures disponibles :</h3>
-            </div>
 
             {% for trick in tricks %}
-                <div class="col-xs-12 trick-line">
-                    <div class="col-xs-8"><a href="{{ path('SnowtricksCore_Figure', { 'id': trick.id}) }}"><h4>{{ trick.title }}</h4></a></div>
-                    {% if is_granted('ROLE_USER') %}
-                        <a href="{{ path('SnowtricksCore_Trick_Update', { 'id': trick.id}) }}"><div class="col-xs-1 col-xs-offset-1 text-center"><h4><i class="fa fa-pencil" aria-hidden="true"></i></h4></div></a>
-                        <a href="{{ path('SnowtricksCore_Trick_Delete', { 'id': trick.id}) }}"><div class="col-xs-1 col-xs-offset-1 text-right"><h4><i class="fa fa-trash-o" aria-hidden="true"></i></h4></div></a>
-                    {% endif %}
+                {% set thumb = trick.pictures %}
+                {% if thumb is empty %}
+                    {% set thumbnail = 'bundles/snowtrickscore/img/no_picture.png' %}
+                {% else %}
+                    {% set picture = random(thumb) %}
+                    {% set thumbnail = picture.thumbnailSize %}
+                {% endif %}
+                <div class="stick col-sm-4">
+                    <a href="{{ path('SnowtricksCore_Figure', { 'id': trick.id}) }}">
+                        <div class="trick-stick">
+                            <div class="col-xs-12 text-center"><h4>{{ trick.title }}</h4></div>
+                            <div class="col-xs-12 stick-thumb"><img src="{{ asset(thumbnail) }}"></div>
+                            <div class="col-xs-12 stic-links">
+                            {% if is_granted('ROLE_USER') %}
+                                <a href="{{ path('SnowtricksCore_Trick_Update', { 'id': trick.id}) }}" title="Modifier"><div class="col-xs-1 col-xs-offset-1 text-center"><h5><i class="fa fa-pencil" aria-hidden="true"></i></h5></div></a>
+                                <div class="col-xs-8 text-center">{{ trick.group.name }}</div>
+                                <a href="{{ path('SnowtricksCore_Trick_Delete', { 'id': trick.id}) }}" title="Supprimer"><div class="col-xs-1 text-center"><h5><i class="fa fa-trash-o" aria-hidden="true"></i></h5></div></a>
+                            {% else %}
+                                <div class="col-xs-offset-2 col-xs-8 text-center top10 bottom10">{{ trick.group.name }}</div>
+                            {% endif %}
+                            </div>
+                            <div class="col-xs-12 text-justify top10 bottom10 trick-stick-desc">{{ trick.description }}</div>
+                            <div class="col-xs-12 text-left top10"><strong>{{ trick.createdBy.name }} {{ trick.createdBy.surname }}</strong></div>
+                        </div>
+                    </a>
                 </div>
+
             {% endfor %}
 
             <div class="col-xs-12 top10 bottom10">
@@ -81,7 +105,7 @@
                     <div class="col-xs-4 col-xs-offset-1 text-center">
                 {% endif %}
                     Page {{ ((search.firstResult+1) // search.number)+1 }} sur {{ (tricks|length/search.number)|round(0, 'ceil') }}
-                </div>
+                    </div>
 
                 {% if search.firstResult + search.number < tricks|length %}
                      <div class="col-xs-3 col-xs-offset-1 next-btn">

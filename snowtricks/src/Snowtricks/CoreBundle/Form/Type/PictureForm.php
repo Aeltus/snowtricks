@@ -25,8 +25,12 @@ class PictureForm extends AbstractType
                     'class' => 'trick-picture-form',
                     'placeholder' => 'Choissez une image'
                 ),
-                'label' => 'Ajoutez une image à la figure : ',
+                'label' => false,
+                'required' => false
             ))
+            ->add('cropData', CropForm::class, array(
+                'required' => false
+            ));
         ;
     }
 

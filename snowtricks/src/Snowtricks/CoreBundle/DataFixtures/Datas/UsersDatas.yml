@@ -1,0 +1,59 @@
+Users:
+  User1:
+    name: "Durand"
+    surname: "Pierre"
+    roles:
+      - "ROLE_USER"
+      - "ROLE_MODERATOR"
+    mail: "pierre.durand@monmail.com"
+    plainPassword: "TestPass"
+    checked: true
+
+  User2:
+    name: "Belier"
+    surname: "Sophie"
+    roles:
+      - "ROLE_USER"
+      - "ROLE_MODERATOR"
+      - "ROLE_ADMIN"
+    mail: "sophie.belier@monmail.com"
+    plainPassword: "TestPass"
+    checked: true
+
+  User3:
+    name: "Dupont"
+    surname: "Paul"
+    roles:
+      - "ROLE_USER"
+    mail: "dupont.paul@monmail.com"
+    plainPassword: "TestPass"
+    checked: true
+
+  User4:
+    name: "Malin"
+    surname: "Arthur"
+    roles:
+      - "ROLE_USER"
+    mail: "malin.arthur@monmail.com"
+    plainPassword: "TestPass"
+    checked: true
+
+  User5:
+    name: "Bataille"
+    surname: "Caroline"
+    roles:
+      - "ROLE_USER"
+    mail: "caroline.bataille@monmail.com"
+    plainPassword: "TestPass"
+    checked: true
+
+  User6:
+    name: "Doe"
+    surname: "John"
+    roles:
+      - "ROLE_USER"
+      - "ROLE_MODERATOR"
+      - "ROLE_ADMIN"
+    mail: "john.doe@monmail.com"
+    plainPassword: "TestPass"
+    checked: true

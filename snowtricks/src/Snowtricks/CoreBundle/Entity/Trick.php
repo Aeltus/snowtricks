@@ -53,7 +53,7 @@ class Trick {
      */
     private $description = "";
     /**
-     * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\Group", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\Group")
      *
      * @Assert\Type(
      *     type="object",
@@ -61,26 +61,30 @@ class Trick {
      * )
      */
     private $group;
+
     /**
-     * @ORM\OneToMany(targetEntity="Snowtricks\CoreBundle\Entity\Picture", mappedBy="id_trick", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Snowtricks\CoreBundle\Entity\Picture", mappedBy="trick", orphanRemoval=true)
      *
      */
     private $pictures = [];
+
     /**
-     * @ORM\OneToMany(targetEntity="Snowtricks\CoreBundle\Entity\Video", mappedBy="id_trick" , cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Snowtricks\CoreBundle\Entity\Video", mappedBy="trick", orphanRemoval=true)
      *
      */
     private $videos = [];
+
     /**
      * @ORM\Column(name="created_at", type="datetime")
      *
      */
-    private $created_at;
+    private $createdAt;
+
     /**
      * @ORM\ManyToOne(targetEntity="Snowtricks\CoreBundle\Entity\User", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $created_by;
+    private $createdBy;
 
     /**
      * @Assert\Type("array")
@@ -91,7 +95,7 @@ class Trick {
     {
         $this->pictures = new ArrayCollection();
         $this->videos = new ArrayCollection();
-        $this->created_at = new \DateTime();
+        $this->createdAt = new \DateTime();
     }
     /**=================================================================================================================
     =                                                                                                                 =
@@ -151,7 +155,7 @@ class Trick {
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
@@ -159,7 +163,7 @@ class Trick {
      */
     public function getCreatedBy()
     {
-        return $this->created_by;
+        return $this->createdBy;
     }
 
     /**
@@ -169,6 +173,7 @@ class Trick {
     {
         return $this->uploadPictures;
     }
+
     /**=================================================================================================================
     =                                                                                                                 =
     =                                          Setters                                                                =
@@ -217,9 +222,9 @@ class Trick {
     /**
      * @param mixed $created_by
      */
-    public function setCreatedBy(User $created_by)
+    public function setCreatedBy(User $createdBy)
     {
-        $this->created_by = $created_by;
+        $this->createdBy = $createdBy;
     }
 
     /**
@@ -241,6 +246,7 @@ class Trick {
     =                                    Array Collection Add and Remove                                              =
     =                                                                                                                 =
     ================================================================================================================**/
+
     /**
      * @param Picture $picture
      */
@@ -270,4 +276,5 @@ class Trick {
     public function removeVideo (Video $video){
         $this->videos->removeElement($video);
     }
+
 }

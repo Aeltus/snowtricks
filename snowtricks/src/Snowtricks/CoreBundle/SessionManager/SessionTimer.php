@@ -68,7 +68,7 @@ class SessionTimer
 
             if(($now-$this->session->get('timer'))>$this->delay){
 
-                if($this->securityToken->getToken()->getRoles() !== []){
+                if($this->securityToken->getToken() !== NULL && $this->securityToken->getToken()->getRoles() !== []){
 
                     $this->securityToken->setToken(null);
                     $this->request->getSession()->invalidate();

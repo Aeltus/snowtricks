@@ -2,7 +2,7 @@
 
 namespace Snowtricks\CoreBundle\Controller;
 
-use Snowtricks\CoreBundle\Entity\TrickSearch;
+use Snowtricks\CoreBundle\Form\Entity\TrickSearch;
 use Snowtricks\CoreBundle\Form\Type\TrickForm;
 use Snowtricks\CoreBundle\Form\Type\TrickSearchForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -34,12 +34,17 @@ class DefaultController extends Controller
     public function figureAction(Request $request, $id){
 
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('SnowtricksCoreBundle:Trick');
+        $trickRepo = $em->getRepository('SnowtricksCoreBundle:Trick');
 
-        $trick = $repository->findOneById($id);
+        $trick = $trickRepo->findOneById($id);
+
+        if ($trick === NULL){
+            throw $this->createNotFoundException('Il semblerait que la figure que vous recherchez n\'existe pas...');
+        }
 
         return $this->render('SnowtricksCoreBundle:Default:figure.html.twig', array(
             'trick' => $trick,
+            'request' => $request
         ));
     }
 
@@ -69,7 +74,7 @@ class DefaultController extends Controller
 
         $form->handleRequest($request);
         if ($id = $this->formHandler($form, true)){
-            return $this->redirectToRoute('SnowtricksCore_Figure', array(
+            return $this->redirectToRoute('SnowtricksCore_Trick_Update', array(
                 'id' => $id
             ));
         }
@@ -107,15 +112,17 @@ class DefaultController extends Controller
                 $em->persist($video);
                 if ($video->getCreatedBy() === NULL){
                     $video->setCreatedBy($this->getUser());
-                    $video->setIdTrick($trick);
+                    $video->setTrick($trick);
                 }
             }
             foreach ($trick->getPictures() as $picture){
-                $em->persist($picture);
+
                 if ($picture->getCreatedBy() === NULL){
                     $picture->setCreatedBy($this->getUser());
-                    $picture->setIdTrick($trick);
+                    $picture->setTrick($trick);
+                    $picture->crop()->createThumbnail(308, 173);
                 }
+                $em->persist($picture);
             }
             if ($isAnUpdate){
                 $message = 'La figure à été mise à jour.';

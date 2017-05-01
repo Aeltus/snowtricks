@@ -10,7 +10,6 @@ namespace Snowtricks\CoreBundle\Form\Type;
 use Snowtricks\CoreBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -34,13 +33,7 @@ class UserRegistrationForm extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class
             ])
-            ->add('file', FileType::class, array(
-                'label' => false,
-                'attr' => array(
-                    'placeholder' => 'Choisissez une image'
-                    )
-                )
-            )
+            ->add('picture', PictureForm::class)
         ;
     }
 
