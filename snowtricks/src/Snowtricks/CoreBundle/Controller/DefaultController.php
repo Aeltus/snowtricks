@@ -2,7 +2,8 @@
 
 namespace Snowtricks\CoreBundle\Controller;
 
-use Snowtricks\CoreBundle\Form\Entity\TrickSearch;
+use Snowtricks\CoreBundle\Entity\Trick;
+use Snowtricks\CoreBundle\Form\Model\TrickSearch;
 use Snowtricks\CoreBundle\Form\Type\TrickForm;
 use Snowtricks\CoreBundle\Form\Type\TrickSearchForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -31,12 +32,7 @@ class DefaultController extends Controller
         ));
     }
 
-    public function figureAction(Request $request, $id){
-
-        $em = $this->getDoctrine()->getManager();
-        $trickRepo = $em->getRepository('SnowtricksCoreBundle:Trick');
-
-        $trick = $trickRepo->findOneById($id);
+    public function figureAction(Request $request,Trick $trick){
 
         if ($trick === NULL){
             throw $this->createNotFoundException('Il semblerait que la figure que vous recherchez n\'existe pas...');
@@ -66,16 +62,14 @@ class DefaultController extends Controller
 
     }
 
-    public function updateAction(Request $request, $id){
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('SnowtricksCoreBundle:Trick');
-        $trick = $repository->find($id);
+    public function updateAction(Request $request, Trick $trick){
+
         $form = $this->createForm(TrickForm::class, $trick);
 
         $form->handleRequest($request);
-        if ($id = $this->formHandler($form, true)){
+        if ($this->formHandler($form, true)){
             return $this->redirectToRoute('SnowtricksCore_Trick_Update', array(
-                'id' => $id
+                'id' => $trick->getId()
             ));
         }
 
@@ -87,11 +81,9 @@ class DefaultController extends Controller
         ));
     }
 
-    public function deleteAction($id){
+    public function deleteAction(Trick $trick){
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('SnowtricksCoreBundle:Trick');
 
-        $trick = $repository->find($id);
         $em->remove($trick);
         $em->flush();
 

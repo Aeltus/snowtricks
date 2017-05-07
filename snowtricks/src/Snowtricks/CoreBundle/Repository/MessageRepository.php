@@ -10,7 +10,7 @@ namespace Snowtricks\CoreBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Snowtricks\CoreBundle\Entity\Trick;
-use Snowtricks\CoreBundle\Form\Entity\MessageSearch;
+use Snowtricks\CoreBundle\Form\Model\MessageSearch;
 
 class MessageRepository extends EntityRepository
 {

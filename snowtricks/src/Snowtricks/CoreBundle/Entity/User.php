@@ -107,6 +107,12 @@ class User implements UserInterface {
      */
     private $checked = FALSE;
 
+    private $lastAction;
+
+    private $ip;
+
+    private $currentPage;
+
    public function __construct($mail = NULL)
     {
         if ($mail !== NULL) {
@@ -213,6 +219,30 @@ class User implements UserInterface {
         return $this->checked;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getLastAction()
+    {
+        return $this->lastAction;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCurrentPage()
+    {
+        return $this->currentPage;
+    }
+
     /**=================================================================================================================
     =                                                                                                                 =
     =                                          Setters                                                                =
@@ -224,6 +254,7 @@ class User implements UserInterface {
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -232,6 +263,7 @@ class User implements UserInterface {
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
@@ -240,6 +272,7 @@ class User implements UserInterface {
     public function setSurname($surname)
     {
         $this->surname = $surname;
+        return $this;
     }
 
     /**
@@ -249,6 +282,7 @@ class User implements UserInterface {
     {
         $this->mail = $mail;
         $this->username = $mail;
+        return $this;
     }
 
     /**
@@ -260,6 +294,7 @@ class User implements UserInterface {
             $this->lastPicture = $this->picture;
         }
         $this->picture = $picture;
+        return $this;
     }
 
     /**
@@ -268,6 +303,7 @@ class User implements UserInterface {
     public function setRoles($roles)
     {
         $this->roles = $roles;
+        return $this;
     }
 
     /**
@@ -276,6 +312,7 @@ class User implements UserInterface {
     public function setPassword($password)
     {
         $this->password = $password;
+        return $this;
     }
 
     /**
@@ -284,6 +321,7 @@ class User implements UserInterface {
     public function setSalt($salt)
     {
         $this->salt = $salt;
+        return $this;
     }
 
     /**
@@ -293,6 +331,7 @@ class User implements UserInterface {
     {
         $this->plainPassword = $plainPassword;
         $this->password = null;
+        return $this;
     }
 
     /**
@@ -301,6 +340,7 @@ class User implements UserInterface {
     public function setChecked($checked)
     {
         $this->checked = $checked;
+        return $this;
     }
 
     /**
@@ -309,6 +349,7 @@ class User implements UserInterface {
     public function setCheckingToken($checking_token)
     {
         $this->checking_token = $checking_token;
+        return $this;
     }
 
     /**
@@ -317,6 +358,34 @@ class User implements UserInterface {
     public function setUsername($username)
     {
         $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * @param mixed $lastAction
+     */
+    public function setLastAction($lastAction)
+    {
+        $this->lastAction = $lastAction;
+        return $this;
+    }
+
+    /**
+     * @param mixed $ip
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+        return $this;
+    }
+
+    /**
+     * @param mixed $currentPage
+     */
+    public function setCurrentPage($currentPage)
+    {
+        $this->currentPage = $currentPage;
+        return $this;
     }
 
     /**=================================================================================================================

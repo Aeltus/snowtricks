@@ -1,0 +1,99 @@
+{% extends ":Default:layout.html.twig" %}
+
+{% block title %}Gérer les utilisateurs{% endblock %}
+
+{% block content %}
+
+    {% if search.searchName == "" and search.searchSurname == "" and search.firstResult == 0 %}
+        {% set dataStatus = "activated" %}
+        {% set arrow = "fa fa-arrow-up fa-lg" %}
+    {% else %}
+        {% set dataStatus = "" %}
+        {% set arrow = "fa fa-arrow-down fa-lg" %}
+    {% endif %}
+    <div class="col-xs-12 reducible" data-target="users-actuality-container" data-status="{{ dataStatus }}"><div class="col-xs-10 text-left"><strong>Actuellement connectés</strong></div><div class="col-xs-2 text-right"><i id="users-actuality-container-arrow" class="{{ arrow }}" aria-hidden="true"></i></div></div>
+    <div class="col-xs-12 reducible-content" id="users-actuality-container">
+        <div class="col-xs-3 text-left"><strong>Nom / prénom</strong></div>
+        <div class="col-xs-3 text-center"><strong>Email</strong></div>
+        <div class="col-xs-4 text-center"><strong>Page actuelle</strong></div>
+
+        {% for user in activesUsers %}
+            <div class="col-xs-12 user-admin-label">
+                <div class="col-xs-3 text-left">{{ user.name }} {{ user.surname }}</div>
+                <div class="col-xs-3 text-center">{{ user.mail }}</div>
+                <div class="col-xs-4 text-center">{{ user.currentPage }}</div>
+                <a href="{{ path('account_update', { 'id': user.id}) }}" title="Modifier"><div class="col-xs-1 text-center"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></div></a>
+                <a href="{{ path('SnowtricksCore_User_Deletion', { 'id': user.id}) }}" title="Supprimer"><div class="col-xs-1 text-center"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></div></a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="col-xs-12 reducible" data-target="users-admins-container" data-status=""><div class="col-xs-10 text-left"><strong>Les administrateurs</strong></div><div class="col-xs-2 text-right"><i id="users-admins-container-arrow" class="fa fa-arrow-down fa-lg" aria-hidden="true"></i></div></div>
+    <div class="col-xs-12 reducible-content" id="users-admins-container">
+        <div class="col-xs-3 text-left"><strong>Nom / prénom</strong></div>
+        <div class="col-xs-7 text-center"><strong>Email</strong></div>
+
+        {% for admin in admins %}
+            <div class="col-xs-12 user-admin-label">
+                <div class="col-xs-3 text-left">{{ admin.name }} {{ admin.surname }}</div>
+                <div class="col-xs-7 text-center">{{ admin.mail }}</div>
+                <a href="{{ path('account_update', { 'id': admin.id}) }}" title="Modifier"><div class="col-xs-1 text-center"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></div></a>
+                <a href="{{ path('SnowtricksCore_User_Deletion', { 'id': admin.id}) }}" title="Supprimer"><div class="col-xs-1 text-center"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></div></a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="col-xs-12 reducible" data-target="users-moderators-container" data-status=""><div class="col-xs-10 text-left"><strong>Les modérateurs</strong></div><div class="col-xs-2 text-right"><i id="users-moderators-container-arrow" class="fa fa-arrow-down fa-lg" aria-hidden="true"></i></div></div>
+    <div class="col-xs-12 reducible-content" id="users-moderators-container">
+        <div class="col-xs-3 text-left"><strong>Nom / prénom</strong></div>
+        <div class="col-xs-7 text-center"><strong>Email</strong></div>
+
+        {% for moderator in moderators %}
+            <div class="col-xs-12 user-admin-label">
+                <div class="col-xs-3 text-left">{{ moderator.name }} {{ moderator.surname }}</div>
+                <div class="col-xs-7 text-center">{{ moderator.mail }}</div>
+                <a href="{{ path('account_update', { 'id': moderator.id}) }}" title="Modifier"><div class="col-xs-1 text-center"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></div></a>
+                <a href="{{ path('SnowtricksCore_User_Deletion', { 'id': moderator.id}) }}" title="Supprimer"><div class="col-xs-1 text-center"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></div></a>
+            </div>
+        {% endfor %}
+    </div>
+    {% if search.searchName != "" or search.searchSurname != "" or search.firstResult != 0 %}
+        {% set dataStatus = "activated" %}
+        {% set arrow = "fa fa-arrow-up fa-lg" %}
+    {% else %}
+        {% set dataStatus = "" %}
+        {% set arrow = "fa fa-arrow-down fa-lg" %}
+    {% endif %}
+    <div class="col-xs-12 reducible" data-target="users-members-container" data-status="{{ dataStatus }}"><div class="col-xs-10 text-left"><strong>Les membres</strong></div><div class="col-xs-2 text-right"><i id="users-members-container-arrow" class="{{ arrow }}" aria-hidden="true"></i></div></div>
+    <div class="col-xs-12 reducible-content" id="users-members-container">
+        <div class="col-xs-12">
+            {{ form_start(form) }}
+                {{ form_row(form.searchName) }}
+                {{ form_row(form.searchSurname) }}
+                {{ form_row(form.firstResult) }}
+            {{ form_end(form) }}
+        </div>
+        <div class="col-xs-3 text-left"><strong>Nom / prénom</strong></div>
+        <div class="col-xs-7 text-center"><strong>Email</strong></div>
+        {% for member in members %}
+            <div class="col-xs-12 user-admin-label">
+                <div class="col-xs-3 text-left">{{ member.name }} {{ member.surname }}</div>
+                <div class="col-xs-7 text-center">{{ member.mail }}</div>
+                <a href="{{ path('account_update', { 'id': member.id}) }}" title="Modifier"><div class="col-xs-1 text-center"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></div></a>
+                <a href="{{ path('SnowtricksCore_User_Deletion', { 'id': member.id}) }}" title="Supprimer"><div class="col-xs-1 text-center"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></div></a>
+            </div>
+        {% endfor %}
+        <div class="col-xs-2 text-left top10 bottom10">
+            {% if search.firstResult != 0 %}
+                <div class="btn btn-info" id="members-prev-btn"><i class="fa fa-arrow-circle-left"></i> Précédent</div>
+            {% endif %}
+        </div>
+        <div class="col-xs-2 col-xs-offset-8 text-right top10 bottom10">
+            {% if (search.firstResult + 10) < members|length %}
+                <div class="btn btn-info" id="members-next-btn">Suivant <i class="fa fa-arrow-circle-right"></i></div>
+            {%  endif %}
+        </div>
+
+    </div>
+
+{% endblock %}

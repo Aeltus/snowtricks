@@ -54,7 +54,7 @@
             <div class="col-xs-10 col-xs-offset-1 message-container text-center">
                 <div class="col-xs-2 message-picture">
 
-                    {%  if message.createdBy.picture is null %}
+                    {%  if message.createdBy.picture.address == "" %}
                         {% set picture =  "/bundles/snowtricksuser/img/default-user.png" %}
                     {% else %}
                         {% set picture = message.createdBy.picture.thumbnailSize %}

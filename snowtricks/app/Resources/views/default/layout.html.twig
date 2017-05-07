@@ -92,7 +92,7 @@
                         <li class="menu-btn"><a href="{{ path('SnowtricksCore_Trick_Add') }}">CREER UNE FIGURE</a></li>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN')  %}
-                        <li class="menu-btn"><a href="#gestUsers">GERER LES UTILISATEURS</a></li>
+                        <li class="menu-btn"><a href="{{ path('SnowtricksCore_Admin_Users_Management') }}">GERER LES UTILISATEURS</a></li>
                         <li class="menu-btn"><a href="{{ path('SnowtricksCore_Admin_Groups') }}">GERER LES GROUPES</a></li>
                     {% endif %}
                 </ul>

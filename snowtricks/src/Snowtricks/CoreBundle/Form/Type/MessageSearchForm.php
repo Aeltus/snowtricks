@@ -8,7 +8,7 @@
 namespace Snowtricks\CoreBundle\Form\Type;
 
 
-use Snowtricks\CoreBundle\Form\Entity\MessageSearch;
+use Snowtricks\CoreBundle\Form\Model\MessageSearch;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

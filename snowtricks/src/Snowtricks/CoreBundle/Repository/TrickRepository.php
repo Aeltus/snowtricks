@@ -9,7 +9,7 @@ namespace Snowtricks\CoreBundle\Repository;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Snowtricks\CoreBundle\Entity\Group;
-use Snowtricks\CoreBundle\Form\Entity\TrickSearch;
+use Snowtricks\CoreBundle\Form\Model\TrickSearch;
 
 class TrickRepository extends \Doctrine\ORM\EntityRepository
 {

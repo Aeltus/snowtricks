@@ -17,9 +17,10 @@ SnowtricksCore_Reset_Password:
     _controller: SnowtricksCoreBundle:User:newPassword
 
 account_update:
-  path: /account
+  path: /account/{id}
   defaults:
     _controller: SnowtricksCoreBundle:User:account
+    id: NULL
 
 SnowtricksCore_Check_User:
   path: /user_check/{token}
@@ -27,9 +28,10 @@ SnowtricksCore_Check_User:
     _controller: SnowtricksCoreBundle:User:check
 
 SnowtricksCore_User_Deletion:
-  path: /user_delete
+  path: /user_delete/{id}
   defaults:
     _controller: SnowtricksCoreBundle:User:delete
+    id: NULL
 
 SnowtricksCore_Admin_Groups:
   path: /admin/groups
@@ -80,3 +82,8 @@ SnowtricksCore_Videos_Delete_One:
   path: /videos/delete_one/{idVideo}/{idTrick}
   defaults:
     _controller: SnowtricksCoreBundle:Videos:deleteOne
+
+SnowtricksCore_Admin_Users_Management:
+  path: /admin/users
+  defaults:
+    _controller: SnowtricksCoreBundle:Admin:index
