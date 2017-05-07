@@ -493,6 +493,33 @@ textarea{
 	min-height: 230px;
 }
 
+.user-admin-label > a {
+	color: #333;
+}
+
+.user-admin-label:hover{
+	background-color: #afc4d6;
+}
+
+.reducible{
+	background-color: #afc4d6;
+	margin-top: 30px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.reducible-content{
+	border: 1px solid #afc4d6;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	display: none;
+	margin-bottom: 20px;
+}
+
+#users-actuality-container{
+	display: block;
+}
+
 @media screen and (max-width: 600px) {
 	h1{
 		font-size: 2em

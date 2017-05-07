@@ -23,7 +23,7 @@
                     <div class="col-xs-3 col-xs-offset-1 text-center top 10" id="user-picture">
                         <p>Votre image actuelle</p>
                         <img src="
-                        {% if user.picture is empty %}
+                        {% if user.picture.address == "" %}
                             {{ asset('bundles/snowtricksuser/img/default-user.png') }}
                         {% else %}
                             {{ asset('/'~user.picture.ThumbnailSize) }}
@@ -38,7 +38,7 @@
                         }) }}
                     </div>
                 </div>
-
+                {%  if user.id == app.user.id %}
                 {{ form_row(form.plainPassword.first, {
                     'label': 'Mot de passe : ',
                     'required': false
@@ -47,10 +47,12 @@
                     'label':'Répétez le mot de passe : ',
                     'required': false
                 }) }}
-
+                {% else %}
+                    {{ form_row(form.roles) }}
+                {% endif %}
                 {{ form_end(form) }}
                 <div class="col-xs-12 btn btn-danger bottom10" id="user-deletion-btn" data-target="{{ path('SnowtricksCore_User_Deletion') }}">
-                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Supprimer mon compte <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Supprimer <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                     </div>
             </div>
         </div>

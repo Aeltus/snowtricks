@@ -25,6 +25,9 @@ $(function(){
     function redimHauteur(){
         var hauteur_fenetre = $(window).height();
         var hauteur_dispo = hauteur_fenetre-360;
+        if (hauteur_dispo > 553){
+            hauteur_dispo = 553;
+        }
         var hauteur_fleche = (hauteur_dispo/2)-25;
         $('.car-img').height(hauteur_dispo);
         $('.item > div > iframe').height(hauteur_dispo);
@@ -444,5 +447,53 @@ $(function(){
         e.preventDefault();
     });
     /*=======================================================*/
+
+    /* user management containers
+     =========================================================*/
+    var reducibles = $('.reducible');
+    reducibles.click(function () {
+        var clicked = $(this);
+        var target = $(clicked).attr('data-target');
+        var status = $(clicked).attr('data-status');
+        if (status == 'activated'){
+            $(clicked).attr('data-status', '');
+            $('#' + target + '-arrow').attr('class', 'fa fa-arrow-down fa-lg');
+            $('#'+target).hide(500);
+        } else {
+            $(clicked).attr('data-status', 'activated');
+            $('#' + target + '-arrow').attr('class', 'fa fa-arrow-up fa-lg');
+            $('#'+target).show(500);
+        }
+    });
+
+    reducibles.each(function(){
+        var target = $(this).attr('data-target');
+        if ($(this).attr('data-status') == 'activated'){
+            $('#'+target).show();
+        } else {
+            $('#'+target).hide();
+        }
+    });
+
+    /*=======================================================*/
+
+    /* user management pagination
+     =========================================================*/
+
+    $('#members-prev-btn').click(function () {
+        var currentFirstResult = $("#user_search_form_firstResult").val();
+        var numberPerPage = 10;
+        var firstResult = currentFirstResult - numberPerPage;
+        $('#user_search_form_firstResult').val(firstResult);
+        $('#user_search_form_Rechercher').click();
+    });
+
+    $('#members-next-btn').click(function () {
+        var currentFirstResult = $("#user_search_form_firstResult").val();
+        var numberPerPage = 10;
+        var firstResult = currentFirstResult + numberPerPage;
+        $('#user_search_form_firstResult').val(firstResult);
+        $('#user_search_form_Rechercher').click();
+    });
 
 });

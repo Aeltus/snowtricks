@@ -5,7 +5,7 @@
  * Date: 08/04/2017
  * Time: 10:08
  */
-namespace Snowtricks\CoreBundle\Form\Entity;
+namespace Snowtricks\CoreBundle\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 

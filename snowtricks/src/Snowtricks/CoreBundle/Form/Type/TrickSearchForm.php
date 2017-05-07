@@ -8,7 +8,7 @@
 namespace Snowtricks\CoreBundle\Form\Type;
 
 
-use Snowtricks\CoreBundle\Form\Entity\TrickSearch;
+use Snowtricks\CoreBundle\Form\Model\TrickSearch;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -36,7 +36,7 @@ class TrickSearchForm extends AbstractType
                     '45' => '45',
                     '99' => '99'
                 ),
-                'preferred_choices' => array('10', 'arr'),
+                'preferred_choices' => array('9', 'arr'),
                 'label' => 'Par page : ',
                 'label_attr' => array(
                     'class' => 'block',

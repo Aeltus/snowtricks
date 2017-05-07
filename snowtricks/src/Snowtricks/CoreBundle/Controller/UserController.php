@@ -10,6 +10,7 @@ namespace Snowtricks\CoreBundle\Controller;
 use Snowtricks\CoreBundle\Entity\User;
 use Snowtricks\CoreBundle\Form\Type\UserNewPasswordForm;
 use Snowtricks\CoreBundle\Form\Type\UserPasswordRecoveryForm;
+use Snowtricks\CoreBundle\Form\Type\UserRegistrationAdminForm;
 use Snowtricks\CoreBundle\Form\Type\UserRegistrationForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -161,17 +162,26 @@ class UserController extends Controller
         ]);
     }
 
-    public function accountAction(Request $request)
+    public function accountAction(Request $request, User $user = NULL)
     {
         if (!($currentUser = $this->container->get('security.token_storage')->getToken()->getUser()) instanceof User){
             $currentUser = unserialize($currentUser);
         }
 
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('SnowtricksCoreBundle:User')->findOneBy(array('username' => $currentUser->getUsername()));
+        if ($user === NULL){
+            $user = $em->getRepository('SnowtricksCoreBundle:User')->findOneBy(array('username' => $currentUser->getUsername()));
+        }
 
-        $form = $this->createForm(UserRegistrationForm::class, $user);
-        $form -> add('Modifier mon compte', SubmitType::class, array(
+        if($user->getId() != $currentUser->getId()){
+            $form = $this->createForm(UserRegistrationAdminForm::class, $user);
+            $msg = 'Le compte à bien été mis à jour.';
+        } else {
+            $form = $this->createForm(UserRegistrationForm::class, $user);
+            $msg = 'Votre compte à bien été mis à jour.';
+        }
+
+        $form -> add('Modifier', SubmitType::class, array(
             'validation_groups' => ['UpdateAccount'],
             'attr' => array(
                 'class' => 'btn btn-warning top10 bottom10 col-xs-12'
@@ -196,10 +206,12 @@ class UserController extends Controller
                 $picture->setCreatedBy($currentUser);
             }
 
+            if ($picture->getAddress() !== NULL){
+                $user->setPicture($picture);
+            }
 
-            $user->setPicture($picture);
             $em->flush();
-            $this->addFlash('success', 'Votre compte à bien été mis à jour.');
+            $this->addFlash('success', $msg);
         }
 
         return $this->render('SnowtricksCoreBundle:Default:updateAccount.html.twig', [
@@ -208,27 +220,36 @@ class UserController extends Controller
         ]);
     }
 
-    public function deleteAction(Request $request){
-
-        $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
+    public function deleteAction(Request $request, User $user = NULL){
 
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('SnowtricksCoreBundle:User');
-        $user = $repository->findOneBy(array('username' => $currentUser->getUsername()));
+
+        if($user === NULL){
+            $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
+            $repository = $em->getRepository('SnowtricksCoreBundle:User');
+            $user = $repository->findOneBy(array('username' => $currentUser->getUsername()));
+            $msg = 'Votre compte à bien été supprimé.';
+            $this->container->get('security.token_storage')->setToken(null);
+            $request->getSession()->invalidate();
+            $render = true;
+        } else {
+            $msg = 'Le compte à bien été supprimé';
+            $render = false;
+        }
 
         $user->setMail(NULL);
         $user->setUsername(NULL);
         $user->setChecked(false);
+        $user->setRoles([]);
 
         $em->flush();
 
         unlink($user->getPicture()->getFullSize());
 
-        $this->container->get('security.token_storage')->setToken(null);
-        $request->getSession()->invalidate();
-
-        $this->addFlash('danger', 'Votre compte à bien été supprimé.');
-
-        return $this->render('SnowtricksCoreBundle:Default:deleteAccount.html.twig');
+        $this->addFlash('danger', $msg);
+        if ($render === true){
+            return $this->render('SnowtricksCoreBundle:Default:deleteAccount.html.twig');
+        }
+        return $this->redirectToRoute('SnowtricksCore_Admin_Users_Management');
     }
 }

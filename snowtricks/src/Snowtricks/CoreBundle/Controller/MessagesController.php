@@ -7,7 +7,7 @@
  */
 namespace Snowtricks\CoreBundle\Controller;
 
-use Snowtricks\CoreBundle\Form\Entity\MessageSearch;
+use Snowtricks\CoreBundle\Form\Model\MessageSearch;
 use Snowtricks\CoreBundle\Entity\Trick;
 use Snowtricks\CoreBundle\Form\Type\MessageForm;
 use Snowtricks\CoreBundle\Form\Type\MessageSearchForm;
