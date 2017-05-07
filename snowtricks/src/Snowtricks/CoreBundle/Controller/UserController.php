@@ -31,10 +31,7 @@ class UserController extends Controller
         if($form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
             $user = $form->getData();
-            $user->setRoles(['ROLE_USER']);
-            $user->setCheckingToken(uniqid(rand(), true));
-            $user->setSalt(uniqid(rand(), true));
-            $user->setPlainPassword($user->getSalt().$user->getPlainPassword());
+            $user->setRoles(['ROLE_USER'])->setCheckingToken(uniqid(rand(), true))->setSalt(uniqid(rand(), true))->setPlainPassword($user->getSalt().$user->getPlainPassword());
             $em->persist($user);
             $em->flush();
 
@@ -42,8 +39,7 @@ class UserController extends Controller
 
             if ($picture->getCropData() !== NULL){
                 $picture->crop()->createThumbnail(115, 115);
-                $currentUser = $em->getRepository('SnowtricksCoreBundle:User')->findOneBy(['username'=> $user->getUsername()]);
-                $picture->setCreatedBy($currentUser);
+                $picture->setCreatedBy($em->getRepository('SnowtricksCoreBundle:User')->findOneBy(['username'=> $user->getUsername()]));
             }
 
 
@@ -164,9 +160,7 @@ class UserController extends Controller
 
     public function accountAction(Request $request, User $user = NULL)
     {
-        if (!($currentUser = $this->container->get('security.token_storage')->getToken()->getUser()) instanceof User){
-            $currentUser = unserialize($currentUser);
-        }
+        $currentUser = unserialize($this->getUser());
 
         $em = $this->getDoctrine()->getManager();
         if ($user === NULL){
@@ -193,8 +187,7 @@ class UserController extends Controller
             $user = $form->getData();
 
             if ($user->getPlainPassword() !== NULL){
-                $user->setSalt(uniqid(rand(), true));
-                $user->setPlainPassword($user->getSalt().$user->getPlainPassword());
+                $user->setSalt(uniqid(rand(), true))->setPlainPassword($user->getSalt().$user->getPlainPassword());
             }
             $em->flush();
 
@@ -202,13 +195,10 @@ class UserController extends Controller
 
             if ($picture->getCropData() !== NULL){
                 $picture->crop()->createThumbnail(115, 115);
-                $currentUser = $em->getRepository('SnowtricksCoreBundle:User')->findOneBy(['username'=> $user->getUsername()]);
-                $picture->setCreatedBy($currentUser);
+                $picture->setCreatedBy($em->getRepository('SnowtricksCoreBundle:User')->findOneBy(['username'=> $user->getUsername()]));
             }
 
-            if ($picture->getAddress() !== NULL){
-                $user->setPicture($picture);
-            }
+            $user->setPicture($picture);
 
             $em->flush();
             $this->addFlash('success', $msg);
@@ -225,9 +215,8 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if($user === NULL){
-            $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
             $repository = $em->getRepository('SnowtricksCoreBundle:User');
-            $user = $repository->findOneBy(array('username' => $currentUser->getUsername()));
+            $user = $repository->findOneBy(array('username' => $this->getUser()->getUsername()));
             $msg = 'Votre compte à bien été supprimé.';
             $this->container->get('security.token_storage')->setToken(null);
             $request->getSession()->invalidate();
@@ -237,10 +226,7 @@ class UserController extends Controller
             $render = false;
         }
 
-        $user->setMail(NULL);
-        $user->setUsername(NULL);
-        $user->setChecked(false);
-        $user->setRoles([]);
+        $user->setMail(NULL)->setUsername(NULL)->setChecked(false)->setRoles([]);
 
         $em->flush();
 

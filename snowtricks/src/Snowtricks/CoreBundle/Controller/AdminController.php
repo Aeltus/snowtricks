@@ -17,8 +17,7 @@ class AdminController extends Controller{
     public function indexAction(Request $request){
 
         $search = new UserSearch();
-        $em = $this->getDoctrine()->getManager();
-        $userRepository = $em->getRepository('SnowtricksCoreBundle:User');
+        $userRepository = $this->getDoctrine()->getManager()->getRepository('SnowtricksCoreBundle:User');
 
         $redis = $this->get('snc_redis.default');
         $listUsers = $redis->lrange('connected_users', '0', '-1');
