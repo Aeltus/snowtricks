@@ -67,7 +67,7 @@ class DefaultController extends Controller
         $form = $this->createForm(TrickForm::class, $trick);
 
         $form->handleRequest($request);
-        if ($id = $this->formHandler($form, true)){
+        if ($this->formHandler($form, true)){
             return $this->redirectToRoute('SnowtricksCore_Trick_Update', array(
                 'id' => $trick->getId()
             ));
