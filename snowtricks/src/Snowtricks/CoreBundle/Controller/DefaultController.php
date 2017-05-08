@@ -7,6 +7,8 @@ use Snowtricks\CoreBundle\Form\Model\TrickSearch;
 use Snowtricks\CoreBundle\Form\Type\TrickForm;
 use Snowtricks\CoreBundle\Form\Type\TrickSearchForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\CssSelector\Exception\InternalErrorException;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
@@ -122,8 +124,15 @@ class DefaultController extends Controller
                 $message = 'La figure à été ajouté, merci :)';
                 $em->persist($trick);
             }
-            $em->flush();
+            try{
+                $em->flush();
+            } catch (Exception $e){
+                throw new InternalErrorException("Une erreur est survenue lors de l'insertion en base donnée.");
+            }
             $this->addFlash('success', $message);
+
+
+            
 
             return $trick->getId();
         }
