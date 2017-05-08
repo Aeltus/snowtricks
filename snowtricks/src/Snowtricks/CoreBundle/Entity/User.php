@@ -58,11 +58,9 @@ class User implements UserInterface {
     /**
      * @ORM\OneToOne(targetEntity="Snowtricks\CoreBundle\Entity\Picture", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
-     *
-     * @Assert\Valid
-     *
      */
     private $picture;
+
     /**
      * @ORM\Column(name="roles", type="array", nullable=false)
      *

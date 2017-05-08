@@ -160,7 +160,9 @@ class UserController extends Controller
 
     public function accountAction(Request $request, User $user = NULL)
     {
-        $currentUser = unserialize($this->getUser());
+        if(!($currentUser = $this->getUser()) instanceof User){
+            $currentUser = unserialize($this->getUser());
+        }
 
         $em = $this->getDoctrine()->getManager();
         if ($user === NULL){
@@ -230,7 +232,9 @@ class UserController extends Controller
 
         $em->flush();
 
-        unlink($user->getPicture()->getFullSize());
+        if($user->getPicture()->getAddress() !== NULL && $user->getPicture()->getAddress() != ""){
+            unlink($user->getPicture()->getFullSize());
+        }
 
         $this->addFlash('danger', $msg);
         if ($render === true){
