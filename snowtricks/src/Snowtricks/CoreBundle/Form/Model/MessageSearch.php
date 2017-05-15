@@ -7,8 +7,6 @@
  */
 namespace Snowtricks\CoreBundle\Form\Model;
 
-use Symfony\Component\Validator\Constraints as Assert;
-
 class MessageSearch {
 
     private $number = 10;

@@ -11,7 +11,6 @@ namespace Snowtricks\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Snowtricks\CoreBundle\Entity\User;
 use Symfony\Component\Form\Exception\InvalidArgumentException;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 

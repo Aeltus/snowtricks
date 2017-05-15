@@ -20,30 +20,26 @@ class UserController extends Controller
 {
     public function registerAction(Request $request){
         $form = $this->createForm(UserRegistrationForm::class);
-        $form -> add('Creer mon compte', SubmitType::class, array(
-            'validation_groups' => ['Default', 'Registration'],
-            'attr' => array(
-                'class' => 'btn btn-warning top10 bottom10 col-xs-12'
-            )
-        ));
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
             $user = $form->getData();
-            $user->setRoles(['ROLE_USER'])->setCheckingToken(uniqid(rand(), true))->setSalt(uniqid(rand(), true))->setPlainPassword($user->getSalt().$user->getPlainPassword());
+            $user->setRoles(['ROLE_USER'])
+                 ->setCheckingToken(uniqid(rand(), true))
+                 ->setSalt(uniqid(rand(), true))
+                 ->setPlainPassword($user->getSalt().$user->getPlainPassword())
+            ;
             $em->persist($user);
             $em->flush();
 
-            $picture = $user->getPicture();
-
-            if ($picture->getCropData() !== NULL){
-                $picture->crop()->createThumbnail(115, 115);
-                $picture->setCreatedBy($em->getRepository('SnowtricksCoreBundle:User')->findOneBy(['username'=> $user->getUsername()]));
+            if ($user->getPicture()->getCropData() !== NULL){
+                $user->getPicture()->crop()
+                                   ->createThumbnail(115, 115)
+                                   ->setCreatedBy($em->getRepository('SnowtricksCoreBundle:User')->findOneBy(['username'=> $user->getUsername()]))
+                ;
             }
 
-
-            $user->setPicture($picture);
             $em->flush();
 
             $this->addFlash('success', 'Bienvenue à vous '.$user->getSurname()." ".$user->getName().". Pour activer votre compte, cliquez sur le lien envoyé sur votre boite mail.");
@@ -196,8 +192,9 @@ class UserController extends Controller
             $picture = $user->getPicture();
 
             if ($picture->getCropData() !== NULL){
-                $picture->crop()->createThumbnail(115, 115);
-                $picture->setCreatedBy($em->getRepository('SnowtricksCoreBundle:User')->findOneBy(['username'=> $user->getUsername()]));
+                $picture->crop()
+                        ->createThumbnail(115, 115)
+                        ->setCreatedBy($em->getRepository('SnowtricksCoreBundle:User')->findOneBy(['username'=> $user->getUsername()]));
             }
 
             $user->setPicture($picture);
