@@ -22,7 +22,7 @@ class TrickSearch {
     private $number = 9;
 
     /**
-     * @Assert\Choice(choices={"title", "created_at", "created_by", "group"}, message="Choisissez un critère de tri valide dans la liste.")
+     * @Assert\Choice(choices={"title", "createdAt", "createdBy", "group"}, message="Choisissez un critère de tri valide dans la liste.")
      */
     private $orderedBy = "title";
 
@@ -31,9 +31,7 @@ class TrickSearch {
      */
     private $order = "ASC";
 
-    /**
-     * @Assert\Type(type = "integer", message="Ce champ ne dois pas être modifié.")
-     */
+
     private $firstResult = 0;
 
     /**=================================================================================================================
@@ -96,7 +94,7 @@ class TrickSearch {
     /**
      * @param int $number
      */
-    public function setNumber(int $number)
+    public function setNumber($number)
     {
         $this->number = $number;
     }
@@ -104,7 +102,7 @@ class TrickSearch {
     /**
      * @param string $orderedBy
      */
-    public function setOrderedBy(string $orderedBy)
+    public function setOrderedBy($orderedBy)
     {
         $this->orderedBy = $orderedBy;
     }
@@ -112,7 +110,7 @@ class TrickSearch {
     /**
      * @param string $order
      */
-    public function setOrder(string $order)
+    public function setOrder($order)
     {
         $this->order = $order;
     }
@@ -120,7 +118,7 @@ class TrickSearch {
     /**
      * @param int $firstResult
      */
-    public function setFirstResult(int $firstResult)
+    public function setFirstResult($firstResult)
     {
         $this->firstResult = $firstResult;
     }

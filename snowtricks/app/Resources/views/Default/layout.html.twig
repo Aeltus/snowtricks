@@ -62,8 +62,8 @@
     ================================================== -->
     <header class="row">
         <div class="col-xs-12 text-center" id="headerDiv">
-            <div class="col-xs-2 headerImg"><img src="{{ asset('bundles/snowtrickscore/img/logo_snowtricks.png') }}" alt="Snowboarder" about="Snowboarder" /></div>
-            <div class="col-xs-10 text-center" id="siteTitle"><h1>Snowtricks</h1></div>
+            <div class="col-sm-2 headerImg"><img src="{{ asset('bundles/snowtrickscore/img/logo_snowtricks.png') }}" alt="Snowboarder" about="Snowboarder" /></div>
+            <div class="col-sm-10 text-center" id="siteTitle"><h1>Snowtricks</h1></div>
         </div>
     </header>
 
@@ -72,7 +72,7 @@
     <div class="row" id="pageContent">
         <!-- Menu
         ================================================== -->
-        <div class="col-xs-12 noPaddingLeft noPaddingRight bottom10 top-menu">
+        <div class="col-xs-12 noPadding bottom10 top-menu">
 
             <div class="col-xs-12 navbar-header text-center">
                 <div class="col-xs-3">
@@ -92,8 +92,8 @@
                         <li class="menu-btn"><a href="{{ path('SnowtricksCore_Trick_Add') }}">CREER UNE FIGURE</a></li>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN')  %}
-                        <li class="menu-btn"><a href="{{ path('SnowtricksCore_Admin_Users_Management') }}">GERER LES UTILISATEURS</a></li>
-                        <li class="menu-btn"><a href="{{ path('SnowtricksCore_Admin_Groups') }}">GERER LES GROUPES</a></li>
+                        <li class="menu-btn"><a href="{{ path('SnowtricksCore_Admin_Users_Management') }}">UTILISATEURS</a></li>
+                        <li class="menu-btn"><a href="{{ path('SnowtricksCore_Admin_Groups') }}">GROUPES</a></li>
                     {% endif %}
                 </ul>
             </div>

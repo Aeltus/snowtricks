@@ -6,7 +6,7 @@
 
 This project is an exercice for php / symfony developpement cursus.
 
-You can find the result on : snowtricks.david-danjard.fr
+You can find the result on : http://snowtricks.david-danjard.fr
 
 You can find the differents steps I followed (in french) on my google drive : https://docs.google.com/document/d/1aW-uVnwYyqqIUXHV5Me9FfwSxytk6QkzY0daXqGzVxI/edit?usp=sharing
 
@@ -46,5 +46,3 @@ It is divided into 4 bundles :
 - php bin/console assets/install
 
 ### Your web site is now up to date !!! :)
-
-## 5 - Others :

@@ -154,7 +154,6 @@ hr{
 }
 
 .navbar-collapse.collapse{
-	display: flex !important;
 	border : none;
 	height: 100% !important;
 }
@@ -312,7 +311,7 @@ hr{
 }
 
 .picture-preview{
-	height: 200px;
+	width: 100%
 }
 
 #pictures-preview{
@@ -323,7 +322,7 @@ hr{
 	border: 1px solid black;
 	border-radius: 5px 5px 5px 5px;
 	box-shadow: 1px 1px 12px #555;
-	margin: 30px 10px 30px 10px;
+	margin: 30px 0px 30px 0px;
 	text-align: center;
 }
 
@@ -465,7 +464,7 @@ textarea{
 	margin-bottom: 20px;
 	margin-top: 20px;
 	background-color: rgba(230, 233, 237, 0.6);
-	min-height: 710px;
+	min-height: 750px;
 	color: #333;
 }
 
@@ -480,9 +479,13 @@ textarea{
 .trick-stick > div > img {
 	width: 100%;
 }
+.trick-stick-title{
+	min-height: 135px;
+	text-align: center;
+}
 
 .trick-stick-desc{
-	min-height: 230px;
+	min-height: 240px;
 }
 
 .stick{
@@ -491,6 +494,7 @@ textarea{
 
 .stick-thumb{
 	min-height: 230px;
+	text-align: center;
 }
 
 .user-admin-label > a {
@@ -522,30 +526,32 @@ textarea{
 
 @media screen and (max-width: 600px) {
 	h1{
-		font-size: 2em
+		font-size: 2.5em
 	}
 
 	h2{
-		font-size: 1.5em;
+		font-size: 2em;
 	}
 	h3{
-		font-size: 1em;
+		font-size: 1.5em;
 	}
 
 	h4{
 		font-size: 0.8em;
 	}
 
-	.navbar-collapse{
-		display: none;
+	body{
+		font-size: 1.5rem;
 	}
 
 	.search-btn{
-		margin-left: -70px;
+		margin-left: -30px;
+		max-height: 28px;
+		padding-top: 3px;
 	}
 
 	.sort-btn{
-		margin-top: 25px;
+		margin-top: 15px;
 	}
 
 	iframe {
@@ -568,6 +574,97 @@ textarea{
 
     #user_registration_form_picture > div > label{
         display: none;
+    }
+
+	#trick_search_form_orderedBy, #trick_search_form_number, #sort, #trick_search_form_order{
+		max-width: 100px;
+	}
+
+	.trick-stick-title > h4 {
+		font-size: 2em;
+	}
+
+	#pagination-conter{
+		font-size: 0.7em;
+	}
+
+	.stick-thumb{
+		min-height: 0px;
+	}
+
+	.stick-thumb > img {
+		max-height: 122px;
+	}
+
+	.trick-stick{
+		min-height: 650px;
+	}
+
+	.menu-btn{
+		width: 100%;
+	}
+
+	.headerImg{
+		display: none;
+	}
+
+	.row{
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+
+	.container{
+		padding-right: 0px;
+		padding-left: 0px;
+	}
+
+	#addGroup_name{
+		width: 100%;
+		margin-left: 0px;
+	}
+
+	.group-container > div {
+		padding-right: 0px;
+		padding-left: 0px;
+	}
+
+	.group-title > h4{
+		font-size: 1.5em;
+	}
+
+	.close-update-form, .group-form > button {
+		padding: 3px 4px;
+	}
+
+	.update-group-btn > h4, .trash-btn > a > h4{
+		font-size: 1.5em;
+	}
+
+	.mail-field{
+		display: none;
+	}
+
+	#pageContent{
+		min-height: 425px;
+	}
+
+    .message-container > div > div, .message-container > div {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .msg-date{
+        margin-top: 40px;
+        font-size: 0.7em;
+        text-align: center;
+    }
+
+    .msg-author{
+        padding-left: 5px !important;
+    }
+
+    #message-form > form > div > textarea, #updateMessage_message, #message-form > form > div > div > .btn, #updateMessage_Envoyer{
+        height: 40px;
     }
 
 }
@@ -595,5 +692,42 @@ textarea{
 	.sort-btn{
 		margin-top: 25px;
 	}
+
+	.trick-stick-title{
+		min-height: 75px;
+	}
+
+	.stick-thumb > img {
+		max-height: 135px;
+	}
+
+	.stick-thumb{
+		max-height: 170px;
+	}
+
+	.trick-stick-desc{
+		min-height: 310px;
+	}
+
+	.group-form{
+		margin-top: 0px;
+	}
+
+	.close-update-form{
+		margin-top: 0px;
+	}
+
+	.btn{
+		padding: 6px 7px;
+	}
+
+	#pageContent{
+		min-height: 525px;
+	}
+
+    .msg-date{
+        font-size: 0.7em;
+        margin-top: 10px;
+    }
 
 }
