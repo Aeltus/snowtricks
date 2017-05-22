@@ -12,6 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,6 +35,12 @@ class UserRegistrationForm extends AbstractType
                 'type' => PasswordType::class
             ])
             ->add('picture', PictureForm::class)
+            -> add('Creer mon compte', SubmitType::class, array(
+                'validation_groups' => ['Default', 'Registration'],
+                'attr' => array(
+                    'class' => 'btn btn-warning top10 bottom10 col-xs-12'
+                )
+            ))
         ;
     }
 

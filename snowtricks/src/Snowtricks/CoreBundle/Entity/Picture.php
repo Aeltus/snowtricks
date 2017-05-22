@@ -10,7 +10,7 @@ namespace Snowtricks\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Snowtricks\CoreBundle\Entity\User;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Exception\InvalidArgumentException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -53,9 +53,6 @@ class Picture {
      */
     private $trick;
 
-    /**
-     * @Assert\Image(maxSize="1M", mimeTypes={"image/jpg"}, maxSizeMessage="Fichier trop volumineux, 1Mo maximum.", mimeTypesMessage="Type de fichier non supporté, fichiers jpg seulement.")
-     */
     private $file;
 
     private $cropData = NULL;
@@ -220,6 +217,9 @@ class Picture {
         // If there is no file, we do nothing
         if (null === $this->file) {
             return;
+        }
+        if ($this->file->getMimeType() != 'image/jpg' && $this->file->getMimeType() != 'image/jpeg'){
+            throw new InvalidArgumentException('Le fichier doit être de type image jpg.');
         }
 
         // we get the orgiginal name of the file

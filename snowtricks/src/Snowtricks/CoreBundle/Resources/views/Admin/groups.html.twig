@@ -14,11 +14,11 @@
 
                 <div class="row text-center group-container top10">
                     <!-- add group form -->
-                    <div class="col-xs-10 top10 bottom10">
+                    <div class="col-sm-10 top10 bottom10">
                         {{ form_start(addForm) }}
                         {{ form_row(addForm.name) }}
                     </div>
-                    <div class="col-xs-2 noPaddingLeft top10 bottom10">
+                    <div class="col-sm-2 noPaddingLeft top10 bottom10">
                         <button type="submit" class="btn btn-success top10 bottom10 col-xs-12" formnovalidate>Ajouter</button>
                     </div>
                     {{ form_end(addForm) }}
@@ -29,32 +29,34 @@
                         <strong>Groupes :</strong>
                     </div>
                     {% for group in groups %}
-                        <div class="col-xs-8 text-right">
-                            <div class="col-xs-7 text-left" id="group-{{ group.name }}">
-                                <h4>{{ group.name }}</h4>
-                            </div>
-                            <div class="col-xs-5 forms-update-group top10" id="form-{{ group.name }}">
 
-                                <div class="col-xs-7 noPadding top10">
-                                    {{ form_start(group.updateForm) }}
-                                    {{ form_row(group.updateForm.name, {
-                                        'label': false,
-                                        'value': group.name
-                                    }) }}
-                                </div>
-                                <div class="col-xs-3 noPadding">
-                                    <button type="submit" class="btn btn-success col-xs-12 top10">OK</button>
-                                </div>
-                                {{ form_end(group.updateForm) }}
-                                <div class="col-xs-1 close-update-form">
-                                    <i class="fa fa-times-circle fa-lg" aria-hidden="true"></i>
-                                </div>
-
-
-                            </div>
-                            <a href="#grou-{{ group.name }}" class="update-group-btn" id="{{ group.name }}"><h4><i class="fa fa-pencil" aria-hidden="true"></i></h4></a>
+                        <div class="col-xs-8 text-left group-title" id="group-{{ group.name }}">
+                            <h4>{{ group.name }}</h4>
                         </div>
                         <div class="col-xs-2">
+                            <a href="#grou-{{ group.name }}" class="update-group-btn" id="{{ group.name }}"><h4><i class="fa fa-pencil" aria-hidden="true"></i></h4></a>
+                        </div>
+
+                        <div class="col-xs-10 forms-update-group" id="form-{{ group.name }}">
+
+                            <div class="col-xs-8 noPadding top10 group-form">
+                                {{ form_start(group.updateForm) }}
+                                {{ form_row(group.updateForm.name, {
+                                    'label': false,
+                                    'value': group.name
+                                }) }}
+                            </div>
+                            <div class="col-xs-2 noPadding group-form">
+                                <button type="submit" class="btn btn-success col-xs-12 top10"><i class="fa fa-check-circle-o fa-lg" aria-hidden="true"></i></button>
+                            </div>
+                            {{ form_end(group.updateForm) }}
+                            <div class="col-xs-2 top10 close-update-form btn btn-danger">
+                                <i class="fa fa-times-circle fa-lg" aria-hidden="true"></i>
+                            </div>
+
+                        </div>
+
+                        <div class="col-xs-2 trash-btn">
                             <a href="{{ path('SnowtricksCore_Admin_Del_Group', { 'name': group.name}) }}"><h4><i class="fa fa-trash-o" aria-hidden="true"></i></h4></a>
                         </div>
                     {% endfor %}

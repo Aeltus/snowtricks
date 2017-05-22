@@ -24,13 +24,15 @@ $(function(){
 
     function redimHauteur(){
         var hauteur_fenetre = $(window).height();
-        var hauteur_dispo = hauteur_fenetre-360;
-        if (hauteur_dispo > 553){
-            hauteur_dispo = 553;
+
+        var hauteur_img = $('#container-principal').width() / 1.78;
+        if (hauteur_img == 0){
+
         }
-        var hauteur_fleche = (hauteur_dispo/2)-25;
-        $('.car-img').height(hauteur_dispo);
-        $('.item > div > iframe').height(hauteur_dispo);
+
+        var hauteur_fleche = (hauteur_img/2)-25;
+        $('.car-img').height(hauteur_img);
+        $('.item > div > iframe').height(hauteur_img);
         $('.fleche-car').css('margin-top', hauteur_fleche+'px');
         $('.full-size').height(hauteur_fenetre);
     }
@@ -86,6 +88,9 @@ $(function(){
         var currentFirstResult = $("#trick_search_form_firstResult").val();
         var numberPerPage = $("#trick_search_form_number").val();
         var firstResult = currentFirstResult - numberPerPage;
+        if (firstResult < 0){
+            firstResult = 0;
+        }
         $("#trick_search_form_firstResult").attr("value", firstResult);
         $("#sort").click();
     });
@@ -94,6 +99,9 @@ $(function(){
         var currentFirstResult = $("#message_search_form_firstResult").val();
         var numberPerPage = $("#message_search_form_number").val();
         var firstResult = currentFirstResult - numberPerPage;
+        if (firstResult < 0){
+            firstResult = 0;
+        }
         $('#message_search_form_firstResult').val(firstResult);
         $('#message_search_form_ok').click();
     });
@@ -118,15 +126,20 @@ $(function(){
         }
     });
 
+    /* groups update
+     =========================================================*/
+
     $(".update-group-btn").click(function(){
         var groupToUpdate = this.getAttribute('id');
-        $("#"+groupToUpdate).hide(500);
+        $("#"+groupToUpdate).parent().hide(500);
+        $('#group-'+groupToUpdate).hide(500);
         $('#form-'+groupToUpdate).show(500);
     });
 
     $('.close-update-form').click(function(){
         $('.forms-update-group').hide(500);
-        $('.update-group-btn').show(500);
+        $('.update-group-btn').parent().show(500);
+        $('.group-title').show(500);
     });
 
     /*=======================================================*/
@@ -496,4 +509,42 @@ $(function(){
         $('#user_search_form_Rechercher').click();
     });
 
+    /* Trick search form buttons
+     =========================================================*/
+    function trickSearchButtonActualiser(){
+        var windowWidth = $(window).width();
+        var sortBtn = $('#sort');
+        var searchBtn = $('#search');
+        var prevBtn = $('.prev-btn');
+        var nextBtn = $('.next-btn');
+        var sendMsgBtn = $('#addMessage_Envoyer');
+        var updateMsgBtn = $('#updateMessage_Envoyer');
+        sortBtn.empty();
+        searchBtn.empty();
+        prevBtn.empty();
+        nextBtn.empty();
+        sendMsgBtn.empty();
+        updateMsgBtn.empty();
+        if (windowWidth > 599){
+            sortBtn.append('<i class="fa fa-sort"></i> Trier');
+            searchBtn.append('<i class="fa fa-search"></i> Rechercher');
+            nextBtn.append('<span class="btn btn-info">Suivant <i class="fa fa-arrow-circle-right"></i></span>');
+            prevBtn.append('<i class="fa fa-arrow-circle-left"></i> précédent');
+            sendMsgBtn.append('Envoyer');
+            updateMsgBtn.append('Envoyer');
+        } else {
+            sortBtn.append('<i class="fa fa-sort"></i>');
+            searchBtn.append('<i class="fa fa-search"></i>');
+            nextBtn.append('<span class="btn btn-info"><i class="fa fa-arrow-circle-right"></i></span>');
+            prevBtn.append('<i class="fa fa-arrow-circle-left"></i>');
+            sendMsgBtn.append('<i class="fa fa-check" aria-hidden="true"></i>');
+            updateMsgBtn.append('<i class="fa fa-check" aria-hidden="true"></i>');
+        }
+    }
+
+    trickSearchButtonActualiser();
+
+    $(window).resize(function(){
+        trickSearchButtonActualiser();
+    });
 });

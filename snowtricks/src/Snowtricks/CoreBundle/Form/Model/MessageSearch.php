@@ -7,15 +7,10 @@
  */
 namespace Snowtricks\CoreBundle\Form\Model;
 
-use Symfony\Component\Validator\Constraints as Assert;
-
 class MessageSearch {
 
     private $number = 10;
 
-    /**
-     * @Assert\Type(type = "integer", message="Ce champ ne dois pas être modifié.")
-     */
     private $firstResult = 0;
 
     /**=================================================================================================================
@@ -46,7 +41,7 @@ class MessageSearch {
     /**
      * @param int $number
      */
-    public function setNumber(int $number)
+    public function setNumber($number)
     {
         $this->number = $number;
     }
@@ -54,7 +49,7 @@ class MessageSearch {
     /**
      * @param int $firstResult
      */
-    public function setFirstResult(int $firstResult)
+    public function setFirstResult($firstResult)
     {
         $this->firstResult = $firstResult;
     }

@@ -1,0 +1,21 @@
+{% extends ":Default:layout.html.twig" %}
+
+{% block title %}Création de compte{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <h2>Oups !!!</h2>
+            </div>
+            <div class="col-xs-12">
+                <p>Il semblerait que cette page n'existe pas...</p>
+                <p>{{ exception.message }}</p>
+                <p> Si l'erreur persiste, et que cette page est bien censé exister, faites nous le savoir, nous réparerons le problème aussi vite que possible.</p>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
